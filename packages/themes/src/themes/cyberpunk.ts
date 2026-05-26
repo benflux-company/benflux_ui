@@ -1,0 +1,31 @@
+import type { NebulaTheme } from "../types"
+
+export const cyberpunkTheme: NebulaTheme = {
+  name: "cyberpunk",
+  cssVars: {
+    "--background": "240 100% 2%",
+    "--foreground": "60 100% 85%",
+    "--card": "240 50% 5%",
+    "--card-foreground": "60 100% 85%",
+    "--popover": "240 50% 5%",
+    "--popover-foreground": "60 100% 85%",
+    "--primary": "320 100% 55%",
+    "--primary-foreground": "0 0% 0%",
+    "--secondary": "180 100% 25%",
+    "--secondary-foreground": "60 100% 85%",
+    "--muted": "240 30% 10%",
+    "--muted-foreground": "240 10% 60%",
+    "--accent": "60 100% 50%",
+    "--accent-foreground": "0 0% 0%",
+    "--destructive": "0 100% 50%",
+    "--destructive-foreground": "0 0% 0%",
+    "--success": "120 100% 40%",
+    "--success-foreground": "0 0% 0%",
+    "--warning": "60 100% 50%",
+    "--warning-foreground": "0 0% 0%",
+    "--border": "320 100% 25%",
+    "--input": "240 30% 10%",
+    "--ring": "320 100% 55%",
+    "--radius": "0px",
+  },
+}

@@ -1,0 +1,31 @@
+import type { NebulaTheme } from "../types"
+
+export const amoledTheme: NebulaTheme = {
+  name: "amoled",
+  cssVars: {
+    "--background": "0 0% 0%",
+    "--foreground": "0 0% 95%",
+    "--card": "0 0% 4%",
+    "--card-foreground": "0 0% 95%",
+    "--popover": "0 0% 4%",
+    "--popover-foreground": "0 0% 95%",
+    "--primary": "234 84% 66%",
+    "--primary-foreground": "0 0% 100%",
+    "--secondary": "0 0% 8%",
+    "--secondary-foreground": "0 0% 95%",
+    "--muted": "0 0% 8%",
+    "--muted-foreground": "0 0% 50%",
+    "--accent": "0 0% 8%",
+    "--accent-foreground": "0 0% 95%",
+    "--destructive": "0 62% 30%",
+    "--destructive-foreground": "0 0% 100%",
+    "--success": "142 71% 30%",
+    "--success-foreground": "0 0% 100%",
+    "--warning": "38 92% 35%",
+    "--warning-foreground": "0 0% 100%",
+    "--border": "0 0% 12%",
+    "--input": "0 0% 8%",
+    "--ring": "234 84% 66%",
+    "--radius": "0.5rem",
+  },
+}

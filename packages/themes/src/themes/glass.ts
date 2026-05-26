@@ -1,0 +1,31 @@
+import type { NebulaTheme } from "../types"
+
+export const glassTheme: NebulaTheme = {
+  name: "glass",
+  cssVars: {
+    "--background": "220 30% 10%",
+    "--foreground": "0 0% 95%",
+    "--card": "220 30% 15% / 0.6",
+    "--card-foreground": "0 0% 95%",
+    "--popover": "220 30% 10% / 0.8",
+    "--popover-foreground": "0 0% 95%",
+    "--primary": "220 100% 70%",
+    "--primary-foreground": "0 0% 100%",
+    "--secondary": "220 30% 25% / 0.5",
+    "--secondary-foreground": "0 0% 95%",
+    "--muted": "220 30% 20% / 0.4",
+    "--muted-foreground": "220 10% 70%",
+    "--accent": "280 100% 70% / 0.8",
+    "--accent-foreground": "0 0% 100%",
+    "--destructive": "0 70% 55%",
+    "--destructive-foreground": "0 0% 100%",
+    "--success": "142 60% 45%",
+    "--success-foreground": "0 0% 100%",
+    "--warning": "38 85% 50%",
+    "--warning-foreground": "0 0% 0%",
+    "--border": "220 100% 80% / 0.15",
+    "--input": "220 30% 20% / 0.4",
+    "--ring": "220 100% 70%",
+    "--radius": "0.75rem",
+  },
+}

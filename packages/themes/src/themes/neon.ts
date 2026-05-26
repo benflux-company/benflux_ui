@@ -1,0 +1,31 @@
+import type { NebulaTheme } from "../types"
+
+export const neonTheme: NebulaTheme = {
+  name: "neon",
+  cssVars: {
+    "--background": "0 0% 3%",
+    "--foreground": "0 0% 95%",
+    "--card": "0 0% 7%",
+    "--card-foreground": "0 0% 95%",
+    "--popover": "0 0% 7%",
+    "--popover-foreground": "0 0% 95%",
+    "--primary": "120 100% 50%",
+    "--primary-foreground": "0 0% 0%",
+    "--secondary": "180 100% 35%",
+    "--secondary-foreground": "0 0% 95%",
+    "--muted": "0 0% 12%",
+    "--muted-foreground": "0 0% 55%",
+    "--accent": "60 100% 50%",
+    "--accent-foreground": "0 0% 0%",
+    "--destructive": "0 100% 55%",
+    "--destructive-foreground": "0 0% 0%",
+    "--success": "120 100% 50%",
+    "--success-foreground": "0 0% 0%",
+    "--warning": "60 100% 50%",
+    "--warning-foreground": "0 0% 0%",
+    "--border": "120 100% 30%",
+    "--input": "0 0% 12%",
+    "--ring": "120 100% 50%",
+    "--radius": "0.25rem",
+  },
+}

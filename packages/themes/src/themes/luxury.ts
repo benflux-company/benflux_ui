@@ -1,0 +1,31 @@
+import type { NebulaTheme } from "../types"
+
+export const luxuryTheme: NebulaTheme = {
+  name: "luxury",
+  cssVars: {
+    "--background": "20 14% 8%",
+    "--foreground": "40 30% 90%",
+    "--card": "20 14% 11%",
+    "--card-foreground": "40 30% 90%",
+    "--popover": "20 14% 11%",
+    "--popover-foreground": "40 30% 90%",
+    "--primary": "43 96% 56%",
+    "--primary-foreground": "0 0% 0%",
+    "--secondary": "20 14% 16%",
+    "--secondary-foreground": "40 30% 90%",
+    "--muted": "20 14% 16%",
+    "--muted-foreground": "40 10% 55%",
+    "--accent": "43 96% 56%",
+    "--accent-foreground": "0 0% 0%",
+    "--destructive": "0 62% 40%",
+    "--destructive-foreground": "0 0% 100%",
+    "--success": "142 60% 35%",
+    "--success-foreground": "0 0% 100%",
+    "--warning": "38 85% 45%",
+    "--warning-foreground": "0 0% 0%",
+    "--border": "40 20% 22%",
+    "--input": "20 14% 16%",
+    "--ring": "43 96% 56%",
+    "--radius": "0.25rem",
+  },
+}

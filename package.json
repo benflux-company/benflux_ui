@@ -1,0 +1,74 @@
+{
+  "name": "benflux-ui",
+  "private": true,
+  "version": "0.0.0",
+  "description": "🌌 Revolutionary modern UI library for React & Next.js — built for the future of the web",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benflux20/benflux-ui.git"
+  },
+  "author": {
+    "name": "Benflux",
+    "email": "benflux.20@gmail.com",
+    "url": "https://benflux-ui.dev"
+  },
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tooling/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "build:packages": "turbo build --filter='./packages/*'",
+    "dev": "turbo dev",
+    "dev:docs": "turbo dev --filter=docs",
+    "dev:playground": "turbo dev --filter=playground",
+    "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\" --ignore-path .gitignore",
+    "test": "turbo test",
+    "test:watch": "turbo test:watch",
+    "test:e2e": "turbo test:e2e",
+    "typecheck": "turbo typecheck",
+    "clean": "turbo clean && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+    "clean:dist": "turbo clean",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo build --filter='./packages/*' && changeset publish",
+    "release:dry": "changeset publish --dry-run",
+    "storybook": "turbo storybook",
+    "build-storybook": "turbo build-storybook",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.4",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18.17.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.4.0",
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json,css}": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}

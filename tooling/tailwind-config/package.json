@@ -1,0 +1,17 @@
+{
+  "name": "@benflux-ui/tailwind-config",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "dependencies": {
+    "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-radix": "^3.0.3",
+    "@tailwindcss/typography": "^0.5.13",
+    "@tailwindcss/container-queries": "^0.1.1"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.4.0 || ^4.0.0"
+  }
+}
