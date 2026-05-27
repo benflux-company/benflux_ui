@@ -107,6 +107,10 @@ const nav: { title: string; items: NavItem[] }[] = [
     ],
   },
   {
+    title: "AI",
+    items: [{ href: "/docs/components/chat-ui", label: "Chat UI", isNew: true }],
+  },
+  {
     title: "Charts",
     items: [
       { href: "/docs/components/line-chart", label: "Line Chart" },

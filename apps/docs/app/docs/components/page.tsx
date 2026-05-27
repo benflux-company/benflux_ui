@@ -359,7 +359,7 @@ const categories = [
     components: [
       {
         name: "Chat UI",
-        href: "/docs/components/navigation",
+        href: "/docs/components/chat-ui",
         description: "Full chat interface with streaming support",
       },
     ],
