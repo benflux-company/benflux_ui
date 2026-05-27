@@ -10,7 +10,6 @@ export default defineConfig([
   {
     entry: { "bin/benflux-ui": "src/bin/benflux-ui.ts" },
     format: ["cjs"],
-    banner: { js: "#!/usr/bin/env node" },
     clean: false,
   },
 ])
