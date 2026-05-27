@@ -1,8 +1,9 @@
-import path from "path"
 import * as clack from "@clack/prompts"
-import pc from "picocolors"
-import fs from "fs-extra"
 import { execa } from "execa"
+import fs from "fs-extra"
+import path from "path"
+import pc from "picocolors"
+
 import {
   detectFramework,
   detectPackageManager,
@@ -98,13 +99,13 @@ export async function initCommand(options: InitOptions) {
   // Write benflux-ui.json config
   spinner.start("Creating benflux-ui.json config...")
   const config = {
-    $schema: "https://benflux-ui.dev/schema.json",
+    $schema: "https://benflux-ui.vercel.app/schema.json",
     style: "default",
     typescript: settings.typescript,
     tailwind: {
       config: hasTw ? "tailwind.config.ts" : "tailwind.config.ts",
       css: "src/app/globals.css",
-      baseColor: "nebula",
+      baseColor: "default",
     },
     aliases: {
       components: `@/${settings.componentsDir.replace("src/", "")}`,
@@ -147,11 +148,10 @@ export async function initCommand(options: InitOptions) {
       pc.green("✓") + " Benflux UI initialized!",
       "",
       pc.bold("Next steps:"),
-      `  ${pc.cyan("npx benflux-ui add button")}     Add a component`,
-      `  ${pc.cyan("npx benflux-ui add dashboard")}  Add a full dashboard`,
-      `  ${pc.cyan("npx benflux-ui list")}           See all components`,
+      `  ${pc.cyan("npx benflux-ui add button")}  Add a component`,
+      `  ${pc.cyan("npx benflux-ui list")}        See all components`,
       "",
-      pc.dim("Documentation: https://benflux-ui.dev"),
+      `  ${pc.bold("Docs:")} ]8;;https://benflux-ui.vercel.apphttps://benflux-ui.vercel.app]8;;`,
     ].join("\n"),
   )
 }
