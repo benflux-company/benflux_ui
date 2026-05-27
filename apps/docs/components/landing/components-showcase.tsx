@@ -3,7 +3,17 @@
 import Link from "next/link"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Bell, ChevronDown, Search, Star, Zap } from "lucide-react"
+import {
+  ArrowRight,
+  Bell,
+  ChevronDown,
+  File,
+  Folder,
+  FolderOpen,
+  Search,
+  Star,
+  Zap,
+} from "lucide-react"
 
 const COMPONENTS_GRID = [
   {
@@ -251,6 +261,159 @@ const COMPONENTS_GRID = [
       </div>
     ),
   },
+  {
+    name: "Tree",
+    href: "/docs/components/tree",
+    preview: (
+      <div className="flex flex-col justify-center gap-1 p-5 text-[11px]">
+        {[
+          {
+            icon: <FolderOpen className="h-3 w-3 text-yellow-500" />,
+            label: "src",
+            depth: 0,
+            open: true,
+          },
+          {
+            icon: <Folder className="h-3 w-3 text-yellow-500" />,
+            label: "components",
+            depth: 1,
+            open: false,
+          },
+          {
+            icon: <File className="h-3 w-3 text-blue-400" />,
+            label: "app.tsx",
+            depth: 1,
+            open: false,
+          },
+          {
+            icon: <File className="h-3 w-3 text-blue-400" />,
+            label: "index.ts",
+            depth: 1,
+            open: false,
+          },
+          {
+            icon: <Folder className="h-3 w-3 text-yellow-500" />,
+            label: "public",
+            depth: 0,
+            open: false,
+          },
+          {
+            icon: <File className="h-3 w-3 text-muted-foreground" />,
+            label: "package.json",
+            depth: 0,
+            open: false,
+          },
+        ].map((row, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-1.5"
+            style={{ paddingLeft: row.depth * 16 }}
+          >
+            {row.icon}
+            <span className={i === 0 ? "font-medium text-foreground" : "text-muted-foreground"}>
+              {row.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    ),
+  },
+  {
+    name: "Transfer",
+    href: "/docs/components/transfer",
+    preview: (
+      <div className="flex items-center justify-center gap-2 p-4">
+        <div className="w-[42%] space-y-1 rounded-lg border border-border bg-background p-2">
+          <p className="mb-1.5 text-[10px] font-medium text-muted-foreground">Available</p>
+          {["Button", "Card", "Input"].map((item) => (
+            <div
+              key={item}
+              className="flex items-center gap-1.5 rounded-md px-1.5 py-1 text-[10px] hover:bg-accent"
+            >
+              <div className="h-2.5 w-2.5 rounded-sm border border-input" />
+              {item}
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col gap-1">
+          <div className="flex h-5 w-5 items-center justify-center rounded-md border border-border bg-background text-[10px]">
+            ›
+          </div>
+          <div className="flex h-5 w-5 items-center justify-center rounded-md border border-border bg-background text-[10px]">
+            ‹
+          </div>
+        </div>
+        <div className="w-[42%] space-y-1 rounded-lg border border-border bg-background p-2">
+          <p className="mb-1.5 text-[10px] font-medium text-muted-foreground">Selected</p>
+          {["Badge", "Avatar"].map((item) => (
+            <div
+              key={item}
+              className="flex items-center gap-1.5 rounded-md bg-primary/10 px-1.5 py-1 text-[10px] text-primary"
+            >
+              <div className="h-2.5 w-2.5 rounded-sm border border-primary bg-primary" />
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+  },
+  {
+    name: "QR Code",
+    href: "/docs/components/qrcode",
+    preview: (
+      <div className="flex items-center justify-center gap-5 p-5">
+        <div className="rounded-lg border border-border p-2.5">
+          <svg width="72" height="72" viewBox="0 0 21 21" className="text-foreground">
+            <rect x="0" y="0" width="7" height="7" rx="1" fill="currentColor" opacity="0.9" />
+            <rect x="14" y="0" width="7" height="7" rx="1" fill="currentColor" opacity="0.9" />
+            <rect x="0" y="14" width="7" height="7" rx="1" fill="currentColor" opacity="0.9" />
+            {[
+              [2, 2],
+              [15, 2],
+              [2, 15],
+              [9, 0],
+              [9, 2],
+              [9, 4],
+              [0, 9],
+              [2, 9],
+              [4, 9],
+              [12, 9],
+              [14, 9],
+              [16, 9],
+              [18, 9],
+              [9, 12],
+              [11, 12],
+              [13, 12],
+              [9, 14],
+              [11, 14],
+              [9, 16],
+              [11, 16],
+              [13, 16],
+              [15, 14],
+              [17, 14],
+              [15, 16],
+              [17, 16],
+              [19, 14],
+              [19, 16],
+            ].map(([cx, cy], i) => (
+              <rect key={i} x={cx} y={cy} width="2" height="2" fill="currentColor" opacity="0.8" />
+            ))}
+            <rect x="2" y="2" width="3" height="3" rx="0.5" fill="currentColor" />
+            <rect x="16" y="2" width="3" height="3" rx="0.5" fill="currentColor" />
+            <rect x="2" y="16" width="3" height="3" rx="0.5" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="space-y-1 text-[10px] text-muted-foreground">
+          <p className="font-medium text-foreground">Scan to open</p>
+          <p>SVG or Canvas</p>
+          <p>Error correction</p>
+          <p>Embed image</p>
+          <p>Active / Expired</p>
+        </div>
+      </div>
+    ),
+  },
 ]
 
 export function ComponentsShowcase() {
@@ -282,7 +445,7 @@ export function ComponentsShowcase() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Over 60 components ready to copy and paste into your apps. Accessible, customizable,
+            Over 80 components ready to copy and paste into your apps. Accessible, customizable,
             open source.
           </motion.p>
         </div>
@@ -328,7 +491,7 @@ export function ComponentsShowcase() {
             href="/docs/components"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            Browse all 60+ components
+            Browse all 80+ components
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </motion.div>
