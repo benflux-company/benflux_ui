@@ -1,4 +1,5 @@
 import * as clack from "@clack/prompts"
+import checkbox, { Separator } from "@inquirer/checkbox"
 import { execa } from "execa"
 import fs from "fs-extra"
 import path from "path"
@@ -11,6 +12,17 @@ interface AddOptions {
   yes?: boolean
   overwrite?: boolean
   path?: string
+}
+
+const CATEGORY_ORDER = ["layout", "inputs", "navigation", "feedback", "data-display", "ai", "wow"]
+const CATEGORY_LABEL: Record<string, string> = {
+  layout: "Layout",
+  inputs: "Inputs",
+  navigation: "Navigation",
+  feedback: "Feedback",
+  "data-display": "Data Display",
+  ai: "AI",
+  wow: "WOW Effects",
 }
 
 export async function addCommand(components: string[], options: AddOptions) {
@@ -29,40 +41,38 @@ export async function addCommand(components: string[], options: AddOptions) {
 
   let selectedComponents = components
 
-  // Interactive selection if no components specified — flat multiselect like shadcn/ui
+  // Interactive selection if no components specified
   if (selectedComponents.length === 0) {
-    const categoryLabel: Record<string, string> = {
-      layout: "Layout",
-      inputs: "Inputs",
-      navigation: "Navigation",
-      feedback: "Feedback",
-      "data-display": "Data Display",
-      ai: "AI",
-      wow: "WOW Effects",
+    const byCategory = new Map<string, typeof REGISTRY>()
+    for (const c of REGISTRY) {
+      const list = byCategory.get(c.category) ?? []
+      list.push(c)
+      byCategory.set(c.category, list)
     }
 
-    const sorted = [...REGISTRY].sort((a, b) =>
-      a.category === b.category
-        ? a.name.localeCompare(b.name)
-        : a.category.localeCompare(b.category),
-    )
+    const choices: (Separator | { name: string; value: string; description: string })[] = []
+    for (const cat of CATEGORY_ORDER) {
+      const items = byCategory.get(cat)
+      if (!items?.length) continue
+      choices.push(new Separator(`── ${CATEGORY_LABEL[cat] ?? cat} ──`))
+      for (const c of items.sort((a, b) => a.name.localeCompare(b.name))) {
+        choices.push({ name: c.name, value: c.name, description: c.description })
+      }
+    }
 
-    const selected = await clack.multiselect({
-      message:
-        "Which components would you like to add?  ↑↓ navigate · Space select · Enter confirm",
-      options: sorted.map((c) => ({
-        label: c.name,
-        hint: `${categoryLabel[c.category] ?? c.category} — ${c.description}`,
-        value: c.name,
-      })),
+    const selected = await checkbox({
+      message: "Which components would you like to add?",
+      choices,
+      pageSize: 16,
+      loop: false,
     })
 
-    if (clack.isCancel(selected)) {
-      clack.cancel("Cancelled.")
+    if (!selected.length) {
+      clack.cancel("No components selected.")
       process.exit(0)
     }
 
-    selectedComponents = selected as string[]
+    selectedComponents = selected
   }
 
   // Validate components
