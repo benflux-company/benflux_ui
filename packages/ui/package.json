@@ -50,9 +50,9 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@benflux-ui/hooks": "workspace:*",
     "@benflux-ui/themes": "workspace:*",
     "@benflux-ui/utils": "workspace:*",
-    "@benflux-ui/hooks": "workspace:*",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.0",
     "@radix-ui/react-avatar": "^1.1.0",
@@ -88,6 +88,7 @@
     "framer-motion": "^11.2.10",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.390.0",
+    "qrcode.react": "^4.2.0",
     "react-day-picker": "^8.10.1",
     "react-hook-form": "^7.51.5",
     "react-resizable-panels": "^2.0.19",

@@ -5,7 +5,13 @@ import { usePathname } from "next/navigation"
 
 import { cn } from "@benflux-ui/utils"
 
-const nav = [
+interface NavItem {
+  href: string
+  label: string
+  isNew?: boolean
+}
+
+const nav: { title: string; items: NavItem[] }[] = [
   {
     title: "Getting Started",
     items: [
@@ -32,7 +38,12 @@ const nav = [
       { href: "/docs/components/alert", label: "Alert" },
       { href: "/docs/components/dialog", label: "Dialog" },
       { href: "/docs/components/progress", label: "Progress" },
+      { href: "/docs/components/result", label: "Result", isNew: true },
     ],
+  },
+  {
+    title: "Typography",
+    items: [{ href: "/docs/components/typography", label: "Typography", isNew: true }],
   },
   {
     title: "Layout",
@@ -41,6 +52,8 @@ const nav = [
       { href: "/docs/components/scroll-area", label: "Scroll Area" },
       { href: "/docs/components/collapsible", label: "Collapsible" },
       { href: "/docs/components/resizable", label: "Resizable" },
+      { href: "/docs/components/list", label: "List", isNew: true },
+      { href: "/docs/components/descriptions", label: "Descriptions", isNew: true },
     ],
   },
   {
@@ -50,6 +63,7 @@ const nav = [
       { href: "/docs/components/context-menu", label: "Context Menu" },
       { href: "/docs/components/breadcrumb", label: "Breadcrumb" },
       { href: "/docs/components/pagination", label: "Pagination" },
+      { href: "/docs/components/menu", label: "Menu", isNew: true },
     ],
   },
   {
@@ -60,6 +74,10 @@ const nav = [
       { href: "/docs/components/timeline", label: "Timeline" },
       { href: "/docs/components/statistic", label: "Statistic" },
       { href: "/docs/components/empty", label: "Empty State" },
+      { href: "/docs/components/image", label: "Image", isNew: true },
+      { href: "/docs/components/tree", label: "Tree", isNew: true },
+      { href: "/docs/components/transfer", label: "Transfer", isNew: true },
+      { href: "/docs/components/qrcode", label: "QR Code", isNew: true },
     ],
   },
   {
@@ -69,6 +87,11 @@ const nav = [
       { href: "/docs/components/calendar", label: "Calendar" },
       { href: "/docs/components/date-picker", label: "Date Picker" },
       { href: "/docs/components/combobox", label: "Combobox" },
+      { href: "/docs/components/input-number", label: "Input Number", isNew: true },
+      { href: "/docs/components/segmented", label: "Segmented", isNew: true },
+      { href: "/docs/components/time-picker", label: "Time Picker", isNew: true },
+      { href: "/docs/components/color-picker", label: "Color Picker", isNew: true },
+      { href: "/docs/components/upload", label: "Upload", isNew: true },
     ],
   },
   {
@@ -79,6 +102,8 @@ const nav = [
       { href: "/docs/components/popover", label: "Popover" },
       { href: "/docs/components/sheet", label: "Sheet" },
       { href: "/docs/components/drawer", label: "Drawer" },
+      { href: "/docs/components/tour", label: "Tour", isNew: true },
+      { href: "/docs/components/watermark", label: "Watermark", isNew: true },
     ],
   },
   {
@@ -100,6 +125,7 @@ const nav = [
       { href: "/docs/components/spotlight", label: "Spotlight" },
       { href: "/docs/components/particles", label: "Particle System" },
       { href: "/docs/components/carousel", label: "Carousel" },
+      { href: "/docs/components/float-button", label: "Float Button", isNew: true },
     ],
   },
 ]
@@ -108,7 +134,7 @@ export function DocsSidebar() {
   const path = usePathname()
 
   return (
-    <aside className="hidden w-52 shrink-0 lg:block">
+    <aside className="hidden w-56 shrink-0 lg:block">
       <div className="sticky top-20 max-h-[calc(100vh-5rem)] space-y-6 overflow-y-auto pb-10 pr-2">
         {nav.map((section) => (
           <div key={section.title}>
@@ -121,13 +147,18 @@ export function DocsSidebar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "block rounded-md px-2.5 py-1.5 text-sm transition-colors",
+                      "flex items-center justify-between rounded-md px-2.5 py-1.5 text-sm transition-colors",
                       path === item.href
                         ? "bg-accent font-medium text-foreground"
                         : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
                     )}
                   >
                     {item.label}
+                    {item.isNew && (
+                      <span className="ml-2 rounded-full bg-primary/15 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-primary">
+                        New
+                      </span>
+                    )}
                   </Link>
                 </li>
               ))}
