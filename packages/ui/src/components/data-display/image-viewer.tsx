@@ -90,6 +90,7 @@ interface ImageGridProps {
   preview?: boolean
   masonry?: boolean
   className?: string
+  onImageClick?: (image: ImageGridItem, index: number) => void
 }
 
 function ImageGrid({
@@ -99,6 +100,7 @@ function ImageGrid({
   preview = true,
   masonry = false,
   className,
+  onImageClick,
 }: ImageGridProps) {
   const [lightboxIndex, setLightboxIndex] = React.useState<number | null>(null)
 
@@ -119,7 +121,13 @@ function ImageGrid({
               "group relative overflow-hidden rounded-lg",
               masonry && "mb-2 break-inside-avoid",
             )}
-            onClick={() => preview && setLightboxIndex(i)}
+            onClick={() => {
+              if (onImageClick) {
+                onImageClick(img, i)
+              } else if (preview) {
+                setLightboxIndex(i)
+              }
+            }}
           >
             <img
               src={img.src}
