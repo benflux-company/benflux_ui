@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
-import { BenfluxProvider } from "@benflux-ui/themes"
+
 import { Toaster } from "@benflux-ui/react"
+import { BenfluxProvider } from "@benflux-ui/themes"
+
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
@@ -54,7 +56,14 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.variable}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('nebula-docs-theme')||'dark';document.documentElement.classList.add(t);document.documentElement.setAttribute('data-theme',t);}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body className={`${inter.variable} font-sans antialiased`}>
         <BenfluxProvider defaultTheme="dark" storageKey="nebula-docs-theme">
           {children}
           <Toaster position="bottom-right" />

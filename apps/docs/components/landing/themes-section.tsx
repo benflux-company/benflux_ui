@@ -1,131 +1,146 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "framer-motion"
-import { Button, Badge, Card, CardContent, CardHeader, CardTitle } from "@benflux-ui/react"
+import { Check } from "lucide-react"
+
 import { useTheme } from "@benflux-ui/themes"
 import type { ThemeName } from "@benflux-ui/themes"
 
-const themes: { name: ThemeName; label: string; description: string; preview: string }[] = [
-  {
-    name: "dark",
-    label: "Dark",
-    description: "Clean dark mode",
-    preview: "bg-zinc-900",
-  },
-  {
-    name: "light",
-    label: "Light",
-    description: "Pure light mode",
-    preview: "bg-white border",
-  },
-  {
-    name: "amoled",
-    label: "AMOLED",
-    description: "Pure black",
-    preview: "bg-black",
-  },
-  {
-    name: "glass",
-    label: "Glass",
-    description: "Glassmorphism",
-    preview: "bg-gradient-to-br from-blue-900/50 to-purple-900/50 backdrop-blur",
-  },
-  {
-    name: "neon",
-    label: "Neon",
-    description: "Bright neon glow",
-    preview: "bg-black border-green-500",
-  },
-  {
-    name: "cyberpunk",
-    label: "Cyberpunk",
-    description: "Futuristic yellow+pink",
-    preview: "bg-zinc-950 border-pink-500",
-  },
-  {
-    name: "luxury",
-    label: "Luxury",
-    description: "Gold & dark",
-    preview: "bg-zinc-900 border-yellow-500",
-  },
-  {
-    name: "minimal",
-    label: "Minimal",
-    description: "Ultra clean",
-    preview: "bg-gray-50 border",
-  },
+const themes: { name: ThemeName; label: string; colors: string[] }[] = [
+  { name: "dark", label: "Dark", colors: ["#0f172a", "#6366f1", "#1e293b"] },
+  { name: "light", label: "Light", colors: ["#ffffff", "#6366f1", "#f1f5f9"] },
+  { name: "amoled", label: "AMOLED", colors: ["#000000", "#a855f7", "#111111"] },
+  { name: "glass", label: "Glass", colors: ["#0f1729", "#60a5fa", "#1e3a5f"] },
+  { name: "neon", label: "Neon", colors: ["#000000", "#00ff9f", "#0a0a0a"] },
+  { name: "cyberpunk", label: "Cyberpunk", colors: ["#09090b", "#ff2d78", "#1a0010"] },
+  { name: "luxury", label: "Luxury", colors: ["#18181b", "#d4a843", "#27272a"] },
+  { name: "minimal", label: "Minimal", colors: ["#fafafa", "#18181b", "#e4e4e7"] },
 ]
+
+function ThemeSwatch({
+  theme: t,
+  active,
+  onClick,
+}: {
+  theme: (typeof themes)[0]
+  active: boolean
+  onClick: () => void
+}) {
+  return (
+    <motion.button
+      onClick={onClick}
+      className={`relative flex h-full w-full flex-col items-start gap-3 rounded-xl border p-4 text-left transition-all hover:border-foreground/30 ${
+        active ? "border-foreground" : "border-border"
+      }`}
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.98 }}
+    >
+      {/* Color preview */}
+      <div
+        className="flex h-12 w-full overflow-hidden rounded-lg"
+        style={{ background: t.colors[0] }}
+      >
+        <div className="w-1/3" style={{ background: t.colors[2] }} />
+        <div className="flex flex-1 items-center justify-center">
+          <div className="h-5 w-5 rounded-full" style={{ background: t.colors[1] }} />
+        </div>
+      </div>
+
+      {/* Label */}
+      <div className="flex w-full items-center justify-between">
+        <span className="text-sm font-medium">{t.label}</span>
+        {active && (
+          <div className="flex h-4 w-4 items-center justify-center rounded-full bg-foreground">
+            <Check className="h-2.5 w-2.5 text-background" />
+          </div>
+        )}
+      </div>
+    </motion.button>
+  )
+}
 
 export function ThemesSection() {
   const { theme, setTheme } = useTheme()
-  const [preview, setPreview] = useState<ThemeName | null>(null)
 
   return (
-    <section className="py-24 px-4">
-      <div className="max-w-5xl mx-auto space-y-16">
-        <div className="text-center space-y-4">
-          <motion.h2
-            className="text-4xl font-bold"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            8 beautiful themes
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            Switch themes live. Click to preview, apply globally in one line.
-          </motion.p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {themes.map((t, i) => (
-            <motion.button
-              key={t.name}
-              className={`relative p-4 rounded-xl border text-left transition-all ${
-                theme === t.name
-                  ? "border-primary ring-2 ring-primary/30"
-                  : "border-border hover:border-primary/40"
-              }`}
-              onClick={() => setTheme(t.name)}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+    <section className="border-t border-border px-4 py-24">
+      <div className="container mx-auto max-w-screen-xl">
+        {/* Header */}
+        <div className="mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div className="space-y-3">
+            <motion.p
+              className="text-sm font-medium text-primary"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
-              <div className={`w-full h-12 rounded-lg mb-3 ${t.preview}`} />
-              <div>
-                <p className="text-sm font-medium text-foreground">{t.label}</p>
-                <p className="text-xs text-muted-foreground">{t.description}</p>
-              </div>
-              {theme === t.name && (
-                <Badge variant="glow" size="sm" className="absolute top-2 right-2">
-                  Active
-                </Badge>
-              )}
-            </motion.button>
-          ))}
-        </div>
+              Themes
+            </motion.p>
+            <motion.h2
+              className="text-3xl font-bold tracking-tight"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              8 themes. Switch in one click.
+            </motion.h2>
+            <motion.p
+              className="max-w-lg text-muted-foreground"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              Click any theme below to preview it live. Applied globally via{" "}
+              <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+                BenfluxProvider
+              </code>
+              .
+            </motion.p>
+          </div>
 
-        <div className="text-center">
-          <p className="text-sm text-muted-foreground">
-            Current theme:{" "}
-            <code className="text-primary font-mono bg-primary/10 px-1.5 py-0.5 rounded text-xs">
+          <p className="shrink-0 text-xs text-muted-foreground">
+            Active:{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">
               {theme}
             </code>
           </p>
-          <p className="text-xs text-muted-foreground mt-1">
-            Apply with: <code className="font-mono">{`<BenfluxProvider theme="${theme}">`}</code>
-          </p>
         </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+          {themes.map((t, i) => (
+            <motion.div
+              key={t.name}
+              className="h-full"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.04 }}
+            >
+              <ThemeSwatch theme={t} active={theme === t.name} onClick={() => setTheme(t.name)} />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Usage snippet */}
+        <motion.div
+          className="mt-8 rounded-xl border border-border bg-muted/30 p-4 font-mono text-sm"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <span className="text-muted-foreground">{"// "}</span>
+          <span className="text-muted-foreground">Apply theme globally</span>
+          <br />
+          <span className="text-purple-400">{"<BenfluxProvider "}</span>
+          <span className="text-cyan-400">theme</span>
+          <span className="text-foreground">{"="}</span>
+          <span className="text-green-400">{`"${theme}"`}</span>
+          <span className="text-purple-400">{">"}</span>
+          <span className="text-muted-foreground">{" {children} "}</span>
+          <span className="text-purple-400">{"</BenfluxProvider>"}</span>
+        </motion.div>
       </div>
     </section>
   )

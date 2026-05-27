@@ -1,50 +1,53 @@
 import Link from "next/link"
+
 import { Github, Twitter, Zap } from "lucide-react"
 
-const footerLinks = {
-  "Getting Started": [
+const links = {
+  Documentation: [
     { label: "Introduction", href: "/docs" },
     { label: "Installation", href: "/docs/installation" },
-    { label: "CLI Usage", href: "/docs/cli" },
     { label: "Theming", href: "/docs/theming" },
+    { label: "CLI", href: "/docs/cli" },
+    { label: "Changelog", href: "/changelog" },
   ],
   Components: [
-    { label: "Layout", href: "/components/layout" },
-    { label: "Inputs", href: "/components/inputs" },
-    { label: "Navigation", href: "/components/navigation" },
-    { label: "WOW Effects", href: "/components/wow" },
-    { label: "AI Components", href: "/components/ai" },
+    { label: "Layout", href: "/docs/components/layout" },
+    { label: "Inputs", href: "/docs/components/inputs" },
+    { label: "Navigation", href: "/docs/components/navigation" },
+    { label: "Feedback", href: "/docs/components/feedback" },
+    { label: "Charts", href: "/docs/components/charts" },
   ],
-  Resources: [
-    { label: "GitHub", href: "https://github.com/benflux20/benflux-ui" },
-    { label: "Changelog", href: "/changelog" },
-    { label: "Contributing", href: "/contributing" },
-    { label: "License", href: "/license" },
+  "WOW Effects": [
+    { label: "Aurora Background", href: "/docs/components/aurora" },
+    { label: "Animated Beam", href: "/docs/components/beam" },
+    { label: "Marquee", href: "/docs/components/marquee" },
+    { label: "Spotlight", href: "/docs/components/spotlight" },
+    { label: "Particle System", href: "/docs/components/particles" },
   ],
 }
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-muted/10 mt-24">
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer className="border-t border-border bg-background">
+      <div className="container mx-auto max-w-screen-xl px-4 py-16">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-4">
           {/* Brand */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2 font-bold">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
-                <Zap className="h-3.5 w-3.5 text-white" />
+          <div className="col-span-2 space-y-4 sm:col-span-3 lg:col-span-1">
+            <Link href="/" className="flex items-center gap-2 font-semibold">
+              <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary">
+                <Zap className="h-3.5 w-3.5 text-primary-foreground" />
               </div>
-              <span>Benflux UI</span>
+              benflux/ui
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Revolutionary UI library for React & Next.js. Built for the future of the web.
+            <p className="max-w-[200px] text-sm leading-relaxed text-muted-foreground">
+              Beautifully designed components for React & Next.js.
             </p>
-            <div className="flex gap-2">
+            <div className="flex items-center gap-1">
               <a
-                href="https://github.com/benflux20/benflux-ui"
+                href="https://github.com/benflux-company/benflux_ui"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-md hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
                 <Github className="h-4 w-4" />
               </a>
@@ -52,25 +55,25 @@ export function Footer() {
                 href="https://twitter.com/benflux_ui"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-md hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
                 <Twitter className="h-4 w-4" />
               </a>
             </div>
           </div>
 
-          {/* Links */}
-          {Object.entries(footerLinks).map(([title, links]) => (
+          {/* Link columns */}
+          {Object.entries(links).map(([title, items]) => (
             <div key={title} className="space-y-4">
-              <h3 className="text-sm font-semibold text-foreground">{title}</h3>
-              <ul className="space-y-2">
-                {links.map((link) => (
-                  <li key={link.href}>
+              <p className="text-sm font-medium">{title}</p>
+              <ul className="space-y-2.5">
+                {items.map((item) => (
+                  <li key={item.href}>
                     <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      href={item.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      {link.label}
+                      {item.label}
                     </Link>
                   </li>
                 ))}
@@ -79,15 +82,26 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
+        {/* Bottom bar */}
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <p className="text-xs text-muted-foreground">
-            © 2024 Benflux UI by Benflux. MIT License.
+            © {new Date().getFullYear()} Benflux UI. MIT License.
           </p>
           <p className="text-xs text-muted-foreground">
             Built with{" "}
-            <span className="text-primary">Next.js</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">Framer Motion</span>
+            <Link
+              href="https://nextjs.org"
+              className="underline underline-offset-2 transition-colors hover:text-foreground"
+            >
+              Next.js
+            </Link>
+            {" & "}
+            <Link
+              href="https://tailwindcss.com"
+              className="underline underline-offset-2 transition-colors hover:text-foreground"
+            >
+              Tailwind CSS
+            </Link>
           </p>
         </div>
       </div>

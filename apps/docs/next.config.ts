@@ -1,7 +1,13 @@
 import type { NextConfig } from "next"
 
 const config: NextConfig = {
-  transpilePackages: ["@benflux-ui/react", "@benflux-ui/themes", "@benflux-ui/hooks", "@benflux-ui/utils"],
+  transpilePackages: [
+    "@benflux-ui/react",
+    "@benflux-ui/themes",
+    "@benflux-ui/hooks",
+    "@benflux-ui/utils",
+    "@benflux-ui/animations",
+  ],
   experimental: {
     optimizePackageImports: ["@benflux-ui/react", "lucide-react", "framer-motion"],
   },

@@ -21,27 +21,24 @@
     "url": "https://github.com/benflux20/benflux-ui.git",
     "directory": "packages/ui"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts",
+      "require": "./src/index.ts",
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     },
-    "./styles": "./dist/globals.css",
-    "./button": {
-      "import": "./dist/components/inputs/button.mjs",
-      "types": "./dist/components/inputs/button.d.ts"
-    },
-    "./card": {
-      "import": "./dist/components/layout/card.mjs",
-      "types": "./dist/components/layout/card.d.ts"
-    }
+    "./styles": "./src/styles/globals.css"
   },
-  "sideEffects": ["**/*.css"],
-  "files": ["dist"],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup && pnpm build:css",
     "build:css": "tailwindcss -i ./src/styles/globals.css -o ./dist/globals.css",

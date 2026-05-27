@@ -1,122 +1,99 @@
 "use client"
 
 import { motion } from "framer-motion"
-import {
-  Zap, Palette, Shield, Gauge, Code, Sparkles,
-  Moon, Package, RefreshCw, Layout
-} from "lucide-react"
-import { SpotlightCard } from "@benflux-ui/react"
+import { Accessibility, Code2, Palette, Puzzle, Sparkles, Terminal, Zap } from "lucide-react"
 
 const features = [
   {
-    icon: Sparkles,
-    title: "WOW Effects",
-    description: "Aurora backgrounds, particle systems, magnetic buttons, 3D cards — effects that make jaws drop.",
-    color: "text-purple-400",
-    gradient: "from-purple-500/20 to-transparent",
-  },
-  {
-    icon: Shield,
-    title: "Fully Accessible",
-    description: "WCAG AAA compliant. Radix UI primitives ensure keyboard navigation, ARIA, and screen reader support.",
-    color: "text-green-400",
-    gradient: "from-green-500/20 to-transparent",
-  },
-  {
-    icon: Gauge,
-    title: "Ultra Performant",
-    description: "Tree-shakeable, SSR-compatible, RSC-ready. Lazy loading and minimal bundle impact built-in.",
-    color: "text-blue-400",
-    gradient: "from-blue-500/20 to-transparent",
+    icon: Puzzle,
+    title: "Radix UI primitives",
+    description:
+      "Every interactive component is built on top of Radix UI for rock-solid accessibility.",
   },
   {
     icon: Palette,
-    title: "8 Themes",
-    description: "Light, Dark, AMOLED, Glass, Neon, Cyberpunk, Luxury, Minimal. Plus your custom themes.",
-    color: "text-pink-400",
-    gradient: "from-pink-500/20 to-transparent",
+    title: "Tailwind CSS",
+    description:
+      "Utility-first styling with full support for dark mode, custom themes, and arbitrary values.",
   },
   {
-    icon: Code,
-    title: "Copy/Paste or NPM",
-    description: "Own your components by copying them, or install via npm. Same quality, your choice.",
-    color: "text-cyan-400",
-    gradient: "from-cyan-500/20 to-transparent",
+    icon: Sparkles,
+    title: "Framer Motion",
+    description:
+      "GPU-accelerated animations and physics-based interactions — smooth on every device.",
+  },
+  {
+    icon: Code2,
+    title: "Copy / Paste",
+    description:
+      "Not a component library dependency. Own your components — copy source into your project.",
+  },
+  {
+    icon: Terminal,
+    title: "CLI",
+    description:
+      "npx benflux-ui add button — auto-detects your framework and installs exactly what you need.",
   },
   {
     icon: Zap,
-    title: "CLI Tool",
-    description: "npx benflux-ui add button — detects your framework, installs deps, adds components.",
-    color: "text-yellow-400",
-    gradient: "from-yellow-500/20 to-transparent",
+    title: "TypeScript first",
+    description: "Every component and hook ships with full TypeScript definitions and inference.",
   },
   {
-    icon: Moon,
-    title: "Dark Mode Native",
-    description: "All components designed for dark mode first. No afterthought light mode.",
-    color: "text-indigo-400",
-    gradient: "from-indigo-500/20 to-transparent",
+    icon: Accessibility,
+    title: "WCAG accessible",
+    description:
+      "Keyboard navigation, ARIA attributes, and screen reader support built-in and tested.",
   },
   {
-    icon: Package,
-    title: "Framer Motion",
-    description: "GPU-accelerated animations, physics-based interactions, page transitions.",
-    color: "text-orange-400",
-    gradient: "from-orange-500/20 to-transparent",
-  },
-  {
-    icon: Layout,
-    title: "AI Components",
-    description: "Chat UI, streaming renderer, AI typing animation, prompt input — built for AI apps.",
-    color: "text-rose-400",
-    gradient: "from-rose-500/20 to-transparent",
+    icon: Palette,
+    title: "8 themes",
+    description:
+      "Light, Dark, AMOLED, Glass, Neon, Cyberpunk, Luxury, Minimal — switch live at runtime.",
   },
 ]
 
 export function FeaturesSection() {
   return (
-    <section className="py-24 px-4">
-      <div className="max-w-6xl mx-auto space-y-16">
-        <div className="text-center space-y-4">
+    <section className="border-t border-border bg-muted/20 px-4 py-24">
+      <div className="container mx-auto max-w-screen-xl">
+        {/* Header */}
+        <div className="mb-16 space-y-3 text-center">
           <motion.h2
-            className="text-4xl font-bold"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-3xl font-bold tracking-tight"
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Everything you need, nothing you don't
+            Everything you need
           </motion.h2>
           <motion.p
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="mx-auto max-w-lg text-muted-foreground"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Built by developers for developers. Every decision optimized for DX and end-user experience.
+            Built with the best tools. Designed for the best developer experience.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Feature grid */}
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((feature, i) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
+              className="space-y-2"
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
             >
-              <SpotlightCard className="h-full p-6 space-y-4">
-                <div
-                  className={`w-10 h-10 rounded-xl bg-gradient-to-br ${feature.gradient} border border-border flex items-center justify-center ${feature.color}`}
-                >
-                  <feature.icon className="h-5 w-5" />
-                </div>
-                <div className="space-y-1.5">
-                  <h3 className="font-semibold text-foreground">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                </div>
-              </SpotlightCard>
+              <div className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background">
+                <feature.icon className="h-4 w-4 text-muted-foreground" />
+              </div>
+              <h3 className="text-sm font-semibold">{feature.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
             </motion.div>
           ))}
         </div>

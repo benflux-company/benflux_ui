@@ -46,9 +46,12 @@
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "eslint": "^8.57.1",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "turbo": "^2.0.4",
     "typescript": "^5.4.5"
   },
@@ -58,11 +61,7 @@
   },
   "packageManager": "pnpm@9.4.0",
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{md,json,css}": [
+    "*.{ts,tsx,md,json,css}": [
       "prettier --write"
     ]
   },

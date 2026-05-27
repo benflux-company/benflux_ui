@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+
 import { Slot } from "@radix-ui/react-slot"
 import { type VariantProps } from "class-variance-authority"
 import { motion } from "framer-motion"
@@ -66,8 +67,7 @@ const buttonVariants = cva(
 )
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean
   loading?: boolean
   leftIcon?: React.ReactNode
@@ -103,13 +103,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-disabled={isDisabled}
         {...props}
       >
-        {loading ? (
-          <Loader2 className="animate-spin" />
+        {asChild ? (
+          children
         ) : (
-          leftIcon
+          <>
+            {loading ? <Loader2 className="animate-spin" /> : leftIcon}
+            {children}
+            {!loading && rightIcon}
+          </>
         )}
-        {children}
-        {!loading && rightIcon}
       </Comp>
     )
 
