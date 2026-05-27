@@ -2,7 +2,9 @@
   "extends": "@benflux-ui/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "composite": false,
+    "incremental": false
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

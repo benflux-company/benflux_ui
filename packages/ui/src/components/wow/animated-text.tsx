@@ -1,7 +1,9 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
+
+import { motion, useInView } from "framer-motion"
+
 import { cn } from "@benflux-ui/utils"
 
 interface AnimatedTextProps {
@@ -78,7 +80,7 @@ export function AnimatedText({
         <motion.span
           animate={{ opacity: [1, 0] }}
           transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-          className="ml-0.5 inline-block w-0.5 h-[1.2em] bg-current"
+          className="ml-0.5 inline-block h-[1.2em] w-0.5 bg-current"
         />
       </div>
     )
@@ -124,15 +126,15 @@ export function NumberCounter({
     >
       {isInView && (
         <motion.span
-          initial={{ textContent: `${from}` }}
-          animate={{ textContent: `${to}` }}
+          initial={{ textContent: `${from}` } as never}
+          animate={{ textContent: `${to}` } as never}
           transition={{
             duration,
             ease: "easeOut",
           }}
           onUpdate={(latest) => {
             if (ref.current) {
-              const value = parseFloat(latest.textContent ?? `${from}`)
+              const value = parseFloat(String(latest.textContent ?? from))
               ref.current.textContent = format(value)
             }
           }}

@@ -1,8 +1,10 @@
 "use client"
 
 import * as React from "react"
+
+import { type VariantProps, cva } from "class-variance-authority"
 import { X } from "lucide-react"
-import { cva, type VariantProps } from "class-variance-authority"
+
 import { cn } from "@benflux-ui/utils"
 
 const tagVariants = cva(
@@ -11,7 +13,8 @@ const tagVariants = cva(
     variants: {
       variant: {
         default: "border-transparent bg-primary/10 text-primary hover:bg-primary/20",
-        secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        secondary:
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         outline: "border-border text-foreground hover:bg-accent",
         success: "border-transparent bg-green-500/10 text-green-700 dark:text-green-400",
         warning: "border-transparent bg-yellow-500/10 text-yellow-700 dark:text-yellow-400",
@@ -41,8 +44,11 @@ export function Tag({ className, variant, size, onRemove, icon, children, ...pro
       {onRemove && (
         <button
           type="button"
-          onClick={(e) => { e.stopPropagation(); onRemove() }}
-          className="rounded-full hover:bg-black/10 dark:hover:bg-white/20 p-0.5 transition-colors"
+          onClick={(e) => {
+            e.stopPropagation()
+            onRemove()
+          }}
+          className="rounded-full p-0.5 transition-colors hover:bg-black/10 dark:hover:bg-white/20"
         >
           <X className="h-2.5 w-2.5" />
           <span className="sr-only">Remove</span>
@@ -62,7 +68,14 @@ interface TagInputProps {
   tagVariant?: VariantProps<typeof tagVariants>["variant"]
 }
 
-export function TagInput({ value = [], onChange, placeholder = "Add tag...", maxTags, className, tagVariant = "default" }: TagInputProps) {
+export function TagInput({
+  value = [],
+  onChange,
+  placeholder = "Add tag...",
+  maxTags,
+  className,
+  tagVariant = "default",
+}: TagInputProps) {
   const [input, setInput] = React.useState("")
   const inputRef = React.useRef<HTMLInputElement>(null)
 
@@ -78,7 +91,7 @@ export function TagInput({ value = [], onChange, placeholder = "Add tag...", max
   return (
     <div
       className={cn(
-        "flex flex-wrap gap-1.5 min-h-10 w-full rounded-xl border border-input bg-background px-3 py-2",
+        "flex min-h-10 w-full flex-wrap gap-1.5 rounded-xl border border-input bg-background px-3 py-2",
         "focus-within:ring-2 focus-within:ring-ring",
         className,
       )}
@@ -94,11 +107,15 @@ export function TagInput({ value = [], onChange, placeholder = "Add tag...", max
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === ",") { e.preventDefault(); addTag(input) }
-          if (e.key === "Backspace" && !input && value.length > 0) removeTag(value[value.length - 1])
+          if (e.key === "Enter" || e.key === ",") {
+            e.preventDefault()
+            addTag(input)
+          }
+          if (e.key === "Backspace" && !input && value.length > 0)
+            removeTag(value[value.length - 1]!)
         }}
         placeholder={!value.length ? placeholder : ""}
-        className="flex-1 min-w-20 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+        className="min-w-20 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
         disabled={Boolean(maxTags && value.length >= maxTags)}
       />
     </div>

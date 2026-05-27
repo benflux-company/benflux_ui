@@ -1,6 +1,9 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
+import { PropsTable } from "@/components/docs/props-table"
+import { PopoverDemo } from "@/components/previews/popover-demo"
 
 export const metadata: Metadata = { title: "Popover" }
 
@@ -9,7 +12,7 @@ export default function PopoverPage() {
     <div className="space-y-10">
       <div className="space-y-3">
         <div className="inline-flex items-center rounded-full border border-border bg-muted/40 px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
-          Feedback
+          Primitive
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Popover</h1>
         <p className="text-lg text-muted-foreground">
@@ -17,37 +20,33 @@ export default function PopoverPage() {
         </p>
       </div>
 
-      <div className="flex items-center justify-center gap-8 rounded-xl border border-border bg-muted/20 p-10">
-        <div className="space-y-2 text-center">
-          <div className="w-64 space-y-3 rounded-xl border border-border bg-popover p-4 shadow-lg">
-            <p className="text-sm font-semibold">Dimensions</p>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="space-y-1">
-                <label className="text-xs text-muted-foreground">Width</label>
-                <input
-                  className="flex h-7 w-full rounded-md border border-input bg-transparent px-2 text-xs"
-                  defaultValue="100%"
-                  readOnly
-                />
-              </div>
-              <div className="space-y-1">
-                <label className="text-xs text-muted-foreground">Height</label>
-                <input
-                  className="flex h-7 w-full rounded-md border border-input bg-transparent px-2 text-xs"
-                  defaultValue="auto"
-                  readOnly
-                />
-              </div>
-            </div>
-            <button className="inline-flex h-7 w-full items-center justify-center rounded-md bg-primary text-xs font-medium text-primary-foreground">
-              Apply
-            </button>
-          </div>
-          <button className="inline-flex h-9 items-center gap-2 rounded-md border border-border bg-background px-4 text-sm">
-            Open popover ↑
-          </button>
+      <ComponentPreview
+        code={`import { Button, Popover, PopoverContent, PopoverTrigger, Input, Label } from "@benflux-ui/react"
+
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Open Popover</Button>
+  </PopoverTrigger>
+  <PopoverContent className="w-72">
+    <div className="space-y-3">
+      <h4 className="font-medium">Dimensions</h4>
+      <div className="grid gap-2">
+        <div className="grid grid-cols-3 items-center gap-4">
+          <Label>Width</Label>
+          <Input defaultValue="100%" className="col-span-2 h-8" />
+        </div>
+        <div className="grid grid-cols-3 items-center gap-4">
+          <Label>Height</Label>
+          <Input defaultValue="auto" className="col-span-2 h-8" />
         </div>
       </div>
+      <Button size="sm" className="w-full">Apply</Button>
+    </div>
+  </PopoverContent>
+</Popover>`}
+      >
+        <PopoverDemo />
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -57,25 +56,42 @@ export default function PopoverPage() {
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Usage</h2>
         <CodeBlock
-          code={`import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
+          code={`import { Popover, PopoverContent, PopoverTrigger } from "@benflux-ui/react"
 
 <Popover>
   <PopoverTrigger asChild>
-    <Button variant="outline">Open</Button>
+    <Button>Open</Button>
   </PopoverTrigger>
-  <PopoverContent className="w-64">
-    <p className="font-semibold">Dimensions</p>
-    <div className="grid grid-cols-2 gap-2 mt-3">
-      <Input placeholder="Width" />
-      <Input placeholder="Height" />
-    </div>
+  <PopoverContent>
+    Place content for the popover here.
   </PopoverContent>
 </Popover>`}
+        />
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight">Props — PopoverContent</h2>
+        <PropsTable
+          props={[
+            {
+              name: "side",
+              type: '"top" | "right" | "bottom" | "left"',
+              default: '"bottom"',
+              description: "Preferred side to open the popover",
+            },
+            {
+              name: "align",
+              type: '"start" | "center" | "end"',
+              default: '"center"',
+              description: "Alignment along the side",
+            },
+            {
+              name: "sideOffset",
+              type: "number",
+              default: "4",
+              description: "Distance in pixels from the trigger",
+            },
+          ]}
         />
       </div>
     </div>

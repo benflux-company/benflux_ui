@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
 import { PropsTable } from "@/components/docs/props-table"
-import { Eye, Mail, Search } from "lucide-react"
+
+import { Input, Label } from "@benflux-ui/react"
 
 export const metadata: Metadata = { title: "Input" }
 
@@ -15,41 +17,26 @@ export default function InputPage() {
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Input</h1>
         <p className="text-lg text-muted-foreground">
-          Displays a form input field with multiple variants and states.
+          Displays a form input field or a component that looks like an input field.
         </p>
       </div>
 
-      <div className="mx-auto flex max-w-sm flex-col items-center gap-4 rounded-xl border border-border bg-muted/20 p-10">
-        <div className="relative w-full">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <input
-            className="flex h-9 w-full rounded-md border border-input bg-transparent pl-9 pr-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-            placeholder="Search..."
-            readOnly
-          />
+      <ComponentPreview
+        code={`import { Input } from "@benflux-ui/react"
+
+<Input placeholder="Default input" />
+<Input placeholder="Outlined" variant="outline" />
+<Input placeholder="Filled" variant="filled" />
+<Input placeholder="Ghost" variant="ghost" />`}
+        className="w-full max-w-sm flex-col items-stretch"
+      >
+        <div className="flex w-full max-w-sm flex-col gap-3">
+          <Input placeholder="Default input" />
+          <Input placeholder="Filled" variant="filled" />
+          <Input placeholder="Ghost" variant="ghost" />
+          <Input placeholder="Underline" variant="underline" />
         </div>
-        <input
-          className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm placeholder:text-muted-foreground"
-          placeholder="Email address"
-          readOnly
-        />
-        <input
-          className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm placeholder:text-muted-foreground"
-          placeholder="Password"
-          type="password"
-          readOnly
-        />
-        <input
-          className="flex h-9 w-full rounded-md border-0 border-b-2 border-input bg-transparent px-1 text-sm placeholder:text-muted-foreground focus:outline-none"
-          placeholder="Underline variant"
-          readOnly
-        />
-        <input
-          className="flex h-9 w-full rounded-md border border-destructive/50 bg-transparent px-3 text-sm placeholder:text-muted-foreground"
-          placeholder="Error state"
-          readOnly
-        />
-      </div>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -59,28 +46,34 @@ export default function InputPage() {
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Usage</h2>
         <CodeBlock
-          code={`import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+          code={`import { Input } from "@benflux-ui/react"
 
-export default function Example() {
-  return (
-    <div className="space-y-2">
-      <Label htmlFor="email">Email</Label>
-      <Input id="email" type="email" placeholder="you@example.com" />
-    </div>
-  )
-}`}
+<Input placeholder="Enter your email" type="email" />`}
         />
       </div>
 
-      <div className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight">With icons</h2>
-        <CodeBlock
-          code={`import { Search } from "lucide-react"
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">With Label</h2>
+        <ComponentPreview
+          code={`import { Input, Label } from "@benflux-ui/react"
 
-<Input leftIcon={<Search />} placeholder="Search..." />
-<Input rightIcon={<Eye />} type="password" placeholder="Password" />`}
-        />
+<div className="space-y-1.5">
+  <Label htmlFor="email">Email</Label>
+  <Input id="email" type="email" placeholder="you@example.com" />
+</div>`}
+        >
+          <div className="w-full max-w-sm space-y-1.5">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" type="email" placeholder="you@example.com" />
+          </div>
+        </ComponentPreview>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">Disabled</h2>
+        <ComponentPreview code={`<Input disabled placeholder="Disabled input" />`}>
+          <Input disabled placeholder="Disabled input" className="max-w-sm" />
+        </ComponentPreview>
       </div>
 
       <div className="space-y-3">
@@ -89,39 +82,27 @@ export default function Example() {
           props={[
             {
               name: "variant",
-              type: '"default" | "underline" | "ghost"',
+              type: '"default" | "filled" | "ghost" | "underline"',
               default: '"default"',
               description: "Visual style of the input",
             },
             {
+              name: "inputSize",
+              type: '"sm" | "default" | "lg"',
+              default: '"default"',
+              description: "Size of the input",
+            },
+            {
               name: "error",
-              type: "boolean | string",
-              default: "false",
-              description: "Shows error styling and optional message",
-            },
-            {
-              name: "leftIcon",
-              type: "ReactNode",
-              default: "—",
-              description: "Icon displayed inside the left side",
-            },
-            {
-              name: "rightIcon",
-              type: "ReactNode",
-              default: "—",
-              description: "Icon displayed inside the right side",
-            },
-            {
-              name: "type",
-              type: "string",
-              default: '"text"',
-              description: "HTML input type attribute",
-            },
-            {
-              name: "disabled",
               type: "boolean",
               default: "false",
-              description: "Disables the input",
+              description: "Shows error state styling",
+            },
+            {
+              name: "success",
+              type: "boolean",
+              default: "false",
+              description: "Shows success state styling",
             },
           ]}
         />

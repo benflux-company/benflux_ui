@@ -1,12 +1,15 @@
 "use client"
 
 import * as React from "react"
+
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
+
 import { cn } from "@benflux-ui/utils"
+
+import { Popover, PopoverContent, PopoverTrigger } from "../navigation/popover"
 import { Button } from "./button"
 import { Calendar } from "./calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "../navigation/popover"
 
 interface DatePickerProps {
   value?: Date
@@ -17,13 +20,24 @@ interface DatePickerProps {
   dateFormat?: string
 }
 
-export function DatePicker({ value, onChange, placeholder = "Pick a date", className, disabled, dateFormat = "PPP" }: DatePickerProps) {
+export function DatePicker({
+  value,
+  onChange,
+  placeholder = "Pick a date",
+  className,
+  disabled,
+  dateFormat = "PPP",
+}: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className={cn("w-full justify-start text-left font-normal", !value && "text-muted-foreground", className)}
+          className={cn(
+            "w-full justify-start text-left font-normal",
+            !value && "text-muted-foreground",
+            className,
+          )}
           disabled={disabled}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -45,13 +59,23 @@ interface DateRangePickerProps {
   disabled?: boolean
 }
 
-export function DateRangePicker({ value, onChange, placeholder = "Pick a date range", className, disabled }: DateRangePickerProps) {
+export function DateRangePicker({
+  value,
+  onChange,
+  placeholder = "Pick a date range",
+  className,
+  disabled,
+}: DateRangePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className={cn("w-full justify-start text-left font-normal", !value?.from && "text-muted-foreground", className)}
+          className={cn(
+            "w-full justify-start text-left font-normal",
+            !value?.from && "text-muted-foreground",
+            className,
+          )}
           disabled={disabled}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -73,7 +97,7 @@ export function DateRangePicker({ value, onChange, placeholder = "Pick a date ra
           initialFocus
           mode="range"
           defaultMonth={value?.from}
-          selected={value}
+          selected={value as never}
           onSelect={onChange as (range: unknown) => void}
           numberOfMonths={2}
         />

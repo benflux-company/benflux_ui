@@ -1,7 +1,11 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
 import { PropsTable } from "@/components/docs/props-table"
+import { ArrowRight, Mail, Star, Trash2 } from "lucide-react"
+
+import { Button } from "@benflux-ui/react"
 
 export const metadata: Metadata = { title: "Button" }
 
@@ -19,30 +23,27 @@ export default function ButtonPage() {
         </p>
       </div>
 
-      {/* Preview */}
-      <div className="flex flex-wrap items-center justify-center gap-3 rounded-xl border border-border bg-muted/20 p-10">
-        <button className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
-          Default
-        </button>
-        <button className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
-          Outline
-        </button>
-        <button className="inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground">
-          Ghost
-        </button>
-        <button className="inline-flex h-9 items-center justify-center rounded-md bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/80">
-          Secondary
-        </button>
-        <button className="inline-flex h-9 items-center justify-center rounded-md bg-destructive px-4 text-sm font-medium text-destructive-foreground transition-colors hover:bg-destructive/90">
-          Destructive
-        </button>
-        <button className="inline-flex h-9 items-center justify-center rounded-md bg-gradient-to-r from-primary to-purple-600 px-4 text-sm font-medium text-white transition-opacity hover:opacity-90">
-          Gradient
-        </button>
-        <button className="inline-flex h-9 items-center justify-center rounded-md border border-border px-4 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:underline">
-          Link
-        </button>
-      </div>
+      <ComponentPreview
+        code={`import { Button } from "@benflux-ui/react"
+
+<Button>Default</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="destructive">Destructive</Button>
+<Button variant="gradient">Gradient</Button>
+<Button variant="glow">Glow</Button>
+<Button variant="link">Link</Button>`}
+      >
+        <Button>Default</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="destructive">Destructive</Button>
+        <Button variant="gradient">Gradient</Button>
+        <Button variant="glow">Glow</Button>
+        <Button variant="link">Link</Button>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -52,59 +53,76 @@ export default function ButtonPage() {
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Usage</h2>
         <CodeBlock
-          code={`import { Button } from "@/components/ui/button"
+          code={`import { Button } from "@benflux-ui/react"
 
 export default function Example() {
-  return (
-    <div className="flex gap-2">
-      <Button>Default</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="destructive">Delete</Button>
-      <Button size="sm">Small</Button>
-      <Button size="lg">Large</Button>
-      <Button loading>Loading...</Button>
-    </div>
-  )
+  return <Button>Click me</Button>
 }`}
         />
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight">Variants</h2>
-        <div className="space-y-3">
-          <CodeBlock
-            code={`<Button variant="default">Default</Button>\n<Button variant="outline">Outline</Button>\n<Button variant="ghost">Ghost</Button>\n<Button variant="secondary">Secondary</Button>\n<Button variant="destructive">Destructive</Button>\n<Button variant="gradient">Gradient</Button>\n<Button variant="link">Link</Button>`}
-          />
-        </div>
+        <h2 className="text-xl font-semibold tracking-tight">Sizes</h2>
+        <ComponentPreview
+          code={`<Button size="xs">Extra Small</Button>
+<Button size="sm">Small</Button>
+<Button size="default">Default</Button>
+<Button size="lg">Large</Button>
+<Button size="xl">Extra Large</Button>`}
+        >
+          <Button size="xs">Extra Small</Button>
+          <Button size="sm">Small</Button>
+          <Button size="default">Default</Button>
+          <Button size="lg">Large</Button>
+          <Button size="xl">Extra Large</Button>
+        </ComponentPreview>
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight">Sizes</h2>
-        <div className="flex flex-wrap items-center justify-center gap-3 rounded-xl border border-border bg-muted/20 p-8">
-          <button className="inline-flex h-7 items-center justify-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground">
-            Small
-          </button>
-          <button className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground">
-            Default
-          </button>
-          <button className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 text-base font-medium text-primary-foreground">
-            Large
-          </button>
-        </div>
-        <CodeBlock
-          code={`<Button size="sm">Small</Button>\n<Button size="default">Default</Button>\n<Button size="lg">Large</Button>`}
-        />
-      </div>
-
-      <div className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight">With icons</h2>
-        <CodeBlock
-          code={`import { Mail, ArrowRight } from "lucide-react"
+        <h2 className="text-xl font-semibold tracking-tight">With Icons</h2>
+        <ComponentPreview
+          code={`import { Mail, ArrowRight, Trash2, Star } from "lucide-react"
 
 <Button leftIcon={<Mail />}>Email</Button>
-<Button rightIcon={<ArrowRight />}>Continue</Button>`}
-        />
+<Button rightIcon={<ArrowRight />}>Continue</Button>
+<Button variant="destructive" leftIcon={<Trash2 />}>Delete</Button>
+<Button variant="outline" leftIcon={<Star />}>Favorite</Button>`}
+        >
+          <Button leftIcon={<Mail />}>Email</Button>
+          <Button rightIcon={<ArrowRight />}>Continue</Button>
+          <Button variant="destructive" leftIcon={<Trash2 />}>
+            Delete
+          </Button>
+          <Button variant="outline" leftIcon={<Star />}>
+            Favorite
+          </Button>
+        </ComponentPreview>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">Loading State</h2>
+        <ComponentPreview
+          code={`<Button loading>Saving...</Button>
+<Button loading variant="outline">Processing</Button>`}
+        >
+          <Button loading>Saving...</Button>
+          <Button loading variant="outline">
+            Processing
+          </Button>
+        </ComponentPreview>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">Disabled</h2>
+        <ComponentPreview
+          code={`<Button disabled>Disabled</Button>
+<Button disabled variant="outline">Disabled</Button>`}
+        >
+          <Button disabled>Disabled</Button>
+          <Button disabled variant="outline">
+            Disabled
+          </Button>
+        </ComponentPreview>
       </div>
 
       <div className="space-y-3">
@@ -113,13 +131,13 @@ export default function Example() {
           props={[
             {
               name: "variant",
-              type: '"default" | "outline" | "ghost" | "secondary" | "destructive" | "gradient" | "link"',
+              type: '"default" | "outline" | "ghost" | "secondary" | "destructive" | "gradient" | "glow" | "glass" | "link"',
               default: '"default"',
               description: "Visual style of the button",
             },
             {
               name: "size",
-              type: '"sm" | "default" | "lg" | "icon"',
+              type: '"xs" | "sm" | "default" | "lg" | "xl" | "icon" | "icon-sm" | "icon-lg"',
               default: '"default"',
               description: "Size of the button",
             },
@@ -148,10 +166,10 @@ export default function Example() {
               description: "Merges props onto child element (Radix Slot)",
             },
             {
-              name: "disabled",
+              name: "animate",
               type: "boolean",
-              default: "false",
-              description: "Disables the button",
+              default: "true",
+              description: "Enables tap animation via framer-motion",
             },
           ]}
         />

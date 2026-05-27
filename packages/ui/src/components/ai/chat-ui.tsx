@@ -1,12 +1,15 @@
 "use client"
 
 import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Send, Bot, User, Loader2, Copy, Check, RotateCcw } from "lucide-react"
+
+import { AnimatePresence, motion } from "framer-motion"
+import { Bot, Check, Copy, Loader2, RotateCcw, Send, User } from "lucide-react"
+
 import { cn } from "@benflux-ui/utils"
+
 import { Button } from "../inputs/button"
-import { Avatar, AvatarFallback, AvatarImage } from "../layout/avatar"
 import { Textarea } from "../inputs/textarea"
+import { Avatar, AvatarFallback, AvatarImage } from "../layout/avatar"
 
 export interface ChatMessage {
   id: string
@@ -16,7 +19,7 @@ export interface ChatMessage {
   status?: "sending" | "sent" | "error" | "streaming"
 }
 
-interface ChatUIProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ChatUIProps extends React.HTMLAttributes<HTMLDivElement> {
   messages: ChatMessage[]
   onSend: (message: string) => void
   isLoading?: boolean
@@ -41,9 +44,9 @@ function MessageBubble({ message }: { message: ChatMessage }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className={cn("flex gap-3 group", isUser && "flex-row-reverse")}
+      className={cn("group flex gap-3", isUser && "flex-row-reverse")}
     >
-      <Avatar size="sm" className="shrink-0 mt-1">
+      <Avatar size="sm" className="mt-1 shrink-0">
         {isUser ? (
           <AvatarFallback className="bg-primary text-primary-foreground">
             <User className="h-3 w-3" />
@@ -55,14 +58,14 @@ function MessageBubble({ message }: { message: ChatMessage }) {
         )}
       </Avatar>
 
-      <div className={cn("flex flex-col gap-1 max-w-[80%]", isUser && "items-end")}>
+      <div className={cn("flex max-w-[80%] flex-col gap-1", isUser && "items-end")}>
         <div
           className={cn(
-            "px-4 py-2.5 rounded-2xl text-sm leading-relaxed",
+            "rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
             isUser
-              ? "bg-primary text-primary-foreground rounded-tr-sm"
-              : "bg-muted text-foreground rounded-tl-sm",
-            message.status === "error" && "bg-destructive/10 border border-destructive/30",
+              ? "rounded-tr-sm bg-primary text-primary-foreground"
+              : "rounded-tl-sm bg-muted text-foreground",
+            message.status === "error" && "border border-destructive/30 bg-destructive/10",
           )}
         >
           {message.status === "streaming" ? (
@@ -72,17 +75,19 @@ function MessageBubble({ message }: { message: ChatMessage }) {
           )}
         </div>
 
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
           <button
             onClick={copyToClipboard}
-            className="p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
+            className="rounded p-1 text-muted-foreground transition-colors hover:text-foreground"
             title="Copy"
           >
             {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
           </button>
           {message.timestamp && (
             <span className="text-[10px] text-muted-foreground">
-              {new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit" }).format(message.timestamp)}
+              {new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit" }).format(
+                message.timestamp,
+              )}
             </span>
           )}
         </div>
@@ -98,7 +103,7 @@ function TypingIndicator({ content }: { content: string }) {
       <motion.span
         animate={{ opacity: [1, 0] }}
         transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-        className="inline-block w-0.5 h-4 bg-current ml-0.5 align-text-bottom"
+        className="ml-0.5 inline-block h-4 w-0.5 bg-current align-text-bottom"
       />
     </span>
   )
@@ -107,17 +112,17 @@ function TypingIndicator({ content }: { content: string }) {
 function LoadingBubble() {
   return (
     <div className="flex gap-3">
-      <Avatar size="sm" className="shrink-0 mt-1">
+      <Avatar size="sm" className="mt-1 shrink-0">
         <AvatarFallback className="bg-muted">
           <Bot className="h-3 w-3" />
         </AvatarFallback>
       </Avatar>
-      <div className="px-4 py-3 rounded-2xl rounded-tl-sm bg-muted">
-        <div className="flex gap-1.5 items-center">
+      <div className="rounded-2xl rounded-tl-sm bg-muted px-4 py-3">
+        <div className="flex items-center gap-1.5">
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
-              className="w-1.5 h-1.5 rounded-full bg-muted-foreground"
+              className="h-1.5 w-1.5 rounded-full bg-muted-foreground"
               animate={{ y: [0, -4, 0] }}
               transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
             />
@@ -159,23 +164,29 @@ export function ChatUI({
   }
 
   return (
-    <div className={cn("flex flex-col h-full bg-background rounded-xl border border-border overflow-hidden", className)} {...props}>
+    <div
+      className={cn(
+        "flex h-full flex-col overflow-hidden rounded-xl border border-border bg-background",
+        className,
+      )}
+      {...props}
+    >
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-muted/30">
-        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 border border-primary/20">
+      <div className="flex items-center gap-3 border-b border-border bg-muted/30 px-4 py-3">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 bg-primary/10">
           <Bot className="h-4 w-4 text-primary" />
         </div>
         <div>
           <p className="text-sm font-medium">{agentName}</p>
           <div className="flex items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+            <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
             <p className="text-xs text-muted-foreground">Online</p>
           </div>
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth">
+      <div className="flex-1 space-y-4 overflow-y-auto scroll-smooth p-4">
         <AnimatePresence initial={false}>
           {messages.map((message) => (
             <MessageBubble key={message.id} message={message} />
@@ -186,15 +197,15 @@ export function ChatUI({
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-border bg-muted/20">
-        <div className="flex gap-2 items-end">
+      <div className="border-t border-border bg-muted/20 p-4">
+        <div className="flex items-end gap-2">
           <Textarea
             ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
-            className="min-h-[44px] max-h-32 resize-none"
+            className="max-h-32 min-h-[44px] resize-none"
             rows={1}
           />
           <Button
@@ -207,7 +218,7 @@ export function ChatUI({
             <Send className="h-4 w-4" />
           </Button>
         </div>
-        <p className="text-[10px] text-muted-foreground mt-1.5 text-center">
+        <p className="mt-1.5 text-center text-[10px] text-muted-foreground">
           Press Enter to send, Shift+Enter for new line
         </p>
       </div>

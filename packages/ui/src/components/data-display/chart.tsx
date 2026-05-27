@@ -1,29 +1,31 @@
 "use client"
 
 import * as React from "react"
+
 import {
-  ResponsiveContainer,
-  LineChart as RechartsLineChart,
-  BarChart as RechartsBarChart,
+  Area,
+  Bar,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  Pie,
+  PolarAngleAxis,
+  PolarGrid,
+  PolarRadiusAxis,
+  Radar,
   AreaChart as RechartsAreaChart,
+  BarChart as RechartsBarChart,
+  LineChart as RechartsLineChart,
   PieChart as RechartsPieChart,
   RadarChart as RechartsRadarChart,
-  Line,
-  Bar,
-  Area,
-  Pie,
-  Cell,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
+  ResponsiveContainer,
+  Tooltip,
+  type TooltipProps,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  type TooltipProps,
 } from "recharts"
+
 import { cn } from "@benflux-ui/utils"
 
 // Chart container with consistent sizing
@@ -44,16 +46,23 @@ export function ChartContainer({ children, className, height = 300 }: ChartConta
 }
 
 // Custom tooltip
-export function ChartTooltip({ active, payload, label, formatter }: TooltipProps<number, string> & { formatter?: (value: number) => string }) {
+export function ChartTooltip({
+  active,
+  payload,
+  label,
+  formatter,
+}: TooltipProps<number, string> & { formatter?: (value: number) => string }) {
   if (!active || !payload?.length) return null
   return (
-    <div className="rounded-xl border border-border bg-background/95 backdrop-blur-sm p-3 shadow-lg text-sm">
-      {label && <p className="font-medium text-foreground mb-1.5">{label}</p>}
+    <div className="rounded-xl border border-border bg-background/95 p-3 text-sm shadow-lg backdrop-blur-sm">
+      {label && <p className="mb-1.5 font-medium text-foreground">{label}</p>}
       {payload.map((entry, i) => (
         <div key={i} className="flex items-center gap-2">
           <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
           <span className="text-muted-foreground">{entry.name}:</span>
-          <span className="font-medium">{formatter ? formatter(entry.value as number) : entry.value}</span>
+          <span className="font-medium">
+            {formatter ? formatter(entry.value as number) : entry.value}
+          </span>
         </div>
       ))}
     </div>
@@ -81,13 +90,31 @@ interface LineChartProps {
   curved?: boolean
 }
 
-export function LineChart({ data, lines, xKey, height = 300, className, grid = true, legend = true, curved = true }: LineChartProps) {
+export function LineChart({
+  data,
+  lines,
+  xKey,
+  height = 300,
+  className,
+  grid = true,
+  legend = true,
+  curved = true,
+}: LineChartProps) {
   return (
     <ChartContainer className={className} height={height}>
       <RechartsLineChart data={data}>
         {grid && <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />}
-        <XAxis dataKey={xKey} tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }} axisLine={false} tickLine={false} />
-        <YAxis tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }} axisLine={false} tickLine={false} />
+        <XAxis
+          dataKey={xKey}
+          tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+          axisLine={false}
+          tickLine={false}
+        />
+        <YAxis
+          tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+          axisLine={false}
+          tickLine={false}
+        />
         <Tooltip content={<ChartTooltip />} />
         {legend && <Legend />}
         {lines.map((line, i) => (
@@ -121,20 +148,50 @@ interface BarChartProps {
   horizontal?: boolean
 }
 
-export function BarChart({ data, bars, xKey, height = 300, className, grid = true, legend = true, stacked = false, horizontal = false }: BarChartProps) {
+export function BarChart({
+  data,
+  bars,
+  xKey,
+  height = 300,
+  className,
+  grid = true,
+  legend = true,
+  stacked = false,
+  horizontal = false,
+}: BarChartProps) {
   return (
     <ChartContainer className={className} height={height}>
       <RechartsBarChart data={data} layout={horizontal ? "vertical" : "horizontal"}>
         {grid && <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />}
         {horizontal ? (
           <>
-            <XAxis type="number" tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }} axisLine={false} tickLine={false} />
-            <YAxis type="category" dataKey={xKey} tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }} axisLine={false} tickLine={false} />
+            <XAxis
+              type="number"
+              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              type="category"
+              dataKey={xKey}
+              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+            />
           </>
         ) : (
           <>
-            <XAxis dataKey={xKey} tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }} axisLine={false} tickLine={false} />
+            <XAxis
+              dataKey={xKey}
+              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+            />
           </>
         )}
         <Tooltip content={<ChartTooltip />} />
@@ -167,7 +224,17 @@ interface AreaChartProps {
   curved?: boolean
 }
 
-export function AreaChart({ data, areas, xKey, height = 300, className, grid = true, legend = true, stacked = false, curved = true }: AreaChartProps) {
+export function AreaChart({
+  data,
+  areas,
+  xKey,
+  height = 300,
+  className,
+  grid = true,
+  legend = true,
+  stacked = false,
+  curved = true,
+}: AreaChartProps) {
   return (
     <ChartContainer className={className} height={height}>
       <RechartsAreaChart data={data}>
@@ -175,7 +242,14 @@ export function AreaChart({ data, areas, xKey, height = 300, className, grid = t
           {areas.map((area, i) => {
             const color = area.color ?? CHART_COLORS[i % CHART_COLORS.length]
             return (
-              <linearGradient key={area.key} id={`gradient-${area.key}`} x1="0" y1="0" x2="0" y2="1">
+              <linearGradient
+                key={area.key}
+                id={`gradient-${area.key}`}
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
                 <stop offset="5%" stopColor={color} stopOpacity={0.3} />
                 <stop offset="95%" stopColor={color} stopOpacity={0} />
               </linearGradient>
@@ -183,8 +257,17 @@ export function AreaChart({ data, areas, xKey, height = 300, className, grid = t
           })}
         </defs>
         {grid && <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />}
-        <XAxis dataKey={xKey} tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }} axisLine={false} tickLine={false} />
-        <YAxis tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }} axisLine={false} tickLine={false} />
+        <XAxis
+          dataKey={xKey}
+          tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+          axisLine={false}
+          tickLine={false}
+        />
+        <YAxis
+          tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+          axisLine={false}
+          tickLine={false}
+        />
         <Tooltip content={<ChartTooltip />} />
         {legend && <Legend />}
         {areas.map((area, i) => {
@@ -218,15 +301,37 @@ interface PieChartProps {
   label?: boolean
 }
 
-export function PieChart({ data, height = 300, className, legend = true, donut = false, label = true }: PieChartProps) {
-  const renderLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: Record<string, number>) => {
+export function PieChart({
+  data,
+  height = 300,
+  className,
+  legend = true,
+  donut = false,
+  label = true,
+}: PieChartProps) {
+  const renderLabel = ({
+    cx = 0,
+    cy = 0,
+    midAngle = 0,
+    innerRadius = 0,
+    outerRadius = 0,
+    percent = 0,
+  }: Record<string, number>) => {
     const RADIAN = Math.PI / 180
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5
     const x = cx + radius * Math.cos(-midAngle * RADIAN)
     const y = cy + radius * Math.sin(-midAngle * RADIAN)
     if (percent < 0.05) return null
     return (
-      <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight={500}>
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={12}
+        fontWeight={500}
+      >
         {`${(percent * 100).toFixed(0)}%`}
       </text>
     )
@@ -267,13 +372,27 @@ interface RadarChartProps {
   filled?: boolean
 }
 
-export function RadarChart({ data, radars, angleKey, height = 300, className, legend = true, filled = true }: RadarChartProps) {
+export function RadarChart({
+  data,
+  radars,
+  angleKey,
+  height = 300,
+  className,
+  legend = true,
+  filled = true,
+}: RadarChartProps) {
   return (
     <ChartContainer className={className} height={height}>
       <RechartsRadarChart data={data}>
         <PolarGrid stroke="hsl(var(--border))" />
-        <PolarAngleAxis dataKey={angleKey} tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }} />
-        <PolarRadiusAxis tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }} axisLine={false} />
+        <PolarAngleAxis
+          dataKey={angleKey}
+          tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+        />
+        <PolarRadiusAxis
+          tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+          axisLine={false}
+        />
         <Tooltip content={<ChartTooltip />} />
         {legend && <Legend />}
         {radars.map((radar, i) => {

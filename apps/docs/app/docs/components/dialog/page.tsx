@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
 import { PropsTable } from "@/components/docs/props-table"
+import { DialogDemo } from "@/components/previews/dialog-demo"
 
 export const metadata: Metadata = { title: "Dialog" }
 
@@ -14,29 +16,38 @@ export default function DialogPage() {
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Dialog</h1>
         <p className="text-lg text-muted-foreground">
-          A modal dialog that interrupts the user with important content and expects a response.
+          A modal window that interrupts the user with important content and expects a response.
         </p>
       </div>
 
-      <div className="flex items-center justify-center rounded-xl border border-border bg-muted/20 p-10">
-        <div className="w-full max-w-sm space-y-5 rounded-xl border border-border bg-background p-6 shadow-xl">
-          <div className="space-y-1.5">
-            <h3 className="text-lg font-semibold leading-none tracking-tight">Delete account</h3>
-            <p className="text-sm text-muted-foreground">
-              This action cannot be undone. This will permanently delete your account and remove
-              your data from our servers.
-            </p>
-          </div>
-          <div className="flex justify-end gap-2">
-            <button className="inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-accent">
-              Cancel
-            </button>
-            <button className="inline-flex h-9 items-center justify-center rounded-md bg-destructive px-4 text-sm font-medium text-destructive-foreground">
-              Delete account
-            </button>
-          </div>
-        </div>
-      </div>
+      <ComponentPreview
+        code={`import {
+  Dialog, DialogContent, DialogDescription,
+  DialogFooter, DialogHeader, DialogTitle, DialogTrigger,
+  Button,
+} from "@benflux-ui/react"
+
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Open Dialog</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Are you sure?</DialogTitle>
+      <DialogDescription>
+        This action cannot be undone. This will permanently delete
+        your account and remove your data from our servers.
+      </DialogDescription>
+    </DialogHeader>
+    <DialogFooter>
+      <Button variant="outline">Cancel</Button>
+      <Button variant="destructive">Delete Account</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>`}
+      >
+        <DialogDemo />
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -47,58 +58,21 @@ export default function DialogPage() {
         <h2 className="text-xl font-semibold tracking-tight">Usage</h2>
         <CodeBlock
           code={`import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
+  Dialog, DialogContent, DialogHeader,
+  DialogTitle, DialogTrigger,
+} from "@benflux-ui/react"
 
-export default function Example() {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Open dialog</Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="outline">Cancel</Button>
-          <Button variant="destructive">Confirm</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
-}`}
-        />
-      </div>
-
-      <div className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight">Props — Dialog</h2>
-        <PropsTable
-          props={[
-            { name: "open", type: "boolean", default: "—", description: "Controlled open state" },
-            {
-              name: "onOpenChange",
-              type: "(open: boolean) => void",
-              default: "—",
-              description: "Callback when open state changes",
-            },
-            {
-              name: "defaultOpen",
-              type: "boolean",
-              default: "false",
-              description: "Initial open state (uncontrolled)",
-            },
-          ]}
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Open</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Title</DialogTitle>
+    </DialogHeader>
+    Content here
+  </DialogContent>
+</Dialog>`}
         />
       </div>
 
@@ -110,13 +84,13 @@ export default function Example() {
               name: "size",
               type: '"sm" | "default" | "lg" | "xl" | "full"',
               default: '"default"',
-              description: "Width of the dialog panel",
+              description: "Maximum width of the dialog",
             },
             {
-              name: "onInteractOutside",
-              type: "(e: Event) => void",
-              default: "—",
-              description: "Callback when clicking outside the dialog",
+              name: "showClose",
+              type: "boolean",
+              default: "true",
+              description: "Shows the close button in the top-right corner",
             },
           ]}
         />

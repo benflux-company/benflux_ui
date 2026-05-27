@@ -1,16 +1,12 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
 import { PropsTable } from "@/components/docs/props-table"
 
-export const metadata: Metadata = { title: "Progress" }
+import { Progress } from "@benflux-ui/react"
 
-const bars = [
-  { label: "Storage", value: 68, color: "bg-primary" },
-  { label: "Bandwidth", value: 40, color: "bg-blue-500" },
-  { label: "CPU", value: 85, color: "bg-orange-500" },
-  { label: "Memory", value: 55, color: "bg-purple-500" },
-]
+export const metadata: Metadata = { title: "Progress" }
 
 export default function ProgressPage() {
   return (
@@ -25,22 +21,20 @@ export default function ProgressPage() {
         </p>
       </div>
 
-      <div className="mx-auto w-full max-w-sm space-y-5 rounded-xl border border-border bg-muted/20 p-10">
-        {bars.map((b) => (
-          <div key={b.label} className="space-y-1.5">
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span>{b.label}</span>
-              <span>{b.value}%</span>
-            </div>
-            <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
-              <div
-                className={`h-full rounded-full transition-all ${b.color}`}
-                style={{ width: `${b.value}%` }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
+      <ComponentPreview
+        code={`import { Progress } from "@benflux-ui/react"
+
+<Progress value={30} />
+<Progress value={60} variant="gradient" />
+<Progress value={80} variant="glow" showValue />`}
+        className="w-full max-w-sm flex-col gap-4"
+      >
+        <div className="flex w-full max-w-sm flex-col gap-4">
+          <Progress value={30} />
+          <Progress value={60} variant="gradient" />
+          <Progress value={80} variant="glow" showValue />
+        </div>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -50,21 +44,40 @@ export default function ProgressPage() {
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Usage</h2>
         <CodeBlock
-          code={`import { Progress } from "@/components/ui/progress"
+          code={`import { Progress } from "@benflux-ui/react"
 
-// Basic
-<Progress value={68} />
-
-// With label
-<Progress value={40} label="Bandwidth" showValue />
-
-// Colored variants
-<Progress value={85} color="orange" />
-<Progress value={55} color="purple" />
-
-// Animated (indeterminate)
-<Progress indeterminate />`}
+<Progress value={60} />`}
         />
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">With Label & Value</h2>
+        <ComponentPreview
+          code={`<Progress value={45} label="Uploading..." showValue />
+<Progress value={100} label="Complete" showValue variant="gradient" />`}
+          className="w-full max-w-sm flex-col gap-4"
+        >
+          <div className="flex w-full max-w-sm flex-col gap-4">
+            <Progress value={45} label="Uploading..." showValue />
+            <Progress value={100} label="Complete" showValue variant="gradient" />
+          </div>
+        </ComponentPreview>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">Sizes</h2>
+        <ComponentPreview
+          code={`<Progress value={60} size="sm" />
+<Progress value={60} size="default" />
+<Progress value={60} size="lg" />`}
+          className="w-full max-w-sm flex-col gap-3"
+        >
+          <div className="flex w-full max-w-sm flex-col gap-3">
+            <Progress value={60} size="sm" />
+            <Progress value={60} size="default" />
+            <Progress value={60} size="lg" />
+          </div>
+        </ComponentPreview>
       </div>
 
       <div className="space-y-3">
@@ -77,36 +90,35 @@ export default function ProgressPage() {
               default: "0",
               description: "Progress value from 0 to 100",
             },
-            { name: "max", type: "number", default: "100", description: "Maximum value" },
             {
-              name: "size",
-              type: '"xs" | "sm" | "default" | "lg"',
+              name: "variant",
+              type: '"default" | "gradient" | "glow" | "striped"',
               default: '"default"',
-              description: "Height of the progress bar",
+              description: "Visual style of the progress bar",
             },
             {
-              name: "color",
-              type: '"primary" | "blue" | "green" | "orange" | "purple" | "red"',
-              default: '"primary"',
-              description: "Color of the filled bar",
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              default: '"default"',
+              description: "Height of the progress bar",
             },
             {
               name: "showValue",
               type: "boolean",
               default: "false",
-              description: "Shows percentage label",
+              description: "Shows the percentage value",
             },
             {
               name: "label",
               type: "string",
               default: "—",
-              description: "Label shown above the bar",
+              description: "Label displayed above the progress bar",
             },
             {
-              name: "indeterminate",
+              name: "animated",
               type: "boolean",
-              default: "false",
-              description: "Animated loading state with no fixed value",
+              default: "true",
+              description: "Enables fill animation on mount",
             },
           ]}
         />

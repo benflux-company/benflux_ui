@@ -1,7 +1,18 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
 import { PropsTable } from "@/components/docs/props-table"
+
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@benflux-ui/react"
 
 export const metadata: Metadata = { title: "Card" }
 
@@ -14,30 +25,41 @@ export default function CardPage() {
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Card</h1>
         <p className="text-lg text-muted-foreground">
-          A versatile container with header, content, and footer sections.
+          Displays a card with header, content, and footer sections.
         </p>
       </div>
 
-      <div className="flex items-center justify-center rounded-xl border border-border bg-muted/20 p-10">
-        <div className="w-full max-w-sm overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-          <div className="p-6 pb-4">
-            <h3 className="font-semibold leading-none tracking-tight">Card Title</h3>
-            <p className="mt-1.5 text-sm text-muted-foreground">Card description goes here.</p>
-          </div>
-          <div className="px-6 pb-4">
-            <p className="text-sm text-muted-foreground">
-              This is the card content area. You can put any content here — text, images, forms,
-              charts, etc.
-            </p>
-          </div>
-          <div className="flex items-center justify-between border-t border-border bg-muted/20 px-6 py-4">
-            <span className="text-xs text-muted-foreground">Card footer</span>
-            <button className="inline-flex h-7 items-center justify-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground">
-              Action
-            </button>
-          </div>
-        </div>
-      </div>
+      <ComponentPreview
+        code={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button } from "@benflux-ui/react"
+
+<Card className="w-[350px]">
+  <CardHeader>
+    <CardTitle>Create project</CardTitle>
+    <CardDescription>Deploy your new project in one-click.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p className="text-sm text-muted-foreground">Project settings and configuration.</p>
+  </CardContent>
+  <CardFooter className="flex justify-between">
+    <Button variant="outline">Cancel</Button>
+    <Button>Deploy</Button>
+  </CardFooter>
+</Card>`}
+      >
+        <Card className="w-[350px]">
+          <CardHeader>
+            <CardTitle>Create project</CardTitle>
+            <CardDescription>Deploy your new project in one-click.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">Project settings and configuration.</p>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button variant="outline">Cancel</Button>
+            <Button>Deploy</Button>
+          </CardFooter>
+        </Card>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -47,32 +69,38 @@ export default function CardPage() {
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Usage</h2>
         <CodeBlock
-          code={`import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card"
+          code={`import { Card, CardHeader, CardTitle, CardContent } from "@benflux-ui/react"
 
-export default function Example() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card description</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p>Card content goes here.</p>
-      </CardContent>
-      <CardFooter>
-        <Button>Action</Button>
-      </CardFooter>
-    </Card>
-  )
-}`}
+<Card>
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+  </CardHeader>
+  <CardContent>Content goes here.</CardContent>
+</Card>`}
         />
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">Variants</h2>
+        <ComponentPreview
+          code={`<Card variant="default"><CardContent className="pt-6">Default</CardContent></Card>
+<Card variant="ghost"><CardContent className="pt-6">Ghost</CardContent></Card>
+<Card variant="outline"><CardContent className="pt-6">Outline</CardContent></Card>
+<Card variant="glow"><CardContent className="pt-6">Glow</CardContent></Card>`}
+        >
+          <Card variant="default" className="w-32 text-center">
+            <CardContent className="pt-6">Default</CardContent>
+          </Card>
+          <Card variant="outlined" className="w-32 text-center">
+            <CardContent className="pt-6">Outlined</CardContent>
+          </Card>
+          <Card variant="elevated" className="w-32 text-center">
+            <CardContent className="pt-6">Elevated</CardContent>
+          </Card>
+          <Card variant="glow" className="w-32 text-center">
+            <CardContent className="pt-6">Glow</CardContent>
+          </Card>
+        </ComponentPreview>
       </div>
 
       <div className="space-y-3">
@@ -81,7 +109,7 @@ export default function Example() {
           props={[
             {
               name: "variant",
-              type: '"default" | "bordered" | "ghost" | "gradient"',
+              type: '"default" | "outlined" | "elevated" | "glow" | "glass" | "gradient"',
               default: '"default"',
               description: "Visual style of the card",
             },
@@ -89,13 +117,7 @@ export default function Example() {
               name: "padding",
               type: '"none" | "sm" | "default" | "lg"',
               default: '"default"',
-              description: "Internal padding amount",
-            },
-            {
-              name: "className",
-              type: "string",
-              default: "—",
-              description: "Additional CSS classes",
+              description: "Internal padding of the card",
             },
           ]}
         />

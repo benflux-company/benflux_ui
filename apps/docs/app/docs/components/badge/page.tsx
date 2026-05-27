@@ -1,28 +1,12 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
 import { PropsTable } from "@/components/docs/props-table"
 
-export const metadata: Metadata = { title: "Badge" }
+import { Badge } from "@benflux-ui/react"
 
-const badges = [
-  { label: "Default", cls: "bg-primary/10 text-primary border-primary/20" },
-  {
-    label: "Success",
-    cls: "bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20",
-  },
-  {
-    label: "Warning",
-    cls: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20",
-  },
-  { label: "Error", cls: "bg-destructive/10 text-destructive border-destructive/20" },
-  { label: "Outline", cls: "border-border text-foreground" },
-  { label: "Secondary", cls: "bg-secondary text-secondary-foreground border-secondary" },
-  {
-    label: "Gradient",
-    cls: "bg-gradient-to-r from-primary/20 to-purple-500/20 text-primary border-primary/20",
-  },
-]
+export const metadata: Metadata = { title: "Badge" }
 
 export default function BadgePage() {
   return (
@@ -37,16 +21,25 @@ export default function BadgePage() {
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-3 rounded-xl border border-border bg-muted/20 p-10">
-        {badges.map((b) => (
-          <span
-            key={b.label}
-            className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${b.cls}`}
-          >
-            {b.label}
-          </span>
-        ))}
-      </div>
+      <ComponentPreview
+        code={`import { Badge } from "@benflux-ui/react"
+
+<Badge>Default</Badge>
+<Badge variant="success">Success</Badge>
+<Badge variant="warning">Warning</Badge>
+<Badge variant="destructive">Destructive</Badge>
+<Badge variant="outline">Outline</Badge>
+<Badge variant="secondary">Secondary</Badge>
+<Badge variant="gradient">Gradient</Badge>`}
+      >
+        <Badge>Default</Badge>
+        <Badge variant="success">Success</Badge>
+        <Badge variant="warning">Warning</Badge>
+        <Badge variant="destructive">Destructive</Badge>
+        <Badge variant="outline">Outline</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="gradient">Gradient</Badge>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -56,14 +49,25 @@ export default function BadgePage() {
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Usage</h2>
         <CodeBlock
-          code={`import { Badge } from "@/components/ui/badge"
+          code={`import { Badge } from "@benflux-ui/react"
 
-<Badge>Default</Badge>
-<Badge variant="success">Success</Badge>
-<Badge variant="warning">Warning</Badge>
-<Badge variant="error">Error</Badge>
-<Badge variant="outline">Outline</Badge>`}
+export default function Example() {
+  return <Badge variant="success">Active</Badge>
+}`}
         />
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">Sizes</h2>
+        <ComponentPreview
+          code={`<Badge size="sm">Small</Badge>
+<Badge size="default">Default</Badge>
+<Badge size="lg">Large</Badge>`}
+        >
+          <Badge size="sm">Small</Badge>
+          <Badge size="default">Default</Badge>
+          <Badge size="lg">Large</Badge>
+        </ComponentPreview>
       </div>
 
       <div className="space-y-3">
@@ -72,7 +76,7 @@ export default function BadgePage() {
           props={[
             {
               name: "variant",
-              type: '"default" | "success" | "warning" | "error" | "outline" | "secondary" | "gradient"',
+              type: '"default" | "success" | "warning" | "destructive" | "outline" | "secondary" | "gradient" | "glow"',
               default: '"default"',
               description: "Visual style of the badge",
             },

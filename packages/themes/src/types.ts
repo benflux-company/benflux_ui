@@ -1,4 +1,12 @@
-export type ThemeName = "light" | "dark" | "amoled" | "glass" | "neon" | "cyberpunk" | "luxury" | "minimal"
+export type ThemeName =
+  | "light"
+  | "dark"
+  | "amoled"
+  | "glass"
+  | "neon"
+  | "cyberpunk"
+  | "luxury"
+  | "minimal"
 
 export interface NebulaTheme {
   name: ThemeName | string
@@ -8,6 +16,6 @@ export interface NebulaTheme {
 export interface ThemeContextValue {
   theme: ThemeName
   setTheme: (theme: ThemeName) => void
-  resolvedTheme: "light" | "dark"
+  resolvedTheme: ThemeName
   systemTheme: "light" | "dark"
 }

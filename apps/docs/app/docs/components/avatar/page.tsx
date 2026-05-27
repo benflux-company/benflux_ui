@@ -1,16 +1,12 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
 import { PropsTable } from "@/components/docs/props-table"
 
-export const metadata: Metadata = { title: "Avatar" }
+import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@benflux-ui/react"
 
-const avatars = [
-  { initials: "JD", bg: "hsl(220 70% 50%)" },
-  { initials: "AS", bg: "hsl(280 70% 50%)" },
-  { initials: "BK", bg: "hsl(150 70% 40%)" },
-  { initials: "MR", bg: "hsl(0 70% 50%)" },
-]
+export const metadata: Metadata = { title: "Avatar" }
 
 export default function AvatarPage() {
   return (
@@ -25,43 +21,29 @@ export default function AvatarPage() {
         </p>
       </div>
 
-      <div className="flex flex-col items-center gap-8 rounded-xl border border-border bg-muted/20 p-10">
-        {/* Single sizes */}
-        <div className="flex items-end gap-4">
-          {[8, 10, 12, 16].map((size, i) => (
-            <div
-              key={size}
-              className="flex items-center justify-center rounded-full font-semibold text-white"
-              style={{
-                width: size * 4,
-                height: size * 4,
-                background: "hsl(220 70% 50%)",
-                fontSize: Math.max(10, size * 1.5),
-              }}
-            >
-              JD
-            </div>
-          ))}
-        </div>
-        {/* Group */}
-        <div className="flex items-center gap-3">
-          <div className="flex -space-x-3">
-            {avatars.map(({ initials, bg }) => (
-              <div
-                key={initials}
-                className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background text-xs font-semibold text-white"
-                style={{ background: bg }}
-              >
-                {initials}
-              </div>
-            ))}
-            <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-muted text-xs font-semibold text-muted-foreground">
-              +5
-            </div>
-          </div>
-          <span className="text-sm text-muted-foreground">9 members</span>
-        </div>
-      </div>
+      <ComponentPreview
+        code={`import { Avatar, AvatarFallback, AvatarImage } from "@benflux-ui/react"
+
+<Avatar size="xl">
+  <AvatarImage src="https://github.com/shadcn.png" />
+  <AvatarFallback>BF</AvatarFallback>
+</Avatar>`}
+      >
+        <Avatar size="xl">
+          <AvatarImage src="https://github.com/shadcn.png" alt="User" />
+          <AvatarFallback>BF</AvatarFallback>
+        </Avatar>
+        <Avatar size="lg">
+          <AvatarFallback>JD</AvatarFallback>
+        </Avatar>
+        <Avatar>
+          <AvatarImage src="https://github.com/vercel.png" alt="Vercel" />
+          <AvatarFallback>VC</AvatarFallback>
+        </Avatar>
+        <Avatar size="sm">
+          <AvatarFallback>AB</AvatarFallback>
+        </Avatar>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -71,52 +53,111 @@ export default function AvatarPage() {
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Usage</h2>
         <CodeBlock
-          code={`import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+          code={`import { Avatar, AvatarFallback, AvatarImage } from "@benflux-ui/react"
 
-// With image
 <Avatar>
-  <AvatarImage src="https://github.com/user.png" alt="User" />
+  <AvatarImage src="/avatar.png" alt="John Doe" />
   <AvatarFallback>JD</AvatarFallback>
-</Avatar>
-
-// Initials only
-<Avatar>
-  <AvatarFallback>AB</AvatarFallback>
-</Avatar>
-
-// Group
-<div className="flex -space-x-3">
-  <Avatar className="border-2 border-background">
-    <AvatarFallback>JD</AvatarFallback>
-  </Avatar>
-  <Avatar className="border-2 border-background">
-    <AvatarFallback>AS</AvatarFallback>
-  </Avatar>
-</div>`}
+</Avatar>`}
         />
       </div>
 
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">Sizes</h2>
+        <ComponentPreview
+          code={`<Avatar size="xs"><AvatarFallback>XS</AvatarFallback></Avatar>
+<Avatar size="sm"><AvatarFallback>SM</AvatarFallback></Avatar>
+<Avatar><AvatarFallback>MD</AvatarFallback></Avatar>
+<Avatar size="lg"><AvatarFallback>LG</AvatarFallback></Avatar>
+<Avatar size="xl"><AvatarFallback>XL</AvatarFallback></Avatar>
+<Avatar size="2xl"><AvatarFallback>2X</AvatarFallback></Avatar>`}
+        >
+          <Avatar size="xs">
+            <AvatarFallback>XS</AvatarFallback>
+          </Avatar>
+          <Avatar size="sm">
+            <AvatarFallback>SM</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarFallback>MD</AvatarFallback>
+          </Avatar>
+          <Avatar size="lg">
+            <AvatarFallback>LG</AvatarFallback>
+          </Avatar>
+          <Avatar size="xl">
+            <AvatarFallback>XL</AvatarFallback>
+          </Avatar>
+          <Avatar size="2xl">
+            <AvatarFallback>2X</AvatarFallback>
+          </Avatar>
+        </ComponentPreview>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">With Ring</h2>
+        <ComponentPreview
+          code={`<Avatar ring="default"><AvatarFallback>D</AvatarFallback></Avatar>
+<Avatar ring="primary"><AvatarFallback>P</AvatarFallback></Avatar>
+<Avatar ring="glow"><AvatarFallback>G</AvatarFallback></Avatar>`}
+        >
+          <Avatar ring="default">
+            <AvatarFallback>D</AvatarFallback>
+          </Avatar>
+          <Avatar ring="primary">
+            <AvatarFallback>P</AvatarFallback>
+          </Avatar>
+          <Avatar ring="glow">
+            <AvatarFallback>G</AvatarFallback>
+          </Avatar>
+        </ComponentPreview>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">Group</h2>
+        <ComponentPreview
+          code={`<AvatarGroup max={3}>
+  <Avatar><AvatarFallback>A</AvatarFallback></Avatar>
+  <Avatar><AvatarFallback>B</AvatarFallback></Avatar>
+  <Avatar><AvatarFallback>C</AvatarFallback></Avatar>
+  <Avatar><AvatarFallback>D</AvatarFallback></Avatar>
+  <Avatar><AvatarFallback>E</AvatarFallback></Avatar>
+</AvatarGroup>`}
+        >
+          <AvatarGroup max={3}>
+            <Avatar>
+              <AvatarFallback>A</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarFallback>B</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarFallback>C</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarFallback>D</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarFallback>E</AvatarFallback>
+            </Avatar>
+          </AvatarGroup>
+        </ComponentPreview>
+      </div>
+
       <div className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight">Props — Avatar</h2>
+        <h2 className="text-xl font-semibold tracking-tight">Props</h2>
         <PropsTable
           props={[
             {
               name: "size",
-              type: '"xs" | "sm" | "default" | "lg" | "xl"',
+              type: '"xs" | "sm" | "default" | "lg" | "xl" | "2xl"',
               default: '"default"',
               description: "Size of the avatar",
             },
             {
-              name: "shape",
-              type: '"circle" | "square"',
-              default: '"circle"',
-              description: "Border radius shape",
-            },
-            {
-              name: "status",
-              type: '"online" | "offline" | "busy" | "away"',
-              default: "—",
-              description: "Shows a status indicator dot",
+              name: "ring",
+              type: '"none" | "default" | "primary" | "glow"',
+              default: '"none"',
+              description: "Ring style around the avatar",
             },
           ]}
         />
