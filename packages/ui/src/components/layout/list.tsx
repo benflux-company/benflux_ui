@@ -85,7 +85,7 @@ function List<T>({
 
 // ─── ListItem ───────────────────────────────────────────────────────────────
 
-interface ListItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
+interface ListItemProps extends Omit<React.LiHTMLAttributes<HTMLLIElement>, "title"> {
   avatar?: React.ReactNode
   title?: React.ReactNode
   description?: React.ReactNode
