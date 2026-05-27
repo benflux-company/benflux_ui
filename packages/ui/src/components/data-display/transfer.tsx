@@ -204,4 +204,4 @@ function Transfer({
 }
 
 export { Transfer }
-export type { TransferProps, TransferItem }
+export type { TransferProps }

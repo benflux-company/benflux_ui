@@ -174,7 +174,7 @@ function ImageLightbox({ images, initialIndex = 0, onClose }: ImageLightboxProps
   const [offset, setOffset] = React.useState({ x: 0, y: 0 })
   const [dragStart, setDragStart] = React.useState({ x: 0, y: 0 })
 
-  const current = images[index]
+  const current = images[index]!
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

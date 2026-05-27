@@ -228,4 +228,4 @@ function TreeNode({
 }
 
 export { Tree }
-export type { TreeProps, TreeDataNode }
+export type { TreeProps }

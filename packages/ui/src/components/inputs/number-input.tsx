@@ -6,7 +6,7 @@ import { cn } from "@benflux-ui/utils"
 
 interface InputNumberProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  "onChange" | "value"
+  "onChange" | "value" | "prefix"
 > {
   value?: number
   onChange?: (value: number) => void

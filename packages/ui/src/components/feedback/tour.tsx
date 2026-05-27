@@ -206,4 +206,4 @@ function Tour({
 }
 
 export { Tour }
-export type { TourProps, TourStep }
+export type { TourProps }

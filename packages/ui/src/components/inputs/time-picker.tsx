@@ -101,11 +101,6 @@ function TimePicker({
     onChange?.(next)
   }
 
-  const displayTime =
-    value || internal
-      ? `${pad(use12Hours && displayTime.hour > 12 ? displayTime.hour - 12 : current.hour)}:${pad(current.minute)}${showSecond ? `:${pad(current.second ?? 0)}` : ""}${use12Hours ? ` ${current.period ?? "AM"}` : ""}`
-      : placeholder
-
   const formatDisplay = () => {
     const h = use12Hours
       ? current.hour > 12
@@ -114,6 +109,8 @@ function TimePicker({
       : current.hour
     return `${pad(h)}:${pad(current.minute)}${showSecond ? `:${pad(current.second ?? 0)}` : ""}${use12Hours ? ` ${current.period ?? "AM"}` : ""}`
   }
+
+  const displayTime = value || internal ? formatDisplay() : placeholder
 
   return (
     <div className={cn("relative inline-block", className)}>
@@ -127,7 +124,7 @@ function TimePicker({
       >
         <Clock className="h-4 w-4 text-muted-foreground" />
         <span className={cn(!value && !internal ? "text-muted-foreground" : "text-foreground")}>
-          {formatDisplay()}
+          {displayTime}
         </span>
       </button>
 

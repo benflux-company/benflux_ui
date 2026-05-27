@@ -38,7 +38,23 @@ function QRCode({
   bordered = false,
   className,
 }: QRCodeProps) {
-  const qrProps = { value, size, level, bgColor, fgColor, includeMargin, imageSettings }
+  const normalizedImageSettings = imageSettings
+    ? {
+        src: imageSettings.src,
+        height: imageSettings.height ?? 24,
+        width: imageSettings.width ?? 24,
+        excavate: imageSettings.excavate ?? true,
+      }
+    : undefined
+  const qrProps = {
+    value,
+    size,
+    level,
+    bgColor,
+    fgColor,
+    includeMargin,
+    imageSettings: normalizedImageSettings,
+  }
 
   return (
     <div

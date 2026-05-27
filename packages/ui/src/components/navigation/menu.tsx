@@ -159,4 +159,4 @@ function MenuNode({
 }
 
 export { Menu }
-export type { MenuProps, MenuItem }
+export type { MenuProps }
