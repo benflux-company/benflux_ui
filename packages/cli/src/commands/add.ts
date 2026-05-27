@@ -1,10 +1,11 @@
-import path from "path"
 import * as clack from "@clack/prompts"
-import pc from "picocolors"
-import fs from "fs-extra"
 import { execa } from "execa"
-import { getComponent, searchComponents, REGISTRY } from "../utils/registry.js"
+import fs from "fs-extra"
+import path from "path"
+import pc from "picocolors"
+
 import { detectPackageManager, getComponentsPath } from "../utils/detect-framework.js"
+import { REGISTRY, getComponent } from "../utils/registry.js"
 
 interface AddOptions {
   yes?: boolean
@@ -21,42 +22,36 @@ export async function addCommand(components: string[], options: AddOptions) {
   const configPath = path.join(cwd, "benflux-ui.json")
   let config: { aliases?: { components?: string } } = {}
   if (await fs.pathExists(configPath)) {
-    config = await fs.readJson(configPath) as typeof config
+    config = (await fs.readJson(configPath)) as typeof config
   }
 
   const defaultDir = options.path ?? (await getComponentsPath(cwd))
 
   let selectedComponents = components
 
-  // Interactive selection if no components specified
+  // Interactive selection if no components specified — flat multiselect like shadcn/ui
   if (selectedComponents.length === 0) {
-    const categories = [...new Set(REGISTRY.map((c) => c.category))]
-
-    const category = await clack.select({
-      message: "Select component category:",
-      options: [
-        { label: "All components", value: "all" },
-        ...categories.map((c) => ({
-          label: c.charAt(0).toUpperCase() + c.slice(1),
-          value: c,
-        })),
-      ],
-    })
-
-    if (clack.isCancel(category)) {
-      clack.cancel("Cancelled.")
-      process.exit(0)
+    const categoryLabel: Record<string, string> = {
+      layout: "Layout",
+      inputs: "Inputs",
+      navigation: "Navigation",
+      feedback: "Feedback",
+      "data-display": "Data Display",
+      ai: "AI",
+      wow: "WOW Effects",
     }
 
-    const componentOptions =
-      category === "all"
-        ? REGISTRY
-        : REGISTRY.filter((c) => c.category === category)
+    const sorted = [...REGISTRY].sort((a, b) =>
+      a.category === b.category
+        ? a.name.localeCompare(b.name)
+        : a.category.localeCompare(b.category),
+    )
 
     const selected = await clack.multiselect({
-      message: "Select components to add:",
-      options: componentOptions.map((c) => ({
-        label: `${c.name} — ${c.description}`,
+      message: "Which components would you like to add?",
+      options: sorted.map((c) => ({
+        label: c.name,
+        hint: `${categoryLabel[c.category] ?? c.category} — ${c.description}`,
         value: c.name,
       })),
     })
@@ -74,7 +69,9 @@ export async function addCommand(components: string[], options: AddOptions) {
     .map((name) => {
       const component = getComponent(name)
       if (!component) {
-        clack.log.warn(`Component ${pc.yellow(name)} not found. Use ${pc.cyan("benflux-ui list")} to see available components.`)
+        clack.log.warn(
+          `Component ${pc.yellow(name)} not found. Use ${pc.cyan("benflux-ui list")} to see available components.`,
+        )
         return null
       }
       return component
@@ -141,17 +138,15 @@ export async function addCommand(components: string[], options: AddOptions) {
       const targetPath = path.join(cwd, defaultDir, path.basename(file))
 
       if ((await fs.pathExists(targetPath)) && !options.overwrite) {
-        spinner.stop(`${pc.yellow("skipped")} ${component.name} (already exists — use --overwrite to replace)`)
+        spinner.stop(
+          `${pc.yellow("skipped")} ${component.name} (already exists — use --overwrite to replace)`,
+        )
         continue
       }
 
       // In a real implementation, this would fetch from the registry API
       // For local usage, it copies from node_modules/@benflux-ui/react
-      const sourcePath = path.join(
-        cwd,
-        "node_modules/@benflux-ui/react/src",
-        file,
-      )
+      const sourcePath = path.join(cwd, "node_modules/@benflux-ui/react/src", file)
 
       if (await fs.pathExists(sourcePath)) {
         await fs.ensureDir(path.dirname(targetPath))
@@ -174,7 +169,16 @@ export async function addCommand(components: string[], options: AddOptions) {
       pc.green("✓") + " Components added successfully!",
       "",
       pc.bold("Usage:"),
-      `  ${pc.cyan(`import { ${validComponents.map((c) => c?.name.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join("")).join(", ")} } from "@benflux-ui/react"`)}`,
+      `  ${pc.cyan(
+        `import { ${validComponents
+          .map((c) =>
+            c?.name
+              .split("-")
+              .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+              .join(""),
+          )
+          .join(", ")} } from "@benflux-ui/react"`,
+      )}`,
     ].join("\n"),
   )
 }
