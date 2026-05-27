@@ -145,16 +145,15 @@ export async function addCommand(components: string[], options: AddOptions) {
 
     spinner.start(`Adding ${pc.cyan(component.name)}...`)
 
+    let skipped = true
     for (const file of component.files) {
       const targetPath = path.join(cwd, defaultDir, path.basename(file))
 
-      if ((await fs.pathExists(targetPath)) && !options.overwrite) {
-        spinner.stop(
-          `${pc.yellow("skipped")} ${component.name} (already exists — use --overwrite to replace)`,
-        )
-        continue
+      if (await fs.pathExists(targetPath)) {
+        if (!options.overwrite) continue
       }
 
+      skipped = false
       await fs.ensureDir(path.dirname(targetPath))
 
       // Try local node_modules first, then fall back to unpkg CDN
@@ -171,11 +170,18 @@ export async function addCommand(components: string[], options: AddOptions) {
         } catch (err) {
           spinner.stop(pc.red(`Failed to fetch ${file}: ${(err as Error).message}`))
           clack.log.warn(`Download manually from: ${url}`)
+          continue
         }
       }
     }
 
-    spinner.stop(`${pc.green("✓")} Added ${component.name}`)
+    if (skipped) {
+      spinner.stop(
+        `${pc.yellow("skipped")} ${component.name} — already exists (use --overwrite to replace)`,
+      )
+    } else {
+      spinner.stop(`${pc.green("✓")} Added ${component.name}`)
+    }
   }
 
   clack.outro(
