@@ -1,3 +1,5 @@
+"use client"
+
 export { BenfluxProvider, useTheme } from "./provider"
 export { lightTheme, darkTheme } from "./themes/default"
 export { cyberpunkTheme } from "./themes/cyberpunk"

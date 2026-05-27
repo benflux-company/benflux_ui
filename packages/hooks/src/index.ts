@@ -1,3 +1,5 @@
+"use client"
+
 export { useMediaQuery, useBreakpoint } from "./use-media-query"
 export { useDebounce, useDebouncedCallback } from "./use-debounce"
 export { useLocalStorage } from "./use-local-storage"

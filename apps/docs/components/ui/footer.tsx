@@ -85,7 +85,16 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Benflux UI. MIT License.
+            © {new Date().getFullYear()} Benflux UI. MIT License. A product of{" "}
+            <a
+              href="https://benflux-corp.com"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-2 transition-colors hover:text-foreground"
+            >
+              Benflux
+            </a>
+            .
           </p>
           <p className="text-xs text-muted-foreground">
             Built with{" "}
