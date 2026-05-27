@@ -8,6 +8,7 @@ import {
   detectFramework,
   detectPackageManager,
   getComponentsPath,
+  hasSrcDir,
   hasTailwind,
 } from "../utils/detect-framework.js"
 
@@ -25,6 +26,7 @@ export async function initCommand(options: InitOptions) {
   const framework = await detectFramework(cwd)
   const pm = await detectPackageManager(cwd)
   const hasTw = await hasTailwind(cwd)
+  const useSrc = await hasSrcDir(cwd)
   const defaultPath = await getComponentsPath(cwd)
 
   clack.note(
@@ -96,6 +98,10 @@ export async function initCommand(options: InitOptions) {
   await fs.ensureDir(componentsPath)
   spinner.stop(`Components directory: ${pc.cyan(settings.componentsDir)}`)
 
+  const libDir = useSrc ? "src/lib" : "lib"
+  const globalsCss = useSrc ? "src/app/globals.css" : "app/globals.css"
+  const componentsAlias = `@/${settings.componentsDir.replace(/^src\//, "")}`
+
   // Write benflux-ui.json config
   spinner.start("Creating benflux-ui.json config...")
   const config = {
@@ -103,12 +109,12 @@ export async function initCommand(options: InitOptions) {
     style: "default",
     typescript: settings.typescript,
     tailwind: {
-      config: hasTw ? "tailwind.config.ts" : "tailwind.config.ts",
-      css: "src/app/globals.css",
+      config: "tailwind.config.ts",
+      css: globalsCss,
       baseColor: "default",
     },
     aliases: {
-      components: `@/${settings.componentsDir.replace("src/", "")}`,
+      components: componentsAlias,
       utils: "@/lib/utils",
     },
   }
@@ -117,13 +123,13 @@ export async function initCommand(options: InitOptions) {
 
   // Write utils file
   spinner.start("Creating utility functions...")
-  const utilsDir = path.join(cwd, "src/lib")
+  const utilsDir = path.join(cwd, libDir)
   await fs.ensureDir(utilsDir)
   await fs.writeFile(
     path.join(utilsDir, "utils.ts"),
     `import { clsx, type ClassValue } from "clsx"\nimport { twMerge } from "tailwind-merge"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n`,
   )
-  spinner.stop("lib/utils.ts created")
+  spinner.stop(`${libDir}/utils.ts created`)
 
   // Install dependencies
   if (settings.installDeps) {

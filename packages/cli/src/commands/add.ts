@@ -48,7 +48,8 @@ export async function addCommand(components: string[], options: AddOptions) {
     )
 
     const selected = await clack.multiselect({
-      message: "Which components would you like to add?",
+      message:
+        "Which components would you like to add?  ↑↓ navigate · Space select · Enter confirm",
       options: sorted.map((c) => ({
         label: c.name,
         hint: `${categoryLabel[c.category] ?? c.category} — ${c.description}`,
@@ -144,20 +145,23 @@ export async function addCommand(components: string[], options: AddOptions) {
         continue
       }
 
-      // In a real implementation, this would fetch from the registry API
-      // For local usage, it copies from node_modules/@benflux-ui/react
-      const sourcePath = path.join(cwd, "node_modules/@benflux-ui/react/src", file)
+      await fs.ensureDir(path.dirname(targetPath))
 
-      if (await fs.pathExists(sourcePath)) {
-        await fs.ensureDir(path.dirname(targetPath))
-        await fs.copy(sourcePath, targetPath)
+      // Try local node_modules first, then fall back to unpkg CDN
+      const localSrc = path.join(cwd, "node_modules/@benflux-ui/react/src", file)
+      if (await fs.pathExists(localSrc)) {
+        await fs.copy(localSrc, targetPath)
       } else {
-        // Write a stub if source not found (happens during dev)
-        await fs.ensureDir(path.dirname(targetPath))
-        await fs.writeFile(
-          targetPath,
-          `// ${component.name} — Install @benflux-ui/react to get the full component\nexport {} from "@benflux-ui/react"\n`,
-        )
+        const url = `https://unpkg.com/@benflux-ui/react@latest/src/${file}`
+        try {
+          const res = await fetch(url)
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          const source = await res.text()
+          await fs.writeFile(targetPath, source, "utf-8")
+        } catch (err) {
+          spinner.stop(pc.red(`Failed to fetch ${file}: ${(err as Error).message}`))
+          clack.log.warn(`Download manually from: ${url}`)
+        }
       }
     }
 

@@ -1,6 +1,6 @@
 {
   "name": "@benflux-ui/react",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Beautiful, animated, accessible UI components for React & Next.js",
   "keywords": [
     "react",
@@ -37,6 +37,7 @@
   ],
   "files": [
     "dist",
+    "src",
     "README.md"
   ],
   "scripts": {

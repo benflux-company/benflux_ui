@@ -1,5 +1,5 @@
-import path from "path"
 import fs from "fs-extra"
+import path from "path"
 
 export type Framework = "next" | "vite-react" | "remix" | "astro" | "unknown"
 export type PackageManager = "pnpm" | "yarn" | "npm" | "bun"
@@ -8,7 +8,7 @@ export async function detectFramework(cwd: string): Promise<Framework> {
   const pkgPath = path.join(cwd, "package.json")
   if (!(await fs.pathExists(pkgPath))) return "unknown"
 
-  const pkg = await fs.readJson(pkgPath) as {
+  const pkg = (await fs.readJson(pkgPath)) as {
     dependencies?: Record<string, string>
     devDependencies?: Record<string, string>
   }
@@ -36,13 +36,12 @@ export async function detectTailwindVersion(cwd: string): Promise<3 | 4 | null> 
   const pkgPath = path.join(cwd, "package.json")
   if (!(await fs.pathExists(pkgPath))) return null
 
-  const pkg = await fs.readJson(pkgPath) as {
+  const pkg = (await fs.readJson(pkgPath)) as {
     dependencies?: Record<string, string>
     devDependencies?: Record<string, string>
   }
 
-  const tailwindVersion =
-    pkg.dependencies?.["tailwindcss"] ?? pkg.devDependencies?.["tailwindcss"]
+  const tailwindVersion = pkg.dependencies?.["tailwindcss"] ?? pkg.devDependencies?.["tailwindcss"]
 
   if (!tailwindVersion) return null
   if (tailwindVersion.startsWith("4") || tailwindVersion.startsWith("^4")) return 4
@@ -52,6 +51,10 @@ export async function detectTailwindVersion(cwd: string): Promise<3 | 4 | null> 
 export async function hasTailwind(cwd: string): Promise<boolean> {
   const version = await detectTailwindVersion(cwd)
   return version !== null
+}
+
+export async function hasSrcDir(cwd: string): Promise<boolean> {
+  return fs.pathExists(path.join(cwd, "src"))
 }
 
 export async function getComponentsPath(cwd: string): Promise<string> {
@@ -70,11 +73,6 @@ export async function getComponentsPath(cwd: string): Promise<string> {
     }
   }
 
-  // Default for Next.js App Router
-  const framework = await detectFramework(cwd)
-  if (framework === "next") {
-    return "src/components/ui"
-  }
-
-  return "src/components/ui"
+  const useSrc = await hasSrcDir(cwd)
+  return useSrc ? "src/components/ui" : "components/ui"
 }
