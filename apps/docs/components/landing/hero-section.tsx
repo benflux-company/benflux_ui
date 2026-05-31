@@ -30,7 +30,7 @@ export function HeroSection() {
             transition={{ duration: 0.4 }}
           >
             <Link
-              href="/docs/changelog"
+              href="/changelog"
               className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" />

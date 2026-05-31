@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
+import { PropsTable } from "@/components/docs/props-table"
 
 import { Descriptions, DescriptionsItem } from "@benflux-ui/react"
 
@@ -20,23 +22,36 @@ export default function DescriptionsPage() {
         </p>
       </div>
 
-      <div className="space-y-6">
-        <Descriptions title="User Info" bordered column={2}>
-          <DescriptionsItem label="Full Name">Alice Martin</DescriptionsItem>
-          <DescriptionsItem label="Email">alice@example.com</DescriptionsItem>
-          <DescriptionsItem label="Role">Product Designer</DescriptionsItem>
-          <DescriptionsItem label="Status">Active</DescriptionsItem>
-          <DescriptionsItem label="Joined" span={2}>
-            January 12, 2023
-          </DescriptionsItem>
-        </Descriptions>
+      <ComponentPreview
+        className="flex-col items-start gap-6"
+        code={`import { Descriptions, DescriptionsItem } from "@benflux-ui/react"
 
-        <Descriptions title="Unbounded" column={3}>
-          <DescriptionsItem label="Product">Benflux UI</DescriptionsItem>
-          <DescriptionsItem label="Version">0.2.0</DescriptionsItem>
-          <DescriptionsItem label="License">MIT</DescriptionsItem>
-        </Descriptions>
-      </div>
+<Descriptions title="User Info" bordered column={2}>
+  <DescriptionsItem label="Full Name">Alice Martin</DescriptionsItem>
+  <DescriptionsItem label="Email">alice@example.com</DescriptionsItem>
+  <DescriptionsItem label="Role">Product Designer</DescriptionsItem>
+  <DescriptionsItem label="Status">Active</DescriptionsItem>
+  <DescriptionsItem label="Joined" span={2}>January 12, 2023</DescriptionsItem>
+</Descriptions>`}
+      >
+        <div className="w-full space-y-6">
+          <Descriptions title="User Info" bordered column={2}>
+            <DescriptionsItem label="Full Name">Alice Martin</DescriptionsItem>
+            <DescriptionsItem label="Email">alice@example.com</DescriptionsItem>
+            <DescriptionsItem label="Role">Product Designer</DescriptionsItem>
+            <DescriptionsItem label="Status">Active</DescriptionsItem>
+            <DescriptionsItem label="Joined" span={2}>
+              January 12, 2023
+            </DescriptionsItem>
+          </Descriptions>
+
+          <Descriptions title="Library Info" column={3}>
+            <DescriptionsItem label="Product">Benflux UI</DescriptionsItem>
+            <DescriptionsItem label="Version">0.2.0</DescriptionsItem>
+            <DescriptionsItem label="License">MIT</DescriptionsItem>
+          </Descriptions>
+        </div>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -57,6 +72,64 @@ export default function DescriptionsPage() {
     Handle with care
   </DescriptionsItem>
 </Descriptions>`}
+        />
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight">Props — Descriptions</h2>
+        <PropsTable
+          props={[
+            {
+              name: "title",
+              type: "ReactNode",
+              default: "—",
+              description: "Title shown above the descriptions grid",
+            },
+            {
+              name: "column",
+              type: "number",
+              default: "3",
+              description: "Number of columns in the grid",
+            },
+            {
+              name: "bordered",
+              type: "boolean",
+              default: "false",
+              description: "Adds borders between cells",
+            },
+            {
+              name: "size",
+              type: '"default" | "sm" | "lg"',
+              default: '"default"',
+              description: "Cell padding size",
+            },
+            {
+              name: "layout",
+              type: '"horizontal" | "vertical"',
+              default: '"horizontal"',
+              description: "Label placement relative to value",
+            },
+          ]}
+        />
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight">Props — DescriptionsItem</h2>
+        <PropsTable
+          props={[
+            {
+              name: "label",
+              type: "ReactNode",
+              required: true,
+              description: "The key label",
+            },
+            {
+              name: "span",
+              type: "number",
+              default: "1",
+              description: "Number of columns this item spans",
+            },
+          ]}
         />
       </div>
     </div>

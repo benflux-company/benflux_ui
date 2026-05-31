@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
+import { PropsTable } from "@/components/docs/props-table"
 
 import { Watermark } from "@benflux-ui/react"
 
@@ -20,18 +22,39 @@ export default function WatermarkPage() {
         </p>
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-2">
-        <Watermark
-          content="Benflux UI"
-          gap={[80, 60]}
-          rotate={-22}
-          font={{ fontSize: 14, color: "rgba(0,0,0,0.12)" }}
-        >
-          <div className="flex h-48 items-center justify-center text-muted-foreground">
-            Watermark is rendered over this area
-          </div>
-        </Watermark>
-      </div>
+      <ComponentPreview
+        className="block w-full"
+        code={`import { Watermark } from "@benflux-ui/react"
+
+<Watermark
+  content="Benflux UI"
+  gap={[80, 60]}
+  rotate={-22}
+  font={{ fontSize: 14, color: "rgba(0,0,0,0.12)" }}
+>
+  <div className="h-48 flex items-center justify-center text-muted-foreground">
+    Watermark is rendered over this area
+  </div>
+</Watermark>
+
+// Multi-line
+<Watermark content={["Internal", "Do not share"]} gap={[100, 80]}>
+  <YourContent />
+</Watermark>`}
+      >
+        <div className="w-full rounded-xl border border-border bg-card p-2">
+          <Watermark
+            content="Benflux UI"
+            gap={[80, 60]}
+            rotate={-22}
+            font={{ fontSize: 14, color: "rgba(0,0,0,0.12)" }}
+          >
+            <div className="flex h-48 items-center justify-center text-muted-foreground">
+              Watermark is rendered over this area
+            </div>
+          </Watermark>
+        </div>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -61,37 +84,58 @@ export default function WatermarkPage() {
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Props</h2>
-        <div className="overflow-hidden rounded-lg border border-border">
-          <table className="w-full text-sm">
-            <thead className="border-b border-border bg-muted/40">
-              <tr>
-                {["Prop", "Type", "Default", "Description"].map((h) => (
-                  <th key={h} className="px-4 py-3 text-left font-medium text-muted-foreground">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {[
-                ["content", "string | string[]", "—", "Watermark text (array for multi-line)"],
-                ["rotate", "number", "-22", "Rotation angle in degrees"],
-                ["gap", "[number, number]", "[100, 100]", "Horizontal and vertical spacing"],
-                ["offset", "[number, number]", "—", "Position offset from top-left"],
-                ["font", "object", "—", "Font options: size, color, weight, family, style"],
-                ["image", "string", "—", "Image URL to use instead of text"],
-                ["width / height", "number", "—", "Image dimensions when using image watermark"],
-              ].map(([prop, type, def, desc]) => (
-                <tr key={prop}>
-                  <td className="px-4 py-3 font-mono text-xs text-primary">{prop}</td>
-                  <td className="px-4 py-3 font-mono text-xs text-muted-foreground">{type}</td>
-                  <td className="px-4 py-3 font-mono text-xs">{def}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{desc}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          props={[
+            {
+              name: "content",
+              type: "string | string[]",
+              required: true,
+              description: "Watermark text — array for multi-line",
+            },
+            {
+              name: "rotate",
+              type: "number",
+              default: "-22",
+              description: "Rotation angle in degrees",
+            },
+            {
+              name: "gap",
+              type: "[number, number]",
+              default: "[100, 100]",
+              description: "Horizontal and vertical spacing between watermarks",
+            },
+            {
+              name: "offset",
+              type: "[number, number]",
+              default: "—",
+              description: "Position offset from the top-left corner",
+            },
+            {
+              name: "font",
+              type: "{ fontSize?: number; color?: string; fontWeight?: string; fontFamily?: string }",
+              default: "—",
+              description: "Font options for the watermark text",
+            },
+            {
+              name: "image",
+              type: "string",
+              default: "—",
+              description: "Image URL to use instead of text",
+            },
+            {
+              name: "width",
+              type: "number",
+              default: "—",
+              description: "Image width when using image watermark",
+            },
+            {
+              name: "height",
+              type: "number",
+              default: "—",
+              description: "Image height when using image watermark",
+            },
+          ]}
+        />
       </div>
     </div>
   )

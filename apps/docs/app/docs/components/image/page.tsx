@@ -3,6 +3,8 @@
 import * as React from "react"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
+import { PropsTable } from "@/components/docs/props-table"
 
 import { Image, ImageGrid, ImageLightbox } from "@benflux-ui/react"
 
@@ -20,9 +22,43 @@ const images = [
   { src: "https://picsum.photos/seed/f/800/600", alt: "Snowy peaks", width: 800, height: 600 },
 ]
 
-export default function ImagePage() {
+function ImageDemo() {
   const [lightboxIndex, setLightboxIndex] = React.useState<number | null>(null)
 
+  return (
+    <div className="w-full space-y-6">
+      <div>
+        <p className="mb-3 text-sm font-medium text-muted-foreground">
+          Single image with zoom preview
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <Image src={images[0]!.src} alt={images[0]!.alt} width={200} height={150} preview />
+          <Image src={images[1]!.src} alt={images[1]!.alt} width={200} height={150} preview />
+        </div>
+      </div>
+      <div>
+        <p className="mb-3 text-sm font-medium text-muted-foreground">
+          Grid — click to open lightbox
+        </p>
+        <ImageGrid
+          images={images}
+          columns={3}
+          gap={8}
+          onImageClick={(_, i) => setLightboxIndex(i)}
+        />
+      </div>
+      {lightboxIndex !== null && (
+        <ImageLightbox
+          images={images}
+          initialIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
+    </div>
+  )
+}
+
+export default function ImagePage() {
   return (
     <div className="space-y-10">
       <div className="space-y-3">
@@ -36,37 +72,34 @@ export default function ImagePage() {
         </p>
       </div>
 
-      <div className="space-y-6">
-        <div>
-          <p className="mb-3 text-sm font-medium text-muted-foreground">
-            Single image with preview
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Image src={images[0]!.src} alt={images[0]!.alt} width={200} height={150} preview />
-            <Image src={images[1]!.src} alt={images[1]!.alt} width={200} height={150} preview />
-          </div>
-        </div>
+      <ComponentPreview
+        className="block w-full"
+        code={`import { Image, ImageGrid, ImageLightbox } from "@benflux-ui/react"
 
-        <div>
-          <p className="mb-3 text-sm font-medium text-muted-foreground">
-            Grid — click to open lightbox
-          </p>
-          <ImageGrid
-            images={images}
-            columns={3}
-            gap={8}
-            onImageClick={(_, i) => setLightboxIndex(i)}
-          />
-        </div>
-      </div>
+const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
-      {lightboxIndex !== null && (
-        <ImageLightbox
-          images={images}
-          initialIndex={lightboxIndex}
-          onClose={() => setLightboxIndex(null)}
-        />
-      )}
+// Single image with zoom preview on hover
+<Image src="/photo.jpg" alt="Photo" width={300} height={200} preview />
+
+// Responsive grid (click opens lightbox)
+<ImageGrid
+  images={photos}
+  columns={3}
+  gap={8}
+  onImageClick={(img, index) => setLightboxIndex(index)}
+/>
+
+// Fullscreen lightbox (keyboard: ← → Esc)
+{lightboxIndex !== null && (
+  <ImageLightbox
+    images={photos}
+    initialIndex={lightboxIndex}
+    onClose={() => setLightboxIndex(null)}
+  />
+)}`}
+      >
+        <ImageDemo />
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -97,6 +130,82 @@ export default function ImagePage() {
     onClose={() => setOpen(false)}
   />
 )}`}
+        />
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight">Props — Image</h2>
+        <PropsTable
+          props={[
+            {
+              name: "src",
+              type: "string",
+              required: true,
+              description: "Image source URL",
+            },
+            {
+              name: "alt",
+              type: "string",
+              required: true,
+              description: "Accessible alt text",
+            },
+            {
+              name: "width",
+              type: "number",
+              default: "—",
+              description: "Display width in pixels",
+            },
+            {
+              name: "height",
+              type: "number",
+              default: "—",
+              description: "Display height in pixels",
+            },
+            {
+              name: "preview",
+              type: "boolean",
+              default: "false",
+              description: "Show zoom icon on hover and open lightbox on click",
+            },
+            {
+              name: "fallback",
+              type: "string",
+              default: "—",
+              description: "Fallback URL if the image fails to load",
+            },
+          ]}
+        />
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight">Props — ImageGrid</h2>
+        <PropsTable
+          props={[
+            {
+              name: "images",
+              type: "{ src: string; alt: string; width?: number; height?: number }[]",
+              required: true,
+              description: "Array of image objects",
+            },
+            {
+              name: "columns",
+              type: "number",
+              default: "3",
+              description: "Number of grid columns",
+            },
+            {
+              name: "gap",
+              type: "number",
+              default: "8",
+              description: "Gap between images in pixels",
+            },
+            {
+              name: "onImageClick",
+              type: "(image: object, index: number) => void",
+              default: "—",
+              description: "Called when an image is clicked",
+            },
+          ]}
         />
       </div>
     </div>

@@ -1,6 +1,8 @@
 "use client"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
+import { PropsTable } from "@/components/docs/props-table"
 
 import { Upload } from "@benflux-ui/react"
 
@@ -18,16 +20,27 @@ export default function UploadPage() {
         </p>
       </div>
 
-      <div className="space-y-6 rounded-xl border border-border bg-card p-8">
-        <div className="space-y-2">
-          <p className="text-xs font-medium text-muted-foreground">Default (drag &amp; drop)</p>
-          <Upload accept="image/*,.pdf" maxSize={5} multiple />
+      <ComponentPreview
+        className="flex-col items-start gap-6"
+        code={`import { Upload } from "@benflux-ui/react"
+
+// Drag & drop (default)
+<Upload accept="image/*,.pdf" maxSize={5} multiple />
+
+// Picture list with max count
+<Upload accept="image/*" listType="picture" maxCount={3} />`}
+      >
+        <div className="w-full space-y-6">
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-muted-foreground">Default (drag &amp; drop)</p>
+            <Upload accept="image/*,.pdf" maxSize={5} multiple />
+          </div>
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-muted-foreground">Picture list</p>
+            <Upload accept="image/*" listType="picture" maxCount={3} />
+          </div>
         </div>
-        <div className="space-y-2">
-          <p className="text-xs font-medium text-muted-foreground">Picture list</p>
-          <Upload accept="image/*" listType="picture" maxCount={3} />
-        </div>
-      </div>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -59,9 +72,72 @@ export default function UploadPage() {
 <Upload
   customRequest={async ({ file, onProgress, onSuccess, onError }) => {
     const res = await uploadToServer(file, onProgress)
-    if (res.ok) onSuccess(res) else onError(new Error("failed"))
+    if (res.ok) onSuccess(res)
+    else onError(new Error("Upload failed"))
   }}
 />`}
+        />
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight">Props</h2>
+        <PropsTable
+          props={[
+            {
+              name: "accept",
+              type: "string",
+              default: "—",
+              description: "Accepted file types (e.g. image/*,.pdf)",
+            },
+            {
+              name: "multiple",
+              type: "boolean",
+              default: "false",
+              description: "Allow selecting multiple files",
+            },
+            {
+              name: "maxSize",
+              type: "number",
+              default: "—",
+              description: "Maximum file size in MB",
+            },
+            {
+              name: "maxCount",
+              type: "number",
+              default: "—",
+              description: "Maximum number of files",
+            },
+            {
+              name: "listType",
+              type: '"text" | "picture"',
+              default: '"text"',
+              description: "File list display style",
+            },
+            {
+              name: "onChange",
+              type: "(files: File[]) => void",
+              default: "—",
+              description: "Called when the file list changes",
+            },
+            {
+              name: "onRemove",
+              type: "(file: File) => void",
+              default: "—",
+              description: "Called when a file is removed",
+            },
+            {
+              name: "customRequest",
+              type: "(options: UploadRequestOption) => void",
+              default: "—",
+              description: "Custom upload handler to replace the default behavior",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Disable the upload area",
+            },
+          ]}
         />
       </div>
     </div>

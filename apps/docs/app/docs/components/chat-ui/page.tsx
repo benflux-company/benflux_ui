@@ -3,6 +3,7 @@
 import * as React from "react"
 
 import { CodeBlock, InlineCode } from "@/components/docs/code-block"
+import { PropsTable } from "@/components/docs/props-table"
 
 import { ChatUI } from "@benflux-ui/react"
 import type { ChatMessage } from "@benflux-ui/react"
@@ -96,6 +97,9 @@ export default function ChatUIPage() {
   return (
     <div className="space-y-12">
       <div className="space-y-3">
+        <div className="inline-flex items-center rounded-full border border-border bg-muted/40 px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+          AI
+        </div>
         <h1 className="text-4xl font-bold tracking-tight">Chat UI</h1>
         <p className="text-lg text-muted-foreground">
           A full-featured chat interface with animated message bubbles, streaming support,
@@ -238,81 +242,52 @@ export function MyChatBot() {
       {/* Props */}
       <div className="space-y-4">
         <h2 className="text-2xl font-semibold tracking-tight">Props</h2>
-        <div className="overflow-hidden rounded-xl border border-border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-muted/40">
-                <th className="px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
-                  Prop
-                </th>
-                <th className="px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
-                  Type
-                </th>
-                <th className="px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
-                  Default
-                </th>
-                <th className="px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
-                  Description
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                {
-                  prop: "messages",
-                  type: "ChatMessage[]",
-                  def: "—",
-                  desc: "Array of messages to display",
-                },
-                {
-                  prop: "onSend",
-                  type: "(msg: string) => void",
-                  def: "—",
-                  desc: "Called when the user submits a message",
-                },
-                {
-                  prop: "isLoading",
-                  type: "boolean",
-                  def: "false",
-                  desc: "Shows the animated loading bubble",
-                },
-                {
-                  prop: "placeholder",
-                  type: "string",
-                  def: '"Ask anything..."',
-                  desc: "Textarea placeholder text",
-                },
-                {
-                  prop: "agentName",
-                  type: "string",
-                  def: '"AI Assistant"',
-                  desc: "Name shown in the chat header",
-                },
-                {
-                  prop: "systemAvatar",
-                  type: "string",
-                  def: "—",
-                  desc: "URL for the assistant avatar image",
-                },
-                {
-                  prop: "userAvatar",
-                  type: "string",
-                  def: "—",
-                  desc: "URL for the user avatar image",
-                },
-              ].map((row) => (
-                <tr key={row.prop} className="border-b border-border last:border-0">
-                  <td className="px-4 py-2.5 font-mono text-xs text-blue-400">{row.prop}</td>
-                  <td className="px-4 py-2.5 font-mono text-xs text-muted-foreground">
-                    {row.type}
-                  </td>
-                  <td className="px-4 py-2.5 font-mono text-xs text-muted-foreground">{row.def}</td>
-                  <td className="px-4 py-2.5 text-xs text-muted-foreground">{row.desc}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          props={[
+            {
+              name: "messages",
+              type: "ChatMessage[]",
+              required: true,
+              description: "Array of messages to display in the chat",
+            },
+            {
+              name: "onSend",
+              type: "(msg: string) => void",
+              required: true,
+              description: "Called when the user submits a message",
+            },
+            {
+              name: "isLoading",
+              type: "boolean",
+              default: "false",
+              description: "Shows the animated loading bubble while awaiting a response",
+            },
+            {
+              name: "placeholder",
+              type: "string",
+              default: '"Ask anything..."',
+              description: "Textarea placeholder text",
+            },
+            {
+              name: "agentName",
+              type: "string",
+              default: '"AI Assistant"',
+              description: "Name shown in the chat header",
+            },
+            {
+              name: "systemAvatar",
+              type: "string",
+              default: "—",
+              description: "URL for the assistant avatar image",
+            },
+            {
+              name: "userAvatar",
+              type: "string",
+              default: "—",
+              description: "URL for the user avatar image",
+            },
+          ]}
+        />
       </div>
 
       {/* ChatMessage type */}

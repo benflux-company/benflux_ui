@@ -1,6 +1,8 @@
 "use client"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
+import { PropsTable } from "@/components/docs/props-table"
 
 import { QRCode } from "@benflux-ui/react"
 
@@ -18,12 +20,27 @@ export default function QRCodePage() {
         </p>
       </div>
 
-      <div className="flex flex-wrap items-start gap-8 rounded-xl border border-border bg-card p-8">
+      <ComponentPreview
+        className="flex-wrap items-start gap-6"
+        code={`import { QRCode } from "@benflux-ui/react"
+
+// Basic SVG
+<QRCode value="https://benflux-corp.com" bordered />
+
+// Canvas renderer, high error correction, custom size
+<QRCode value="https://benflux-corp.com" type="canvas" bordered size={150} level="H" />
+
+// Loading state
+<QRCode value="https://benflux-corp.com" status="loading" bordered />
+
+// Expired state with refresh handler
+<QRCode value="https://benflux-corp.com" status="expired" bordered onRefresh={refetch} />`}
+      >
         <QRCode value="https://benflux-corp.com" bordered />
         <QRCode value="https://benflux-corp.com" type="canvas" bordered size={150} level="H" />
         <QRCode value="https://benflux-corp.com" status="loading" bordered />
         <QRCode value="https://benflux-corp.com" status="expired" bordered onRefresh={() => {}} />
-      </div>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -48,7 +65,7 @@ export default function QRCodePage() {
   bordered
 />
 
-// Loading / expired states
+// Status states
 <QRCode value="https://example.com" status="loading" bordered />
 <QRCode value="https://example.com" status="expired" onRefresh={refetch} bordered />`}
         />
@@ -56,40 +73,70 @@ export default function QRCodePage() {
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Props</h2>
-        <div className="overflow-hidden rounded-lg border border-border">
-          <table className="w-full text-sm">
-            <thead className="border-b border-border bg-muted/40">
-              <tr>
-                {["Prop", "Type", "Default", "Description"].map((h) => (
-                  <th key={h} className="px-4 py-3 text-left font-medium text-muted-foreground">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {[
-                ["value", "string", "—", "The text/URL to encode"],
-                ["size", "number", "128", "Width and height in pixels"],
-                ["level", '"L"|"M"|"Q"|"H"', '"M"', "Error correction level"],
-                ["type", '"svg"|"canvas"', '"svg"', "Renderer type"],
-                ["bgColor", "string", '"#ffffff"', "Background color"],
-                ["fgColor", "string", '"#000000"', "Foreground color"],
-                ["status", '"active"|"loading"|"expired"', '"active"', "Overlay state"],
-                ["onRefresh", "() => void", "—", "Called when refresh is clicked (expired state)"],
-                ["bordered", "boolean", "false", "Add border and padding around the QR code"],
-                ["imageSettings", "object", "—", "Embed an image in the center"],
-              ].map(([prop, type, def, desc]) => (
-                <tr key={prop}>
-                  <td className="px-4 py-3 font-mono text-xs text-primary">{prop}</td>
-                  <td className="px-4 py-3 font-mono text-xs text-muted-foreground">{type}</td>
-                  <td className="px-4 py-3 font-mono text-xs">{def}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{desc}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          props={[
+            {
+              name: "value",
+              type: "string",
+              required: true,
+              description: "The text or URL to encode",
+            },
+            {
+              name: "size",
+              type: "number",
+              default: "128",
+              description: "Width and height in pixels",
+            },
+            {
+              name: "level",
+              type: '"L" | "M" | "Q" | "H"',
+              default: '"M"',
+              description: "Error correction level",
+            },
+            {
+              name: "type",
+              type: '"svg" | "canvas"',
+              default: '"svg"',
+              description: "Renderer type",
+            },
+            {
+              name: "bgColor",
+              type: "string",
+              default: '"#ffffff"',
+              description: "Background color",
+            },
+            {
+              name: "fgColor",
+              type: "string",
+              default: '"#000000"',
+              description: "Foreground color",
+            },
+            {
+              name: "status",
+              type: '"active" | "loading" | "expired"',
+              default: '"active"',
+              description: "Overlay status state",
+            },
+            {
+              name: "onRefresh",
+              type: "() => void",
+              default: "—",
+              description: "Called when refresh is clicked in expired state",
+            },
+            {
+              name: "bordered",
+              type: "boolean",
+              default: "false",
+              description: "Add border and padding around the QR code",
+            },
+            {
+              name: "imageSettings",
+              type: "object",
+              default: "—",
+              description: "Embed an image in the center of the QR code",
+            },
+          ]}
+        />
       </div>
     </div>
   )

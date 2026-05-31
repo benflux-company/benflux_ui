@@ -1,9 +1,9 @@
 "use client"
 
 import { CodeBlock } from "@/components/docs/code-block"
+import { ComponentPreview } from "@/components/docs/component-preview"
+import { PropsTable } from "@/components/docs/props-table"
 import { MessageCircle, Phone, Share2 } from "lucide-react"
-
-import { FloatButton, FloatButtonBackTop, FloatButtonGroup } from "@benflux-ui/react"
 
 export default function FloatButtonPage() {
   return (
@@ -19,27 +19,54 @@ export default function FloatButtonPage() {
         </p>
       </div>
 
-      <div className="relative min-h-48 rounded-xl border border-border bg-card p-8">
-        <p className="text-sm text-muted-foreground">
-          Float buttons are rendered fixed to the viewport. The examples below simulate the layout:
-        </p>
-        <div className="mt-8 flex flex-wrap gap-6">
-          <div className="relative h-14 w-14">
-            <button className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105">
+      <ComponentPreview
+        className="flex-wrap items-end gap-6"
+        code={`import { FloatButton, FloatButtonBackTop, FloatButtonGroup } from "@benflux-ui/react"
+import { MessageCircle, Phone, Share2 } from "lucide-react"
+
+// Single button with badge + tooltip
+<FloatButton
+  icon={<MessageCircle />}
+  tooltip="Chat with us"
+  badge={3}
+  position={{ bottom: 24, right: 24 }}
+  onClick={openChat}
+/>
+
+// Square shape
+<FloatButton shape="square" icon={<Share2 />} />
+
+// Back to top (shows after 200px scroll)
+<FloatButtonBackTop />
+
+// Expandable group
+<FloatButtonGroup position={{ bottom: 24, right: 24 }}>
+  <FloatButton icon={<Phone />} tooltip="Call" size="sm" />
+  <FloatButton icon={<MessageCircle />} tooltip="Chat" size="sm" />
+  <FloatButton icon={<Share2 />} tooltip="Share" size="sm" />
+</FloatButtonGroup>`}
+      >
+        {/* Simulated float buttons — they're normally fixed-position on screen */}
+        <div className="flex flex-wrap items-end gap-6">
+          <div className="relative">
+            <button className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105">
               <MessageCircle className="h-5 w-5" />
             </button>
             <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-medium text-white">
               3
             </span>
           </div>
-          <button className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-lg hover:scale-105">
+          <button className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105">
             <Share2 className="h-5 w-5" />
           </button>
-          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105">
+          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105">
             <Phone className="h-4 w-4" />
           </button>
+          <div className="flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs text-primary">
+            ↑ Back to top
+          </div>
         </div>
-      </div>
+      </ComponentPreview>
 
       <div className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight">Installation</h2>
@@ -73,6 +100,56 @@ import { MessageCircle } from "lucide-react"
   <FloatButton icon={<MessageCircle />} tooltip="Chat" size="sm" />
   <FloatButton icon={<Share2 />} tooltip="Share" size="sm" />
 </FloatButtonGroup>`}
+        />
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight">Props — FloatButton</h2>
+        <PropsTable
+          props={[
+            {
+              name: "icon",
+              type: "ReactNode",
+              required: true,
+              description: "Icon displayed inside the button",
+            },
+            {
+              name: "tooltip",
+              type: "string",
+              default: "—",
+              description: "Tooltip text shown on hover",
+            },
+            {
+              name: "badge",
+              type: "number | string",
+              default: "—",
+              description: "Badge value displayed on the top-right corner",
+            },
+            {
+              name: "shape",
+              type: '"circle" | "square"',
+              default: '"circle"',
+              description: "Button shape",
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              default: '"default"',
+              description: "Button size",
+            },
+            {
+              name: "position",
+              type: "{ top?: number; bottom?: number; left?: number; right?: number }",
+              default: "—",
+              description: "Fixed position offsets (px)",
+            },
+            {
+              name: "onClick",
+              type: "() => void",
+              default: "—",
+              description: "Click handler",
+            },
+          ]}
         />
       </div>
     </div>
