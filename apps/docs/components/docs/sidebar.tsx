@@ -54,6 +54,10 @@ const nav: { title: string; items: NavItem[] }[] = [
       { href: "/docs/components/resizable", label: "Resizable" },
       { href: "/docs/components/list", label: "List", isNew: true },
       { href: "/docs/components/descriptions", label: "Descriptions", isNew: true },
+      { href: "/docs/components/app-layout", label: "App Layout", isNew: true },
+      { href: "/docs/components/space", label: "Space", isNew: true },
+      { href: "/docs/components/flex", label: "Flex", isNew: true },
+      { href: "/docs/components/splitter", label: "Splitter", isNew: true },
     ],
   },
   {
@@ -64,6 +68,8 @@ const nav: { title: string; items: NavItem[] }[] = [
       { href: "/docs/components/breadcrumb", label: "Breadcrumb" },
       { href: "/docs/components/pagination", label: "Pagination" },
       { href: "/docs/components/menu", label: "Menu", isNew: true },
+      { href: "/docs/components/affix", label: "Affix", isNew: true },
+      { href: "/docs/components/anchor", label: "Anchor", isNew: true },
     ],
   },
   {
@@ -78,6 +84,7 @@ const nav: { title: string; items: NavItem[] }[] = [
       { href: "/docs/components/tree", label: "Tree", isNew: true },
       { href: "/docs/components/transfer", label: "Transfer", isNew: true },
       { href: "/docs/components/qrcode", label: "QR Code", isNew: true },
+      { href: "/docs/components/collapse", label: "Collapse", isNew: true },
     ],
   },
   {
@@ -92,6 +99,10 @@ const nav: { title: string; items: NavItem[] }[] = [
       { href: "/docs/components/time-picker", label: "Time Picker", isNew: true },
       { href: "/docs/components/color-picker", label: "Color Picker", isNew: true },
       { href: "/docs/components/upload", label: "Upload", isNew: true },
+      { href: "/docs/components/auto-complete", label: "AutoComplete", isNew: true },
+      { href: "/docs/components/cascader", label: "Cascader", isNew: true },
+      { href: "/docs/components/mentions", label: "Mentions", isNew: true },
+      { href: "/docs/components/tree-select", label: "TreeSelect", isNew: true },
     ],
   },
   {
@@ -104,6 +115,9 @@ const nav: { title: string; items: NavItem[] }[] = [
       { href: "/docs/components/drawer", label: "Drawer" },
       { href: "/docs/components/tour", label: "Tour", isNew: true },
       { href: "/docs/components/watermark", label: "Watermark", isNew: true },
+      { href: "/docs/components/message", label: "Message", isNew: true },
+      { href: "/docs/components/notification", label: "Notification", isNew: true },
+      { href: "/docs/components/popconfirm", label: "Popconfirm", isNew: true },
     ],
   },
   {

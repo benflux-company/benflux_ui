@@ -11,6 +11,24 @@ export { cn, cva } from "@benflux-ui/utils"
 export type { VariantProps } from "@benflux-ui/utils"
 
 // ─── Layout ───────────────────────────────────────────────
+export { Layout, Header, Content, Footer, Sider } from "./components/layout/layout"
+export type {
+  LayoutProps,
+  LayoutHeaderProps,
+  LayoutContentProps,
+  LayoutFooterProps,
+  SiderProps,
+} from "./components/layout/layout"
+
+export { Space, SpaceCompact } from "./components/layout/space"
+export type { SpaceProps, SpaceCompactProps } from "./components/layout/space"
+
+export { Flex } from "./components/layout/flex"
+export type { FlexProps } from "./components/layout/flex"
+
+export { Splitter, SplitterPanel } from "./components/layout/splitter"
+export type { SplitterProps, SplitterPanelProps } from "./components/layout/splitter"
+
 export { Heading, Text, Paragraph, TypographyLink } from "./components/layout/typography"
 export type { HeadingProps, TextProps, ParagraphProps } from "./components/layout/typography"
 
@@ -107,6 +125,19 @@ export { Calendar } from "./components/inputs/calendar"
 export type { CalendarProps } from "./components/inputs/calendar"
 export { DatePicker, DateRangePicker } from "./components/inputs/date-picker"
 export { Combobox, MultiCombobox } from "./components/inputs/combobox"
+
+export { AutoComplete } from "./components/inputs/auto-complete"
+export type { AutoCompleteProps, AutoCompleteOption } from "./components/inputs/auto-complete"
+
+export { Cascader } from "./components/inputs/cascader"
+export type { CascaderProps, CascaderOption } from "./components/inputs/cascader"
+
+export { Mentions } from "./components/inputs/mentions"
+export type { MentionsProps, MentionOption } from "./components/inputs/mentions"
+
+export { TreeSelect } from "./components/inputs/tree-select"
+export type { TreeSelectProps, TreeSelectNode } from "./components/inputs/tree-select"
+
 export {
   Form,
   FormControl,
@@ -119,6 +150,12 @@ export {
 } from "./components/inputs/form"
 
 // ─── Navigation ───────────────────────────────────────────
+export { Affix } from "./components/navigation/affix"
+export type { AffixProps } from "./components/navigation/affix"
+
+export { Anchor } from "./components/navigation/anchor"
+export type { AnchorProps, AnchorLinkItem } from "./components/navigation/anchor"
+
 export { Menu } from "./components/navigation/menu"
 export type { MenuProps, MenuItem } from "./components/navigation/menu"
 
@@ -289,6 +326,19 @@ export type { TourProps, TourStep } from "./components/feedback/tour"
 export { Watermark } from "./components/feedback/watermark"
 export type { WatermarkProps } from "./components/feedback/watermark"
 
+export { message, MessageProvider } from "./components/feedback/message"
+export type { MessageConfig, MessageType } from "./components/feedback/message"
+
+export { notification } from "./components/feedback/notification"
+export type {
+  NotificationConfig,
+  NotificationType,
+  NotificationPlacement,
+} from "./components/feedback/notification"
+
+export { Popconfirm } from "./components/feedback/popconfirm"
+export type { PopconfirmProps } from "./components/feedback/popconfirm"
+
 // ─── Data Display ─────────────────────────────────────────
 export { CodeBlock } from "./components/data-display/code-block"
 
@@ -337,6 +387,9 @@ export type { TreeProps, TreeDataNode } from "./components/data-display/tree"
 
 export { Transfer } from "./components/data-display/transfer"
 export type { TransferProps, TransferItem } from "./components/data-display/transfer"
+
+export { Collapse } from "./components/data-display/collapse"
+export type { CollapseProps, CollapseItem } from "./components/data-display/collapse"
 
 // ─── AI ───────────────────────────────────────────────────
 export { ChatUI } from "./components/ai/chat-ui"
