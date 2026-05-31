@@ -13,10 +13,7 @@ import {
   Layout,
   MessageSquare,
   Navigation,
-  Palette,
   Sparkles,
-  Terminal,
-  Zap,
 } from "lucide-react"
 
 import {
@@ -49,6 +46,22 @@ const searchGroups = [
       { label: "Input", href: "/docs/components/input", description: "Text input field" },
       { label: "Select", href: "/docs/components/select", description: "Dropdown selection" },
       { label: "Combobox", href: "/docs/components/combobox", description: "Searchable select" },
+      {
+        label: "AutoComplete",
+        href: "/docs/components/auto-complete",
+        description: "Input with suggestions",
+      },
+      {
+        label: "Cascader",
+        href: "/docs/components/cascader",
+        description: "Hierarchical selection",
+      },
+      { label: "Mentions", href: "/docs/components/mentions", description: "@ mention input" },
+      {
+        label: "TreeSelect",
+        href: "/docs/components/tree-select",
+        description: "Tree-based select",
+      },
       { label: "Calendar", href: "/docs/components/calendar", description: "Date picker" },
       { label: "Date Picker", href: "/docs/components/date-picker", description: "Date selection" },
       { label: "Form", href: "/docs/components/form", description: "Form with validation" },
@@ -59,6 +72,18 @@ const searchGroups = [
     heading: "Layout",
     icon: Layers,
     items: [
+      {
+        label: "App Layout",
+        href: "/docs/components/app-layout",
+        description: "Page shell with sidebar",
+      },
+      { label: "Space", href: "/docs/components/space", description: "Spacing between elements" },
+      { label: "Flex", href: "/docs/components/flex", description: "Flexbox layout helper" },
+      {
+        label: "Splitter",
+        href: "/docs/components/splitter",
+        description: "Resizable split panes",
+      },
       { label: "Card", href: "/docs/components/card", description: "Content container" },
       { label: "Badge", href: "/docs/components/badge", description: "Status indicator" },
       { label: "Avatar", href: "/docs/components/avatar", description: "User avatar" },
@@ -85,6 +110,8 @@ const searchGroups = [
     heading: "Navigation",
     icon: Navigation,
     items: [
+      { label: "Affix", href: "/docs/components/affix", description: "Stick element on scroll" },
+      { label: "Anchor", href: "/docs/components/anchor", description: "Page section links" },
       { label: "Breadcrumb", href: "/docs/components/breadcrumb", description: "Page hierarchy" },
       { label: "Pagination", href: "/docs/components/pagination", description: "Page navigation" },
       { label: "Tabs", href: "/docs/components/navigation", description: "Tabbed interface" },
@@ -108,6 +135,17 @@ const searchGroups = [
       { label: "Alert", href: "/docs/components/alert", description: "Status messages" },
       { label: "Toast", href: "/docs/components/toast", description: "Notifications" },
       { label: "Progress", href: "/docs/components/progress", description: "Progress bar" },
+      { label: "Message", href: "/docs/components/message", description: "Global message bar" },
+      {
+        label: "Notification",
+        href: "/docs/components/notification",
+        description: "Push notifications",
+      },
+      {
+        label: "Popconfirm",
+        href: "/docs/components/popconfirm",
+        description: "Confirmation popover",
+      },
       {
         label: "All Feedback",
         href: "/docs/components/feedback",
@@ -121,6 +159,7 @@ const searchGroups = [
     items: [
       { label: "Data Table", href: "/docs/components/data-table", description: "Sortable table" },
       { label: "Table", href: "/docs/components/table", description: "HTML table" },
+      { label: "Collapse", href: "/docs/components/collapse", description: "Accordion panels" },
       { label: "Timeline", href: "/docs/components/timeline", description: "Chronological list" },
       { label: "Statistic", href: "/docs/components/statistic", description: "Metric display" },
       { label: "Empty", href: "/docs/components/empty", description: "Empty state" },
@@ -155,6 +194,20 @@ const searchGroups = [
         href: "/docs/components/particles",
         description: "Particle animation",
       },
+    ],
+  },
+  {
+    heading: "Templates",
+    icon: Layers,
+    items: [
+      { label: "Nova", href: "/templates", description: "Dark SaaS landing page" },
+      { label: "Zenith", href: "/templates", description: "Minimal studio portfolio" },
+      { label: "Pulse", href: "/templates", description: "Bold startup landing page" },
+      { label: "Orbit", href: "/templates", description: "Analytics SaaS landing" },
+      { label: "Lumina", href: "/templates", description: "Creative agency landing" },
+      { label: "Apex", href: "/templates", description: "Enterprise platform landing" },
+      { label: "Aura", href: "/templates", description: "Product launch landing page" },
+      { label: "All Templates", href: "/templates", description: "Browse all Next.js templates" },
     ],
   },
   {
