@@ -171,8 +171,8 @@ export function Cascader({
         mounted &&
         createPortal(
           <div
-            className="absolute z-[9999] flex overflow-hidden rounded-md border border-border bg-popover shadow-lg"
-            style={{ top: rect.bottom + 4 + window.scrollY, left: rect.left + window.scrollX }}
+            className="fixed z-[9999] flex overflow-hidden rounded-md border border-border bg-popover shadow-lg"
+            style={{ top: rect.bottom + 4, left: rect.left }}
           >
             {menuPath.map((menu, depth) => (
               <ul

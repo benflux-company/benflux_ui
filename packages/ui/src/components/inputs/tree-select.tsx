@@ -268,10 +268,10 @@ export function TreeSelect({
         mounted &&
         createPortal(
           <div
-            className="absolute z-[9999] rounded-md border border-border bg-popover shadow-md"
+            className="fixed z-[9999] rounded-md border border-border bg-popover shadow-md"
             style={{
-              top: rect.bottom + 4 + window.scrollY,
-              left: rect.left + window.scrollX,
+              top: rect.bottom + 4,
+              left: rect.left,
               width: rect.width,
             }}
           >
