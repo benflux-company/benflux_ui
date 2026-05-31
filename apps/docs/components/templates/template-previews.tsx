@@ -1,5 +1,7 @@
 "use client"
 
+import React from "react"
+
 import {
   Activity,
   ArrowRight,
@@ -27,51 +29,227 @@ import {
 
 // ─── Nova: Dark SaaS — Linear / Vercel aesthetic ─────────────────────────────
 export function NovaPreview() {
+  const [activeTheme, setActiveTheme] = React.useState<"system" | "light" | "dark">("dark")
+  const [loginOpen, setLoginOpen] = React.useState(false)
+  const [signupOpen, setSignupOpen] = React.useState(false)
+
+  const isDark = activeTheme === "dark" || activeTheme === "system"
+  const bg = isDark ? "#07070d" : "#f8fafc"
+  const text = isDark ? "white" : "#0f172a"
+
   return (
     <div
-      className="min-h-[1400px] bg-[#07070d] font-sans text-white"
-      style={{ fontFamily: "system-ui,sans-serif" }}
+      className="relative min-h-[1400px] font-sans"
+      style={{ fontFamily: "system-ui,sans-serif", background: bg, color: text }}
     >
+      {/* Login Modal */}
+      {loginOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          onClick={() => setLoginOpen(false)}
+        >
+          <div
+            className="w-full max-w-sm overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0e0e17] p-8 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-6 flex items-center gap-2.5">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
+                <Zap className="h-3.5 w-3.5 text-white" />
+              </div>
+              <span className="font-bold text-white">Nova</span>
+            </div>
+            <h2 className="mb-1 text-xl font-bold text-white">Welcome back</h2>
+            <p className="mb-6 text-sm text-white/40">Sign in to your Nova account</p>
+            <div className="mb-4">
+              <label className="mb-1.5 block text-xs font-medium text-white/50">Email</label>
+              <input
+                type="email"
+                placeholder="you@company.com"
+                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
+              />
+            </div>
+            <div className="mb-6">
+              <div className="mb-1.5 flex items-center justify-between">
+                <label className="text-xs font-medium text-white/50">Password</label>
+                <button className="text-xs text-blue-400 hover:text-blue-300">
+                  Forgot password?
+                </button>
+              </div>
+              <input
+                type="password"
+                placeholder="••••••••"
+                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
+              />
+            </div>
+            <button className="mb-4 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">
+              Sign in
+            </button>
+            <div className="mb-4 flex items-center gap-3">
+              <div className="h-px flex-1 bg-white/[0.06]" />
+              <span className="text-[11px] text-white/25">or continue with</span>
+              <div className="h-px flex-1 bg-white/[0.06]" />
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {["GitHub", "Google"].map((p) => (
+                <button
+                  key={p}
+                  className="rounded-xl border border-white/[0.08] bg-white/[0.03] py-2.5 text-xs font-medium text-white/60 hover:bg-white/[0.06]"
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+            <p className="mt-5 text-center text-xs text-white/30">
+              No account?{" "}
+              <button
+                className="text-blue-400 hover:text-blue-300"
+                onClick={() => {
+                  setLoginOpen(false)
+                  setSignupOpen(true)
+                }}
+              >
+                Sign up free
+              </button>
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Signup Modal */}
+      {signupOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          onClick={() => setSignupOpen(false)}
+        >
+          <div
+            className="w-full max-w-sm overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0e0e17] p-8 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-6 flex items-center gap-2.5">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
+                <Zap className="h-3.5 w-3.5 text-white" />
+              </div>
+              <span className="font-bold text-white">Nova</span>
+            </div>
+            <h2 className="mb-1 text-xl font-bold text-white">Create your account</h2>
+            <p className="mb-6 text-sm text-white/40">Start shipping faster today — free forever</p>
+            <div className="mb-4">
+              <label className="mb-1.5 block text-xs font-medium text-white/50">Full name</label>
+              <input
+                type="text"
+                placeholder="Jane Smith"
+                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="mb-1.5 block text-xs font-medium text-white/50">Work email</label>
+              <input
+                type="email"
+                placeholder="you@company.com"
+                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
+              />
+            </div>
+            <div className="mb-6">
+              <label className="mb-1.5 block text-xs font-medium text-white/50">Password</label>
+              <input
+                type="password"
+                placeholder="Min. 8 characters"
+                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
+              />
+            </div>
+            <button className="mb-4 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">
+              Create account
+            </button>
+            <p className="text-center text-[11px] text-white/20">
+              By signing up you agree to our{" "}
+              <button className="text-white/40 hover:text-white/60">Terms</button> and{" "}
+              <button className="text-white/40 hover:text-white/60">Privacy Policy</button>
+            </p>
+            <p className="mt-4 text-center text-xs text-white/30">
+              Already have an account?{" "}
+              <button
+                className="text-blue-400 hover:text-blue-300"
+                onClick={() => {
+                  setSignupOpen(false)
+                  setLoginOpen(true)
+                }}
+              >
+                Sign in
+              </button>
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Nav */}
-      <nav className="sticky top-0 z-50 border-b border-white/[0.05] bg-[#07070d]/90 backdrop-blur-xl">
+      <nav
+        className="sticky top-0 z-50 border-b border-white/[0.05] backdrop-blur-xl"
+        style={{ background: isDark ? "rgba(7,7,13,0.9)" : "rgba(248,250,252,0.9)" }}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-8 py-4">
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-2.5">
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
                 <Zap className="h-3.5 w-3.5 text-white" />
               </div>
-              <span className="text-sm font-bold tracking-tight text-white">Nova</span>
+              <span className="text-sm font-bold tracking-tight" style={{ color: text }}>
+                Nova
+              </span>
             </div>
             <div className="hidden items-center gap-0.5 md:flex">
-              {["Features", "Changelog", "Docs", "Pricing", "Blog"].map((l) => (
-                <button
-                  key={l}
-                  className="rounded-md px-3 py-1.5 text-[13px] text-white/40 hover:bg-white/[0.04] hover:text-white/80"
+              {[
+                { label: "Features", href: "#nova-features" },
+                { label: "Pricing", href: "#nova-pricing" },
+                { label: "Testimonials", href: "#nova-testimonials" },
+                { label: "Docs", href: "#" },
+                { label: "Blog", href: "#" },
+              ].map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="rounded-md px-3 py-1.5 text-[13px] transition-colors hover:bg-white/[0.06]"
+                  style={{ color: isDark ? "rgba(255,255,255,0.45)" : "rgba(15,23,42,0.55)" }}
                 >
-                  {l}
-                </button>
+                  {label}
+                </a>
               ))}
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex items-center rounded-lg border border-white/[0.07] bg-white/[0.03] p-0.5">
-              {[
-                { label: "System", i: 0 },
-                { label: "Light", i: 1 },
-                { label: "Dark", i: 2 },
-              ].map(({ label, i }) => (
+            {/* Theme toggle */}
+            <div
+              className="flex items-center rounded-lg border border-white/[0.08] p-0.5"
+              style={{ background: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.04)" }}
+            >
+              {(["System", "Light", "Dark"] as const).map((t) => (
                 <button
-                  key={label}
-                  className={`rounded-md px-2.5 py-1 text-[10px] font-medium transition-all ${i === 2 ? "bg-white/[0.1] text-white" : "text-white/30 hover:text-white/60"}`}
+                  key={t}
+                  onClick={() => setActiveTheme(t.toLowerCase() as "system" | "light" | "dark")}
+                  className={`rounded-md px-2.5 py-1 text-[10px] font-medium transition-all ${activeTheme === t.toLowerCase() ? "bg-blue-600 text-white shadow-sm" : ""}`}
+                  style={{
+                    color:
+                      activeTheme === t.toLowerCase()
+                        ? "white"
+                        : isDark
+                          ? "rgba(255,255,255,0.35)"
+                          : "rgba(15,23,42,0.45)",
+                  }}
                 >
-                  {label}
+                  {t}
                 </button>
               ))}
             </div>
-            <button className="px-3 py-1.5 text-[13px] text-white/40 hover:text-white/70">
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="px-3 py-1.5 text-[13px] transition-colors"
+              style={{ color: isDark ? "rgba(255,255,255,0.4)" : "rgba(15,23,42,0.5)" }}
+            >
               Log in
             </button>
-            <button className="rounded-lg bg-blue-600 px-4 py-1.5 text-[13px] font-semibold text-white hover:bg-blue-500">
+            <button
+              onClick={() => setSignupOpen(true)}
+              className="rounded-lg bg-blue-600 px-4 py-1.5 text-[13px] font-semibold text-white hover:bg-blue-500"
+            >
               Get started
             </button>
           </div>
@@ -80,41 +258,68 @@ export function NovaPreview() {
 
       {/* Hero */}
       <div className="relative flex flex-col items-center overflow-hidden px-8 pb-24 pt-28 text-center">
-        <div className="bg-blue-600/8 pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-[120px]" />
+        <div
+          className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-[120px]"
+          style={{ background: "rgba(37,99,235,0.07)" }}
+        />
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
+              "linear-gradient(rgba(100,116,139,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(100,116,139,0.4) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
         <div className="relative z-10 max-w-3xl">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-4 py-1.5 text-xs text-white/50">
+          <div
+            className="mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs"
+            style={{
+              borderColor: "rgba(255,255,255,0.08)",
+              background: isDark ? "rgba(255,255,255,0.04)" : "rgba(37,99,235,0.06)",
+              color: isDark ? "rgba(255,255,255,0.5)" : "rgba(37,99,235,0.8)",
+            }}
+          >
             <span
               className="h-1.5 w-1.5 rounded-full bg-blue-400"
               style={{ boxShadow: "0 0 6px 2px rgba(96,165,250,0.6)" }}
             />
             Nova 3.0 — Distributed edge runtime is live
-            <ChevronRight className="h-3 w-3 text-white/25" />
+            <ChevronRight className="h-3 w-3 opacity-40" />
           </div>
-          <h1 className="mb-6 text-[64px] font-extrabold leading-[1.04] tracking-[-2px] text-white">
+          <h1
+            className="mb-6 text-[64px] font-extrabold leading-[1.04] tracking-[-2px]"
+            style={{ color: text }}
+          >
             Ship faster.
             <br />
-            <span className="text-blue-400">Scale further.</span>
+            <span className="text-blue-500">Scale further.</span>
           </h1>
-          <p className="mx-auto mb-10 max-w-lg text-[16px] leading-relaxed text-white/35">
+          <p
+            className="mx-auto mb-10 max-w-lg text-[16px] leading-relaxed"
+            style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.5)" }}
+          >
             Nova is the unified platform for modern engineering teams — instant deployments,
             distributed infra, and deep observability. Zero configuration, infinite scale.
           </p>
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <button className="group flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500">
-              Start for free
+            <button
+              onClick={() => setSignupOpen(true)}
+              className="group flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500"
+            >
+              Start for free{" "}
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </button>
-            <button className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-7 py-3 text-sm text-white/50 hover:border-white/[0.15] hover:text-white/70">
+            <a
+              href="#nova-features"
+              className="flex items-center gap-2 rounded-xl border px-7 py-3 text-sm transition-colors"
+              style={{
+                borderColor: "rgba(255,255,255,0.08)",
+                background: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)",
+                color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.5)",
+              }}
+            >
               View documentation
-            </button>
+            </a>
           </div>
           <div className="mt-14 flex flex-col items-center gap-3">
             <div className="flex items-center gap-2">
@@ -127,19 +332,33 @@ export function NovaPreview() {
                   "bg-emerald-400",
                   "bg-rose-400",
                 ].map((c, i) => (
-                  <div key={i} className={`h-6 w-6 rounded-full border-2 border-[#07070d] ${c}`} />
+                  <div
+                    key={i}
+                    className={`h-6 w-6 rounded-full border-2 ${c}`}
+                    style={{ borderColor: bg }}
+                  />
                 ))}
               </div>
-              <p className="text-xs text-white/30">
-                Trusted by <span className="font-semibold text-white/60">18,000+</span> engineering
-                teams
+              <p
+                className="text-xs"
+                style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}
+              >
+                Trusted by{" "}
+                <span
+                  className="font-semibold"
+                  style={{ color: isDark ? "rgba(255,255,255,0.6)" : "rgba(15,23,42,0.7)" }}
+                >
+                  18,000+
+                </span>{" "}
+                engineering teams
               </p>
             </div>
             <div className="flex items-center gap-4">
               {["SOC 2 Type II", "GDPR", "ISO 27001"].map((b) => (
                 <span
                   key={b}
-                  className="flex items-center gap-1 text-[10px] font-medium text-white/25"
+                  className="flex items-center gap-1 text-[10px] font-medium"
+                  style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.35)" }}
                 >
                   <Check className="h-2.5 w-2.5 text-emerald-500" /> {b}
                 </span>
@@ -151,7 +370,7 @@ export function NovaPreview() {
 
       {/* Dashboard Mockup */}
       <div className="mx-auto mb-24 max-w-5xl px-8">
-        <div className="overflow-hidden rounded-2xl border border-white/[0.07] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.8)]">
+        <div className="overflow-hidden rounded-2xl border border-white/[0.07] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.7)]">
           <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#0e0e17] px-4 py-3">
             <div className="flex gap-1.5">
               <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -184,7 +403,7 @@ export function NovaPreview() {
               ].map(({ icon: Icon, label, active }) => (
                 <button
                   key={label}
-                  className={`mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] ${active ? "bg-blue-600/15 font-medium text-blue-400" : "text-white/35"}`}
+                  className={`mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] ${active ? "bg-blue-600/15 font-medium text-blue-400" : "text-white/35 hover:bg-white/[0.03]"}`}
                 >
                   <Icon className="h-3.5 w-3.5 shrink-0" />
                   {label}
@@ -199,7 +418,7 @@ export function NovaPreview() {
               ].map(({ icon: Icon, label }) => (
                 <button
                   key={label}
-                  className="mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] text-white/35"
+                  className="mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] text-white/35 hover:bg-white/[0.03]"
                 >
                   <Icon className="h-3.5 w-3.5 shrink-0" />
                   {label}
@@ -213,10 +432,10 @@ export function NovaPreview() {
                   <p className="text-[11px] text-white/30">Last 30 days · All regions</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[10px] text-white/40">
+                  <button className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[10px] text-white/40 hover:bg-white/[0.06]">
                     30 days
                   </button>
-                  <button className="rounded-lg bg-blue-600 px-3 py-1.5 text-[10px] font-semibold text-white">
+                  <button className="rounded-lg bg-blue-600 px-3 py-1.5 text-[10px] font-semibold text-white hover:bg-blue-500">
                     New deploy
                   </button>
                 </div>
@@ -242,11 +461,11 @@ export function NovaPreview() {
                 <div className="col-span-2 rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
                   <div className="mb-3 flex items-center justify-between">
                     <p className="text-[11px] font-medium text-white/60">Revenue trend</p>
-                    <div className="flex items-center gap-1">
+                    <div className="flex gap-1">
                       {["1w", "1m", "3m", "1y"].map((t, i) => (
                         <button
                           key={t}
-                          className={`rounded px-2 py-0.5 text-[9px] ${i === 1 ? "bg-blue-600/20 text-blue-400" : "text-white/25"}`}
+                          className={`rounded px-2 py-0.5 text-[9px] ${i === 1 ? "bg-blue-600/20 text-blue-400" : "text-white/25 hover:text-white/50"}`}
                         >
                           {t}
                         </button>
@@ -299,29 +518,54 @@ export function NovaPreview() {
 
       {/* Logos */}
       <div className="mx-auto max-w-6xl px-8 pb-20">
-        <p className="mb-8 text-center text-xs font-semibold uppercase tracking-widest text-white/20">
+        <p
+          className="mb-8 text-center text-xs font-semibold uppercase tracking-widest"
+          style={{ color: isDark ? "rgba(255,255,255,0.18)" : "rgba(15,23,42,0.3)" }}
+        >
           Trusted by world-class teams
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-8">
+        <div className="flex flex-wrap items-center justify-center gap-6">
           {["Stripe", "Notion", "Linear", "Vercel", "Loom", "Figma", "Prisma", "Supabase"].map(
             (name) => (
-              <span key={name} className="text-sm font-bold tracking-tight text-white/15">
-                {name}
-              </span>
+              <div
+                key={name}
+                className="flex h-9 items-center rounded-xl border px-5"
+                style={{
+                  borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.08)",
+                  background: isDark ? "rgba(255,255,255,0.02)" : "rgba(15,23,42,0.02)",
+                }}
+              >
+                <span
+                  className="text-sm font-bold tracking-tight"
+                  style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.25)" }}
+                >
+                  {name}
+                </span>
+              </div>
             ),
           )}
         </div>
       </div>
 
       {/* Features */}
-      <div className="mx-auto max-w-6xl border-t border-white/[0.04] px-8 py-24">
+      <div
+        id="nova-features"
+        className="mx-auto max-w-6xl border-t px-8 py-24"
+        style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+      >
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-blue-500">
           Platform
         </p>
-        <h2 className="mb-4 text-center text-[40px] font-extrabold tracking-tight text-white">
+        <h2
+          className="mb-4 text-center text-[40px] font-extrabold tracking-tight"
+          style={{ color: text }}
+        >
           Everything your team needs
         </h2>
-        <p className="mx-auto mb-16 max-w-xl text-center text-[15px] leading-relaxed text-white/30">
+        <p
+          className="mx-auto mb-16 max-w-xl text-center text-[15px] leading-relaxed"
+          style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.45)" }}
+        >
           From first commit to global scale — Nova handles the infrastructure so you can focus on
           what matters.
         </p>
@@ -374,16 +618,30 @@ export function NovaPreview() {
               <div className="mb-5 inline-flex rounded-xl border border-white/[0.06] bg-white/[0.04] p-3">
                 <Icon className={`h-5 w-5 ${ic}`} />
               </div>
-              <h3 className="mb-2 font-semibold text-white">{title}</h3>
-              <p className="text-sm leading-relaxed text-white/35">{desc}</p>
+              <h3 className="mb-2 font-semibold" style={{ color: text }}>
+                {title}
+              </h3>
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.5)" }}
+              >
+                {desc}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Testimonials */}
-      <div className="mx-auto max-w-6xl border-t border-white/[0.04] px-8 py-24">
-        <h2 className="mb-14 text-center text-3xl font-extrabold tracking-tight text-white">
+      <div
+        id="nova-testimonials"
+        className="mx-auto max-w-6xl border-t px-8 py-24"
+        style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+      >
+        <h2
+          className="mb-14 text-center text-3xl font-extrabold tracking-tight"
+          style={{ color: text }}
+        >
           Loved by engineering teams
         </h2>
         <div className="grid gap-4 md:grid-cols-3">
@@ -404,19 +662,31 @@ export function NovaPreview() {
             },
             {
               quote:
-                "We moved our entire infra to Nova in a weekend. Zero downtime, zero drama. I genuinely cannot believe how smooth it was.",
+                "We moved our entire infra to Nova in a weekend. Zero downtime, zero drama. Genuinely cannot believe how smooth it was.",
               name: "Priya Nair",
               role: "Platform Lead at Lune",
               avatar: "bg-pink-400",
             },
           ].map(({ quote, name, role, avatar }) => (
-            <div key={name} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7">
+            <div
+              key={name}
+              className="rounded-2xl border p-7"
+              style={{
+                borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)",
+                background: isDark ? "rgba(255,255,255,0.02)" : "rgba(15,23,42,0.02)",
+              }}
+            >
               <div className="mb-4 flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                 ))}
               </div>
-              <p className="mb-6 text-sm leading-relaxed text-white/50">&ldquo;{quote}&rdquo;</p>
+              <p
+                className="mb-6 text-sm leading-relaxed"
+                style={{ color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.55)" }}
+              >
+                &ldquo;{quote}&rdquo;
+              </p>
               <div className="flex items-center gap-3">
                 <div
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${avatar} text-[11px] font-bold text-white`}
@@ -424,8 +694,15 @@ export function NovaPreview() {
                   {name[0]}
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-white">{name}</p>
-                  <p className="text-[11px] text-white/30">{role}</p>
+                  <p className="text-xs font-semibold" style={{ color: text }}>
+                    {name}
+                  </p>
+                  <p
+                    className="text-[11px]"
+                    style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}
+                  >
+                    {role}
+                  </p>
                 </div>
               </div>
             </div>
@@ -434,14 +711,24 @@ export function NovaPreview() {
       </div>
 
       {/* Pricing */}
-      <div className="mx-auto max-w-6xl border-t border-white/[0.04] px-8 py-24">
+      <div
+        id="nova-pricing"
+        className="mx-auto max-w-6xl border-t px-8 py-24"
+        style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+      >
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-blue-500">
           Pricing
         </p>
-        <h2 className="mb-3 text-center text-[40px] font-extrabold tracking-tight text-white">
+        <h2
+          className="mb-3 text-center text-[40px] font-extrabold tracking-tight"
+          style={{ color: text }}
+        >
           Simple, predictable pricing
         </h2>
-        <p className="mb-14 text-center text-[15px] text-white/30">
+        <p
+          className="mb-14 text-center text-[15px]"
+          style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.45)" }}
+        >
           No hidden fees. No surprises. Cancel any time.
         </p>
         <div className="grid gap-4 md:grid-cols-3">
@@ -496,22 +783,51 @@ export function NovaPreview() {
           ].map(({ n, p, ps, sub, f, hl, cta }) => (
             <div
               key={n}
-              className={`relative rounded-2xl border p-8 ${hl ? "border-blue-500/40 bg-blue-950/20" : "border-white/[0.06] bg-white/[0.02]"}`}
+              className={`relative rounded-2xl border p-8 ${hl ? "border-blue-500/40 bg-blue-950/20" : ""}`}
+              style={
+                !hl
+                  ? {
+                      borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)",
+                      background: isDark ? "rgba(255,255,255,0.02)" : "rgba(15,23,42,0.02)",
+                    }
+                  : {}
+              }
             >
               {hl && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-5 py-1 text-[10px] font-bold tracking-wide text-white">
                   MOST POPULAR
                 </div>
               )}
-              <p className="mb-0.5 text-xs font-bold uppercase tracking-wider text-white/30">{n}</p>
-              <p className="mb-4 text-[11px] text-white/25">{sub}</p>
+              <p
+                className="mb-0.5 text-xs font-bold uppercase tracking-wider"
+                style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.35)" }}
+              >
+                {n}
+              </p>
+              <p
+                className="mb-4 text-[11px]"
+                style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.4)" }}
+              >
+                {sub}
+              </p>
               <div className="mb-7 flex items-baseline gap-1">
-                <span className="text-[42px] font-black leading-none text-white">{p}</span>
-                <span className="text-sm text-white/25">{ps}</span>
+                <span className="text-[42px] font-black leading-none" style={{ color: text }}>
+                  {p}
+                </span>
+                <span
+                  className="text-sm"
+                  style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.35)" }}
+                >
+                  {ps}
+                </span>
               </div>
               <ul className="mb-8 space-y-3">
                 {f.map((x) => (
-                  <li key={x} className="flex items-center gap-2.5 text-[13px] text-white/45">
+                  <li
+                    key={x}
+                    className="flex items-center gap-2.5 text-[13px]"
+                    style={{ color: isDark ? "rgba(255,255,255,0.45)" : "rgba(15,23,42,0.55)" }}
+                  >
                     <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-600/20">
                       <Check className="h-2.5 w-2.5 text-blue-400" />
                     </div>
@@ -520,7 +836,16 @@ export function NovaPreview() {
                 ))}
               </ul>
               <button
-                className={`w-full rounded-xl py-3 text-sm font-semibold ${hl ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500" : "border border-white/[0.08] text-white/50 hover:border-white/[0.15] hover:text-white/80"}`}
+                onClick={() => setSignupOpen(true)}
+                className={`w-full rounded-xl py-3 text-sm font-semibold transition-all ${hl ? "bg-blue-600 text-white hover:bg-blue-500" : "border hover:bg-white/[0.04]"}`}
+                style={
+                  !hl
+                    ? {
+                        borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.1)",
+                        color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.55)",
+                      }
+                    : {}
+                }
               >
                 {cta}
               </button>
@@ -541,11 +866,17 @@ export function NovaPreview() {
               Join 18,000+ teams already building on Nova. Set up in under 5 minutes.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <button className="group flex items-center gap-2 rounded-xl bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500">
-                Get started free
+              <button
+                onClick={() => setSignupOpen(true)}
+                className="group flex items-center gap-2 rounded-xl bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500"
+              >
+                Get started free{" "}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </button>
-              <button className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-8 py-3.5 text-sm text-white/50 hover:border-white/[0.15] hover:text-white/70">
+              <button
+                onClick={() => setLoginOpen(true)}
+                className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-8 py-3.5 text-sm text-white/50 hover:border-white/[0.15] hover:text-white/70"
+              >
                 Talk to sales
               </button>
             </div>
@@ -554,7 +885,10 @@ export function NovaPreview() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-white/[0.04] py-14">
+      <footer
+        className="border-t py-14"
+        style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+      >
         <div className="mx-auto max-w-6xl px-8">
           <div className="mb-12 grid grid-cols-5 gap-8">
             <div className="col-span-2">
@@ -562,17 +896,29 @@ export function NovaPreview() {
                 <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
                   <Zap className="h-3.5 w-3.5 text-white" />
                 </div>
-                <span className="font-bold text-white">Nova</span>
+                <span className="font-bold" style={{ color: text }}>
+                  Nova
+                </span>
               </div>
-              <p className="mb-4 max-w-[220px] text-xs leading-relaxed text-white/25">
-                The unified platform for modern engineering teams. Ship faster, scale further.
+              <p
+                className="mb-4 max-w-[220px] text-xs leading-relaxed"
+                style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.4)" }}
+              >
+                The unified platform for modern engineering teams.
               </p>
               <div className="flex gap-2">
-                {["tw", "gh", "li", "yt"].map((s) => (
+                {["X", "GH", "LI", "YT"].map((s) => (
                   <div
                     key={s}
-                    className="h-7 w-7 rounded-lg border border-white/[0.07] bg-white/[0.03]"
-                  />
+                    className="flex h-7 w-7 items-center justify-center rounded-lg border text-[8px] font-bold"
+                    style={{
+                      borderColor: isDark ? "rgba(255,255,255,0.07)" : "rgba(15,23,42,0.08)",
+                      color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.35)",
+                      background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.02)",
+                    }}
+                  >
+                    {s}
+                  </div>
                 ))}
               </div>
             </div>
@@ -582,24 +928,44 @@ export function NovaPreview() {
               { heading: "Company", links: ["About", "Blog", "Careers", "Contact"] },
             ].map(({ heading, links }) => (
               <div key={heading}>
-                <p className="mb-4 text-[10px] font-bold uppercase tracking-widest text-white/25">
+                <p
+                  className="mb-4 text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.35)" }}
+                >
                   {heading}
                 </p>
                 <ul className="space-y-2.5">
                   {links.map((l) => (
                     <li key={l}>
-                      <button className="text-xs text-white/35 hover:text-white/60">{l}</button>
+                      <button
+                        className="text-xs transition-colors"
+                        style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.5)" }}
+                      >
+                        {l}
+                      </button>
                     </li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
-          <div className="flex items-center justify-between border-t border-white/[0.04] pt-6">
-            <p className="text-[11px] text-white/20">© 2025 Nova, Inc. All rights reserved.</p>
+          <div
+            className="flex items-center justify-between border-t pt-6"
+            style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+          >
+            <p
+              className="text-[11px]"
+              style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)" }}
+            >
+              © 2025 Nova, Inc. All rights reserved.
+            </p>
             <div className="flex gap-4">
               {["Privacy", "Terms", "Security"].map((l) => (
-                <button key={l} className="text-[11px] text-white/20 hover:text-white/40">
+                <button
+                  key={l}
+                  className="text-[11px] transition-colors"
+                  style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)" }}
+                >
                   {l}
                 </button>
               ))}
