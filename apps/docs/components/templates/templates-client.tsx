@@ -7,7 +7,6 @@ import { Download, Eye, X } from "lucide-react"
 import { TEMPLATE_CODE } from "./template-code"
 import {
   ApexPreview,
-  AuraPreview,
   LuminaPreview,
   NovaPreview,
   OrbitPreview,
@@ -76,16 +75,6 @@ const TEMPLATES = [
     accent: "from-blue-700 to-slate-900",
     Preview: ApexPreview,
   },
-  {
-    id: "aura",
-    name: "Aura",
-    tagline: "Product Launch",
-    description:
-      "Stunning product launch page with gradient backgrounds, reviews, and pre-order CTA.",
-    tags: ["Product"],
-    accent: "from-purple-600 to-indigo-800",
-    Preview: AuraPreview,
-  },
 ]
 
 const ALL_TAGS = [
@@ -97,7 +86,6 @@ const ALL_TAGS = [
   "Enterprise",
   "Creative",
   "Analytics",
-  "Product",
 ]
 
 async function downloadZip(template: (typeof TEMPLATES)[number]) {
