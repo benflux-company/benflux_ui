@@ -140,7 +140,7 @@ export function TreeSelect({
   maxTagCount,
 }: TreeSelectProps) {
   const normalize = (v?: string | string[]): string[] =>
-    v === undefined ? [] : Array.isArray(v) ? v : [v]
+    v === undefined ? [] : Array.isArray(v) ? v : v === "" ? [] : [v]
 
   const [internalValue, setInternalValue] = React.useState<string[]>(() => normalize(defaultValue))
   const [open, setOpen] = React.useState(false)
