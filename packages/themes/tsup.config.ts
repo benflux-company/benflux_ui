@@ -10,4 +10,5 @@ export default defineConfig({
   treeshake: true,
   external: ["react", "react-dom"],
   banner: { js: '"use client";' },
+  onSuccess: "node scripts/add-use-client.mjs",
 })

@@ -29,97 +29,105 @@ import {
 export function NovaPreview() {
   return (
     <div
-      className="min-h-[1400px] bg-[#060609] font-sans text-white"
+      className="min-h-[1400px] bg-[#07070d] font-sans text-white"
       style={{ fontFamily: "system-ui,sans-serif" }}
     >
       {/* Nav */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between border-b border-white/[0.05] bg-[#060609]/80 px-10 py-4 backdrop-blur-xl">
-        <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/40">
-              <Zap className="h-3.5 w-3.5 text-white" />
+      <nav className="sticky top-0 z-50 border-b border-white/[0.05] bg-[#07070d]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-8 py-4">
+          <div className="flex items-center gap-8">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
+                <Zap className="h-3.5 w-3.5 text-white" />
+              </div>
+              <span className="text-sm font-bold tracking-tight text-white">Nova</span>
             </div>
-            <span className="text-sm font-bold tracking-tight text-white">Nova</span>
+            <div className="hidden items-center gap-0.5 md:flex">
+              {["Features", "Changelog", "Docs", "Pricing", "Blog"].map((l) => (
+                <button
+                  key={l}
+                  className="rounded-md px-3 py-1.5 text-[13px] text-white/40 hover:bg-white/[0.04] hover:text-white/80"
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="hidden items-center gap-0.5 md:flex">
-            {["Features", "Changelog", "Docs", "Pricing", "Blog"].map((l) => (
-              <button
-                key={l}
-                className="rounded-md px-3 py-1.5 text-[13px] text-white/40 transition-colors hover:bg-white/[0.04] hover:text-white/80"
-              >
-                {l}
-              </button>
-            ))}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center rounded-lg border border-white/[0.07] bg-white/[0.03] p-0.5">
+              {[
+                { label: "System", i: 0 },
+                { label: "Light", i: 1 },
+                { label: "Dark", i: 2 },
+              ].map(({ label, i }) => (
+                <button
+                  key={label}
+                  className={`rounded-md px-2.5 py-1 text-[10px] font-medium transition-all ${i === 2 ? "bg-white/[0.1] text-white" : "text-white/30 hover:text-white/60"}`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <button className="px-3 py-1.5 text-[13px] text-white/40 hover:text-white/70">
+              Log in
+            </button>
+            <button className="rounded-lg bg-blue-600 px-4 py-1.5 text-[13px] font-semibold text-white hover:bg-blue-500">
+              Get started
+            </button>
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <button className="hidden items-center gap-2 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-xs text-white/35 md:flex">
-            <Search className="h-3 w-3" /> Search…{" "}
-            <kbd className="rounded border border-white/10 bg-white/5 px-1 text-[9px]">⌘K</kbd>
-          </button>
-          <button className="px-3 py-1.5 text-[13px] text-white/40 transition-colors hover:text-white/70">
-            Log in
-          </button>
-          <button className="rounded-lg bg-white px-4 py-1.5 text-[13px] font-semibold text-[#060609] transition-all hover:bg-white/90">
-            Get started
-          </button>
         </div>
       </nav>
 
       {/* Hero */}
       <div className="relative flex flex-col items-center overflow-hidden px-8 pb-24 pt-28 text-center">
-        {/* Glow */}
-        <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-violet-600/10 blur-[120px]" />
-        <div className="pointer-events-none absolute left-1/2 top-24 h-[300px] w-[500px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[80px]" />
-        {/* Grid bg */}
+        <div className="bg-blue-600/8 pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-[120px]" />
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.03]"
+          className="pointer-events-none absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)",
+              "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
         <div className="relative z-10 max-w-3xl">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-4 py-1.5 text-xs text-white/50 backdrop-blur-sm">
-            <span className="flex h-1.5 w-1.5 rounded-full bg-violet-400 shadow-[0_0_6px_2px_rgba(167,139,250,0.6)]" />
-            Nova 3.0 is live — Distributed edge runtime
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-4 py-1.5 text-xs text-white/50">
+            <span
+              className="h-1.5 w-1.5 rounded-full bg-blue-400"
+              style={{ boxShadow: "0 0 6px 2px rgba(96,165,250,0.6)" }}
+            />
+            Nova 3.0 — Distributed edge runtime is live
             <ChevronRight className="h-3 w-3 text-white/25" />
           </div>
-          <h1 className="mb-6 bg-gradient-to-b from-white via-white/90 to-white/30 bg-clip-text text-[64px] font-extrabold leading-[1.04] tracking-[-2px] text-transparent">
+          <h1 className="mb-6 text-[64px] font-extrabold leading-[1.04] tracking-[-2px] text-white">
             Ship faster.
             <br />
-            Scale further.
+            <span className="text-blue-400">Scale further.</span>
           </h1>
           <p className="mx-auto mb-10 max-w-lg text-[16px] leading-relaxed text-white/35">
             Nova is the unified platform for modern engineering teams — instant deployments,
             distributed infra, and deep observability. Zero configuration, infinite scale.
           </p>
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <button className="group flex items-center gap-2 rounded-xl bg-gradient-to-b from-violet-500 to-violet-700 px-7 py-3 text-sm font-semibold text-white shadow-xl shadow-violet-500/25 transition-all hover:shadow-violet-500/40">
+            <button className="group flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500">
               Start for free
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </button>
-            <button className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-7 py-3 text-sm text-white/50 backdrop-blur-sm transition-all hover:border-white/[0.15] hover:text-white/70">
+            <button className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-7 py-3 text-sm text-white/50 hover:border-white/[0.15] hover:text-white/70">
               View documentation
             </button>
           </div>
-          {/* Social proof */}
-          <div className="mt-16 flex flex-col items-center gap-3">
+          <div className="mt-14 flex flex-col items-center gap-3">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-2">
                 {[
-                  "bg-violet-400",
+                  "bg-blue-400",
                   "bg-sky-400",
                   "bg-pink-400",
                   "bg-amber-400",
                   "bg-emerald-400",
                   "bg-rose-400",
                 ].map((c, i) => (
-                  <div
-                    key={i}
-                    className={`h-6 w-6 rounded-full border-2 border-[#060609] ${c} flex items-center justify-center text-[8px] font-bold text-white`}
-                  />
+                  <div key={i} className={`h-6 w-6 rounded-full border-2 border-[#07070d] ${c}`} />
                 ))}
               </div>
               <p className="text-xs text-white/30">
@@ -142,163 +150,146 @@ export function NovaPreview() {
       </div>
 
       {/* Dashboard Mockup */}
-      <div className="mx-8 mb-24 overflow-hidden rounded-2xl border border-white/[0.07] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)]">
-        {/* Browser bar */}
-        <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#0e0e17] px-4 py-3">
-          <div className="flex gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-            <div className="h-2.5 w-2.5 rounded-full bg-[#ffbc2e]" />
-            <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-          </div>
-          <div className="mx-3 flex flex-1 items-center gap-2 rounded-md bg-white/[0.04] px-3 py-1">
-            <Lock className="h-2.5 w-2.5 text-emerald-400" />
-            <span className="text-[10px] text-white/20">nova.io/dashboard</span>
-          </div>
-          <Bell className="h-3.5 w-3.5 text-white/20" />
-          <Settings className="h-3.5 w-3.5 text-white/20" />
-        </div>
-        {/* App shell */}
-        <div className="flex bg-[#0b0b12]">
-          {/* Sidebar */}
-          <div className="w-48 shrink-0 border-r border-white/[0.04] px-3 py-5">
-            <div className="mb-4 flex items-center gap-2 px-2">
-              <div className="h-5 w-5 rounded-md bg-gradient-to-br from-violet-500 to-indigo-600" />
-              <span className="text-xs font-bold text-white">Acme Corp</span>
-              <ChevronRight className="ml-auto h-3 w-3 rotate-90 text-white/20" />
+      <div className="mx-auto mb-24 max-w-5xl px-8">
+        <div className="overflow-hidden rounded-2xl border border-white/[0.07] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.8)]">
+          <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#0e0e17] px-4 py-3">
+            <div className="flex gap-1.5">
+              <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+              <div className="h-2.5 w-2.5 rounded-full bg-[#ffbc2e]" />
+              <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
             </div>
-            <div className="mb-1 px-2 text-[9px] font-semibold uppercase tracking-widest text-white/20">
-              Overview
+            <div className="mx-3 flex flex-1 items-center gap-2 rounded-md bg-white/[0.04] px-3 py-1">
+              <Lock className="h-2.5 w-2.5 text-emerald-400" />
+              <span className="text-[10px] text-white/20">nova.io/dashboard</span>
             </div>
-            {[
-              { icon: Layout, label: "Dashboard", active: true },
-              { icon: Activity, label: "Analytics", active: false },
-              { icon: Users, label: "Team", active: false },
-              { icon: Database, label: "Storage", active: false },
-              { icon: Cpu, label: "Compute", active: false },
-              { icon: Globe, label: "Domains", active: false },
-            ].map(({ icon: Icon, label, active }) => (
-              <button
-                key={label}
-                className={`mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] transition-colors ${
-                  active
-                    ? "bg-violet-500/15 font-medium text-violet-300"
-                    : "text-white/35 hover:bg-white/[0.03] hover:text-white/60"
-                }`}
-              >
-                <Icon className="h-3.5 w-3.5 shrink-0" />
-                {label}
-              </button>
-            ))}
-            <div className="mb-1 mt-4 px-2 text-[9px] font-semibold uppercase tracking-widest text-white/20">
-              Settings
-            </div>
-            {[
-              { icon: Shield, label: "Security" },
-              { icon: Settings, label: "Preferences" },
-            ].map(({ icon: Icon, label }) => (
-              <button
-                key={label}
-                className="mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] text-white/35 transition-colors hover:bg-white/[0.03] hover:text-white/60"
-              >
-                <Icon className="h-3.5 w-3.5 shrink-0" />
-                {label}
-              </button>
-            ))}
+            <Bell className="h-3.5 w-3.5 text-white/20" />
+            <Settings className="h-3.5 w-3.5 text-white/20" />
           </div>
-
-          {/* Main content */}
-          <div className="flex-1 p-6">
-            <div className="mb-5 flex items-center justify-between">
-              <div>
-                <h3 className="text-sm font-semibold text-white">Overview</h3>
-                <p className="text-[11px] text-white/30">Last 30 days · All regions</p>
+          <div className="flex bg-[#0b0b12]">
+            <div className="w-44 shrink-0 border-r border-white/[0.04] px-3 py-5">
+              <div className="mb-4 flex items-center gap-2 px-2">
+                <div className="h-5 w-5 rounded-md bg-blue-600" />
+                <span className="text-xs font-bold text-white">Acme Corp</span>
+                <ChevronRight className="ml-auto h-3 w-3 rotate-90 text-white/20" />
               </div>
-              <div className="flex items-center gap-2">
-                <button className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[10px] text-white/40">
-                  30 days
-                </button>
-                <button className="rounded-lg bg-gradient-to-b from-violet-500 to-violet-700 px-3 py-1.5 text-[10px] font-semibold text-white">
-                  New deploy
-                </button>
+              <div className="mb-1 px-2 text-[9px] font-semibold uppercase tracking-widest text-white/20">
+                Overview
               </div>
-            </div>
-
-            {/* Metric cards */}
-            <div className="mb-5 grid grid-cols-4 gap-3">
               {[
-                { label: "MRR", val: "$2.4M", delta: "+18%", up: true },
-                { label: "Active users", val: "14.2K", delta: "+31%", up: true },
-                { label: "Uptime", val: "99.99%", delta: "30d avg", up: true },
-                { label: "P95 latency", val: "42ms", delta: "−6ms", up: true },
-              ].map(({ label, val, delta, up }) => (
-                <div
+                { icon: Layout, label: "Dashboard", active: true },
+                { icon: Activity, label: "Analytics", active: false },
+                { icon: Users, label: "Team", active: false },
+                { icon: Database, label: "Storage", active: false },
+                { icon: Globe, label: "Domains", active: false },
+              ].map(({ icon: Icon, label, active }) => (
+                <button
                   key={label}
-                  className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4"
+                  className={`mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] ${active ? "bg-blue-600/15 font-medium text-blue-400" : "text-white/35"}`}
                 >
-                  <p className="mb-1 text-[10px] text-white/25">{label}</p>
-                  <p className="text-xl font-bold text-white">{val}</p>
-                  <p
-                    className={`mt-1 text-[10px] font-medium ${up ? "text-emerald-400" : "text-red-400"}`}
-                  >
-                    {delta}
-                  </p>
-                </div>
+                  <Icon className="h-3.5 w-3.5 shrink-0" />
+                  {label}
+                </button>
+              ))}
+              <div className="mb-1 mt-4 px-2 text-[9px] font-semibold uppercase tracking-widest text-white/20">
+                Settings
+              </div>
+              {[
+                { icon: Shield, label: "Security" },
+                { icon: Settings, label: "Preferences" },
+              ].map(({ icon: Icon, label }) => (
+                <button
+                  key={label}
+                  className="mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] text-white/35"
+                >
+                  <Icon className="h-3.5 w-3.5 shrink-0" />
+                  {label}
+                </button>
               ))}
             </div>
-
-            {/* Chart + activity */}
-            <div className="grid grid-cols-3 gap-3">
-              <div className="col-span-2 rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
-                <div className="mb-3 flex items-center justify-between">
-                  <p className="text-[11px] font-medium text-white/60">Revenue trend</p>
-                  <div className="flex items-center gap-1">
-                    {["1w", "1m", "3m", "1y"].map((t, i) => (
-                      <button
-                        key={t}
-                        className={`rounded px-2 py-0.5 text-[9px] ${i === 1 ? "bg-violet-500/20 text-violet-400" : "text-white/25"}`}
-                      >
-                        {t}
-                      </button>
+            <div className="flex-1 p-6">
+              <div className="mb-5 flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-semibold text-white">Overview</h3>
+                  <p className="text-[11px] text-white/30">Last 30 days · All regions</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[10px] text-white/40">
+                    30 days
+                  </button>
+                  <button className="rounded-lg bg-blue-600 px-3 py-1.5 text-[10px] font-semibold text-white">
+                    New deploy
+                  </button>
+                </div>
+              </div>
+              <div className="mb-5 grid grid-cols-4 gap-3">
+                {[
+                  { label: "MRR", val: "$2.4M", delta: "+18%" },
+                  { label: "Active users", val: "14.2K", delta: "+31%" },
+                  { label: "Uptime", val: "99.99%", delta: "30d avg" },
+                  { label: "P95 latency", val: "42ms", delta: "−6ms" },
+                ].map(({ label, val, delta }) => (
+                  <div
+                    key={label}
+                    className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4"
+                  >
+                    <p className="mb-1 text-[10px] text-white/25">{label}</p>
+                    <p className="text-xl font-bold text-white">{val}</p>
+                    <p className="mt-1 text-[10px] font-medium text-emerald-400">{delta}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="col-span-2 rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
+                  <div className="mb-3 flex items-center justify-between">
+                    <p className="text-[11px] font-medium text-white/60">Revenue trend</p>
+                    <div className="flex items-center gap-1">
+                      {["1w", "1m", "3m", "1y"].map((t, i) => (
+                        <button
+                          key={t}
+                          className={`rounded px-2 py-0.5 text-[9px] ${i === 1 ? "bg-blue-600/20 text-blue-400" : "text-white/25"}`}
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex h-28 items-end gap-1">
+                    {[30, 45, 38, 60, 52, 70, 55, 80, 68, 85, 90, 78, 88, 75, 94, 82, 96].map(
+                      (h, i) => (
+                        <div
+                          key={i}
+                          className="flex-1 rounded-sm bg-blue-600"
+                          style={{ height: `${h}%`, opacity: i === 16 ? 1 : 0.25 + i * 0.042 }}
+                        />
+                      ),
+                    )}
+                  </div>
+                  <div className="mt-2 flex justify-between">
+                    {["Jan", "Apr", "Jul", "Oct", "Dec"].map((m) => (
+                      <span key={m} className="text-[9px] text-white/20">
+                        {m}
+                      </span>
                     ))}
                   </div>
                 </div>
-                <div className="flex h-28 items-end gap-1">
-                  {[30, 45, 38, 60, 52, 70, 55, 80, 68, 85, 90, 78, 88, 75, 94, 82, 96].map(
-                    (h, i) => (
-                      <div
-                        key={i}
-                        className="flex-1 rounded-sm bg-gradient-to-t from-violet-700/80 to-violet-500/80"
-                        style={{ height: `${h}%`, opacity: i === 16 ? 1 : 0.35 + i * 0.037 }}
-                      />
-                    ),
-                  )}
-                </div>
-                <div className="mt-2 flex justify-between">
-                  {["Jan", "Apr", "Jul", "Oct", "Dec"].map((m) => (
-                    <span key={m} className="text-[9px] text-white/20">
-                      {m}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
-                <p className="mb-3 text-[11px] font-medium text-white/60">Recent activity</p>
-                <div className="space-y-3">
-                  {[
-                    { msg: "Deploy #482 succeeded", time: "2m ago", c: "bg-emerald-400" },
-                    { msg: "New user signup", time: "8m ago", c: "bg-violet-400" },
-                    { msg: "Alert resolved", time: "15m ago", c: "bg-sky-400" },
-                    { msg: "Config updated", time: "1h ago", c: "bg-amber-400" },
-                    { msg: "Deploy #481 succeeded", time: "2h ago", c: "bg-emerald-400" },
-                  ].map(({ msg, time, c }, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <div className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${c}`} />
-                      <div>
-                        <p className="text-[10px] text-white/50">{msg}</p>
-                        <p className="text-[9px] text-white/20">{time}</p>
+                <div className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
+                  <p className="mb-3 text-[11px] font-medium text-white/60">Recent activity</p>
+                  <div className="space-y-3">
+                    {[
+                      { msg: "Deploy #482 succeeded", time: "2m ago", c: "bg-emerald-400" },
+                      { msg: "New user signup", time: "8m ago", c: "bg-blue-400" },
+                      { msg: "Alert resolved", time: "15m ago", c: "bg-sky-400" },
+                      { msg: "Config updated", time: "1h ago", c: "bg-amber-400" },
+                    ].map(({ msg, time, c }, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <div className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${c}`} />
+                        <div>
+                          <p className="text-[10px] text-white/50">{msg}</p>
+                          <p className="text-[9px] text-white/20">{time}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -307,7 +298,7 @@ export function NovaPreview() {
       </div>
 
       {/* Logos */}
-      <div className="px-10 pb-20">
+      <div className="mx-auto max-w-6xl px-8 pb-20">
         <p className="mb-8 text-center text-xs font-semibold uppercase tracking-widest text-white/20">
           Trusted by world-class teams
         </p>
@@ -323,8 +314,8 @@ export function NovaPreview() {
       </div>
 
       {/* Features */}
-      <div className="border-t border-white/[0.04] px-10 py-24">
-        <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-violet-500">
+      <div className="mx-auto max-w-6xl border-t border-white/[0.04] px-8 py-24">
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-blue-500">
           Platform
         </p>
         <h2 className="mb-4 text-center text-[40px] font-extrabold tracking-tight text-white">
@@ -340,48 +331,48 @@ export function NovaPreview() {
               icon: Zap,
               title: "Instant deploys",
               desc: "Push to production in under 10 seconds with zero-downtime rollouts across 40 global edge nodes.",
-              accent: "border-violet-500/20 bg-violet-500/[0.04]",
-              iconAccent: "text-violet-400",
+              accent: "border-blue-500/20 bg-blue-500/[0.04]",
+              ic: "text-blue-400",
             },
             {
               icon: Shield,
               title: "Zero-trust security",
               desc: "End-to-end encryption, automatic TLS, audit logs, and SSO/SAML included on every plan.",
               accent: "border-sky-500/20 bg-sky-500/[0.04]",
-              iconAccent: "text-sky-400",
+              ic: "text-sky-400",
             },
             {
               icon: BarChart3,
               title: "Deep observability",
-              desc: "Real-time metrics, distributed tracing, error tracking, and custom dashboards for every service.",
+              desc: "Real-time metrics, distributed tracing, and custom dashboards for every service.",
               accent: "border-emerald-500/20 bg-emerald-500/[0.04]",
-              iconAccent: "text-emerald-400",
+              ic: "text-emerald-400",
             },
             {
               icon: Globe,
               title: "Global edge network",
               desc: "Deploy to 40+ regions instantly. Automatic failover and intelligent traffic routing.",
               accent: "border-amber-500/20 bg-amber-500/[0.04]",
-              iconAccent: "text-amber-400",
+              ic: "text-amber-400",
             },
             {
               icon: Database,
               title: "Managed databases",
               desc: "Postgres, Redis, and object storage with automatic backups and point-in-time recovery.",
               accent: "border-rose-500/20 bg-rose-500/[0.04]",
-              iconAccent: "text-rose-400",
+              ic: "text-rose-400",
             },
             {
               icon: MessageSquare,
               title: "24/7 expert support",
               desc: "Dedicated Slack channel, SLA guarantees, and a team of engineers ready to help.",
               accent: "border-purple-500/20 bg-purple-500/[0.04]",
-              iconAccent: "text-purple-400",
+              ic: "text-purple-400",
             },
-          ].map(({ icon: Icon, title, desc, accent, iconAccent }) => (
+          ].map(({ icon: Icon, title, desc, accent, ic }) => (
             <div key={title} className={`rounded-2xl border ${accent} p-7`}>
               <div className="mb-5 inline-flex rounded-xl border border-white/[0.06] bg-white/[0.04] p-3">
-                <Icon className={`h-5 w-5 ${iconAccent}`} />
+                <Icon className={`h-5 w-5 ${ic}`} />
               </div>
               <h3 className="mb-2 font-semibold text-white">{title}</h3>
               <p className="text-sm leading-relaxed text-white/35">{desc}</p>
@@ -391,7 +382,7 @@ export function NovaPreview() {
       </div>
 
       {/* Testimonials */}
-      <div className="border-t border-white/[0.04] px-10 py-24">
+      <div className="mx-auto max-w-6xl border-t border-white/[0.04] px-8 py-24">
         <h2 className="mb-14 text-center text-3xl font-extrabold tracking-tight text-white">
           Loved by engineering teams
         </h2>
@@ -399,21 +390,21 @@ export function NovaPreview() {
           {[
             {
               quote:
-                "Nova cut our deploy time from 12 minutes to 8 seconds. It's the single biggest leverage point we found this year.",
+                "Nova cut our deploy time from 12 minutes to 8 seconds. The single biggest leverage point we found this year.",
               name: "Sarah Chen",
               role: "CTO at Meridian",
-              avatar: "bg-violet-400",
+              avatar: "bg-blue-400",
             },
             {
               quote:
-                "The observability tooling alone is worth it. We caught a P0 before it hit users because of Nova's real-time tracing.",
+                "The observability tooling alone is worth it. We caught a P0 before it hit users because of Nova real-time tracing.",
               name: "Marcus Webb",
               role: "Lead Engineer at Forma",
               avatar: "bg-sky-400",
             },
             {
               quote:
-                "We moved our entire infra to Nova in a weekend. Zero downtime, zero drama. I genuinely can't believe how smooth it was.",
+                "We moved our entire infra to Nova in a weekend. Zero downtime, zero drama. I genuinely cannot believe how smooth it was.",
               name: "Priya Nair",
               role: "Platform Lead at Lune",
               avatar: "bg-pink-400",
@@ -425,10 +416,10 @@ export function NovaPreview() {
                   <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                 ))}
               </div>
-              <p className="mb-6 text-sm leading-relaxed text-white/50">"{quote}"</p>
+              <p className="mb-6 text-sm leading-relaxed text-white/50">&ldquo;{quote}&rdquo;</p>
               <div className="flex items-center gap-3">
                 <div
-                  className={`h-8 w-8 shrink-0 rounded-full ${avatar} flex items-center justify-center text-[11px] font-bold text-white`}
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${avatar} text-[11px] font-bold text-white`}
                 >
                   {name[0]}
                 </div>
@@ -443,8 +434,8 @@ export function NovaPreview() {
       </div>
 
       {/* Pricing */}
-      <div className="border-t border-white/[0.04] px-10 py-24">
-        <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-violet-500">
+      <div className="mx-auto max-w-6xl border-t border-white/[0.04] px-8 py-24">
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-blue-500">
           Pricing
         </p>
         <h2 className="mb-3 text-center text-[40px] font-extrabold tracking-tight text-white">
@@ -453,7 +444,7 @@ export function NovaPreview() {
         <p className="mb-14 text-center text-[15px] text-white/30">
           No hidden fees. No surprises. Cancel any time.
         </p>
-        <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-3">
           {[
             {
               n: "Hobby",
@@ -505,10 +496,10 @@ export function NovaPreview() {
           ].map(({ n, p, ps, sub, f, hl, cta }) => (
             <div
               key={n}
-              className={`relative rounded-2xl border p-8 ${hl ? "border-violet-500/40 bg-gradient-to-b from-violet-950/60 to-violet-950/10 shadow-xl shadow-violet-500/10" : "border-white/[0.06] bg-white/[0.02]"}`}
+              className={`relative rounded-2xl border p-8 ${hl ? "border-blue-500/40 bg-blue-950/20" : "border-white/[0.06] bg-white/[0.02]"}`}
             >
               {hl && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500 px-5 py-1 text-[10px] font-bold tracking-wide text-white">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-5 py-1 text-[10px] font-bold tracking-wide text-white">
                   MOST POPULAR
                 </div>
               )}
@@ -521,15 +512,15 @@ export function NovaPreview() {
               <ul className="mb-8 space-y-3">
                 {f.map((x) => (
                   <li key={x} className="flex items-center gap-2.5 text-[13px] text-white/45">
-                    <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-violet-500/20">
-                      <Check className="h-2.5 w-2.5 text-violet-400" />
+                    <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-600/20">
+                      <Check className="h-2.5 w-2.5 text-blue-400" />
                     </div>
                     {x}
                   </li>
                 ))}
               </ul>
               <button
-                className={`w-full rounded-xl py-3 text-sm font-semibold transition-all ${hl ? "bg-gradient-to-b from-violet-500 to-violet-700 text-white shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50" : "border border-white/[0.08] text-white/50 hover:border-white/[0.15] hover:text-white/80"}`}
+                className={`w-full rounded-xl py-3 text-sm font-semibold ${hl ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500" : "border border-white/[0.08] text-white/50 hover:border-white/[0.15] hover:text-white/80"}`}
               >
                 {cta}
               </button>
@@ -539,9 +530,9 @@ export function NovaPreview() {
       </div>
 
       {/* CTA */}
-      <div className="px-10 pb-24">
-        <div className="relative overflow-hidden rounded-3xl border border-violet-500/20 bg-gradient-to-br from-violet-950/60 via-indigo-950/40 to-[#060609] p-16 text-center">
-          <div className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[500px] -translate-x-1/2 rounded-full bg-violet-600/15 blur-[80px]" />
+      <div className="mx-auto max-w-6xl px-8 pb-24">
+        <div className="relative overflow-hidden rounded-3xl border border-blue-500/20 bg-blue-950/20 p-16 text-center">
+          <div className="pointer-events-none absolute left-1/2 top-0 h-[200px] w-[400px] -translate-x-1/2 rounded-full bg-blue-600/10 blur-[60px]" />
           <div className="relative z-10">
             <h2 className="mb-4 text-[40px] font-extrabold tracking-tight text-white">
               Ready to ship faster?
@@ -550,11 +541,11 @@ export function NovaPreview() {
               Join 18,000+ teams already building on Nova. Set up in under 5 minutes.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <button className="group flex items-center gap-2 rounded-xl bg-gradient-to-b from-violet-500 to-violet-700 px-8 py-3.5 text-sm font-semibold text-white shadow-xl shadow-violet-500/30 transition-all hover:shadow-violet-500/50">
+              <button className="group flex items-center gap-2 rounded-xl bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500">
                 Get started free
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </button>
-              <button className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-8 py-3.5 text-sm text-white/50 transition-all hover:border-white/[0.15] hover:text-white/70">
+              <button className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-8 py-3.5 text-sm text-white/50 hover:border-white/[0.15] hover:text-white/70">
                 Talk to sales
               </button>
             </div>
@@ -563,56 +554,56 @@ export function NovaPreview() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-white/[0.04] px-10 pb-10 pt-14">
-        <div className="mb-12 grid grid-cols-5 gap-8">
-          <div className="col-span-2">
-            <div className="mb-4 flex items-center gap-2.5">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600">
-                <Zap className="h-3.5 w-3.5 text-white" />
+      <footer className="border-t border-white/[0.04] py-14">
+        <div className="mx-auto max-w-6xl px-8">
+          <div className="mb-12 grid grid-cols-5 gap-8">
+            <div className="col-span-2">
+              <div className="mb-4 flex items-center gap-2.5">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
+                  <Zap className="h-3.5 w-3.5 text-white" />
+                </div>
+                <span className="font-bold text-white">Nova</span>
               </div>
-              <span className="font-bold text-white">Nova</span>
+              <p className="mb-4 max-w-[220px] text-xs leading-relaxed text-white/25">
+                The unified platform for modern engineering teams. Ship faster, scale further.
+              </p>
+              <div className="flex gap-2">
+                {["tw", "gh", "li", "yt"].map((s) => (
+                  <div
+                    key={s}
+                    className="h-7 w-7 rounded-lg border border-white/[0.07] bg-white/[0.03]"
+                  />
+                ))}
+              </div>
             </div>
-            <p className="mb-4 max-w-[220px] text-xs leading-relaxed text-white/25">
-              The unified platform for modern engineering teams. Ship faster, scale further.
-            </p>
-            <div className="flex gap-2">
-              {["tw", "gh", "li", "yt"].map((s) => (
-                <div
-                  key={s}
-                  className="h-7 w-7 rounded-lg border border-white/[0.07] bg-white/[0.03] text-[9px] text-white/30"
-                />
+            {[
+              { heading: "Product", links: ["Features", "Pricing", "Changelog", "Roadmap"] },
+              { heading: "Docs", links: ["Getting started", "API reference", "Guides", "Status"] },
+              { heading: "Company", links: ["About", "Blog", "Careers", "Contact"] },
+            ].map(({ heading, links }) => (
+              <div key={heading}>
+                <p className="mb-4 text-[10px] font-bold uppercase tracking-widest text-white/25">
+                  {heading}
+                </p>
+                <ul className="space-y-2.5">
+                  {links.map((l) => (
+                    <li key={l}>
+                      <button className="text-xs text-white/35 hover:text-white/60">{l}</button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-between border-t border-white/[0.04] pt-6">
+            <p className="text-[11px] text-white/20">© 2025 Nova, Inc. All rights reserved.</p>
+            <div className="flex gap-4">
+              {["Privacy", "Terms", "Security"].map((l) => (
+                <button key={l} className="text-[11px] text-white/20 hover:text-white/40">
+                  {l}
+                </button>
               ))}
             </div>
-          </div>
-          {[
-            { heading: "Product", links: ["Features", "Pricing", "Changelog", "Roadmap"] },
-            { heading: "Docs", links: ["Getting started", "API reference", "Guides", "Status"] },
-            { heading: "Company", links: ["About", "Blog", "Careers", "Contact"] },
-          ].map(({ heading, links }) => (
-            <div key={heading}>
-              <p className="mb-4 text-[10px] font-bold uppercase tracking-widest text-white/25">
-                {heading}
-              </p>
-              <ul className="space-y-2.5">
-                {links.map((l) => (
-                  <li key={l}>
-                    <button className="text-xs text-white/35 transition-colors hover:text-white/60">
-                      {l}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="flex items-center justify-between border-t border-white/[0.04] pt-6">
-          <p className="text-[11px] text-white/20">© 2025 Nova, Inc. All rights reserved.</p>
-          <div className="flex gap-4">
-            {["Privacy", "Terms", "Security"].map((l) => (
-              <button key={l} className="text-[11px] text-white/20 hover:text-white/40">
-                {l}
-              </button>
-            ))}
           </div>
         </div>
       </footer>
