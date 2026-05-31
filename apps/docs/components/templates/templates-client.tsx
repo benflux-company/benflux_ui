@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import { Code, Download, Eye, Maximize2, X } from "lucide-react"
+import { Download, Eye, X } from "lucide-react"
 
 import { TEMPLATE_CODE } from "./template-code"
 import {
@@ -132,7 +132,6 @@ async function downloadZip(template: (typeof TEMPLATES)[number]) {
 export function TemplatesClient() {
   const [activeTag, setActiveTag] = useState("All")
   const [selected, setSelected] = useState<(typeof TEMPLATES)[number] | null>(null)
-  const [tab, setTab] = useState<"preview" | "code">("preview")
   const [downloading, setDownloading] = useState<string | null>(null)
 
   const filtered =
@@ -200,10 +199,7 @@ export function TemplatesClient() {
               {/* Hover overlay */}
               <div className="absolute inset-0 top-7 flex items-center justify-center gap-2 bg-black/0 opacity-0 transition-all duration-200 group-hover:bg-black/40 group-hover:opacity-100">
                 <button
-                  onClick={() => {
-                    setSelected(t)
-                    setTab("preview")
-                  }}
+                  onClick={() => setSelected(t)}
                   className="flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-zinc-900 shadow-lg backdrop-blur-sm transition-colors hover:bg-white"
                 >
                   <Eye className="h-3.5 w-3.5" /> Preview
@@ -219,7 +215,7 @@ export function TemplatesClient() {
             </div>
 
             {/* Card info */}
-            <div className="flex items-start justify-between p-5">
+            <div className="p-5">
               <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-bold">{t.name}</span>
@@ -244,22 +240,10 @@ export function TemplatesClient() {
             {/* Actions */}
             <div className="flex items-center gap-2 border-t border-border px-5 py-3">
               <button
-                onClick={() => {
-                  setSelected(t)
-                  setTab("preview")
-                }}
+                onClick={() => setSelected(t)}
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-border py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
               >
                 <Eye className="h-3.5 w-3.5" /> Preview
-              </button>
-              <button
-                onClick={() => {
-                  setSelected(t)
-                  setTab("code")
-                }}
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-border py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
-              >
-                <Code className="h-3.5 w-3.5" /> Code
               </button>
               <button
                 onClick={() => handleDownload(t)}
@@ -267,7 +251,7 @@ export function TemplatesClient() {
                 className="flex items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
               >
                 <Download className="h-3.5 w-3.5" />
-                {downloading === t.id ? "…" : "ZIP"}
+                {downloading === t.id ? "…" : "Download ZIP"}
               </button>
             </div>
           </div>
@@ -287,21 +271,6 @@ export function TemplatesClient() {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                {/* Tabs */}
-                <div className="flex items-center gap-1 rounded-lg border border-border bg-muted/30 p-1">
-                  <button
-                    onClick={() => setTab("preview")}
-                    className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-medium transition-all ${tab === "preview" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-                  >
-                    <Eye className="h-3 w-3" /> Preview
-                  </button>
-                  <button
-                    onClick={() => setTab("code")}
-                    className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-medium transition-all ${tab === "code" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-                  >
-                    <Code className="h-3 w-3" /> Code
-                  </button>
-                </div>
                 <button
                   onClick={() => handleDownload(selected)}
                   disabled={downloading === selected.id}
@@ -319,36 +288,9 @@ export function TemplatesClient() {
               </div>
             </div>
 
-            {/* Modal content */}
+            {/* Preview */}
             <div className="flex-1 overflow-auto">
-              {tab === "preview" ? (
-                <div className="h-full overflow-auto">
-                  <selected.Preview />
-                </div>
-              ) : (
-                <div className="p-6">
-                  <div className="overflow-hidden rounded-xl border border-border bg-zinc-950">
-                    <div className="flex items-center justify-between border-b border-white/5 px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <div className="h-2 w-2 rounded-full bg-red-400/60" />
-                        <div className="h-2 w-2 rounded-full bg-yellow-400/60" />
-                        <div className="h-2 w-2 rounded-full bg-green-400/60" />
-                      </div>
-                      <span className="text-xs text-white/30">app/page.tsx</span>
-                      <div />
-                    </div>
-                    <pre
-                      className="overflow-x-auto p-6 text-[13px] leading-relaxed text-green-400/90"
-                      style={{ fontFamily: "ui-monospace,monospace" }}
-                    >
-                      <code>
-                        {TEMPLATE_CODE[selected.id as keyof typeof TEMPLATE_CODE]?.page ??
-                          "// Code unavailable"}
-                      </code>
-                    </pre>
-                  </div>
-                </div>
-              )}
+              <selected.Preview />
             </div>
           </div>
         </div>

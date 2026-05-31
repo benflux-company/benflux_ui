@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import { AnimatePresence, motion } from "framer-motion"
 import { Command, Github, Menu, Moon, Search, Sun, X, Zap } from "lucide-react"
@@ -23,6 +24,7 @@ const navLinks = [
 
 export function Navbar() {
   const { theme, setTheme } = useTheme()
+  const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -71,15 +73,24 @@ export function Navbar() {
 
               {/* Desktop nav */}
               <nav className="hidden items-center gap-0.5 lg:flex">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive =
+                    link.href === "/docs" ? pathname === "/docs" : pathname.startsWith(link.href)
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        "rounded-md px-2.5 py-1.5 text-sm transition-colors",
+                        isActive
+                          ? "bg-accent font-medium text-foreground"
+                          : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                })}
               </nav>
             </div>
 
@@ -143,16 +154,25 @@ export function Navbar() {
               className="overflow-hidden border-t border-border bg-background md:hidden"
             >
               <nav className="container flex flex-col gap-1 px-4 py-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive =
+                    link.href === "/docs" ? pathname === "/docs" : pathname.startsWith(link.href)
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        "rounded-md px-3 py-2 text-sm transition-colors",
+                        isActive
+                          ? "bg-accent font-medium text-foreground"
+                          : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                })}
               </nav>
             </motion.div>
           )}
