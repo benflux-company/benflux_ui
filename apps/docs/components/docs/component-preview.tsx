@@ -16,7 +16,7 @@ export function ComponentPreview({ children, code, className }: ComponentPreview
   const [tab, setTab] = useState<"preview" | "code">("preview")
 
   return (
-    <div className="overflow-hidden rounded-xl border border-border">
+    <div className="rounded-xl border border-border">
       <div className="flex border-b border-border bg-muted/30">
         <button
           onClick={() => setTab("preview")}
@@ -44,12 +44,14 @@ export function ComponentPreview({ children, code, className }: ComponentPreview
 
       {tab === "preview" ? (
         <div
-          className={`flex min-h-[200px] flex-wrap items-center justify-center gap-4 bg-background p-10 ${className ?? ""}`}
+          className={`relative flex min-h-[320px] flex-wrap items-center justify-center gap-4 overflow-visible bg-background p-10 ${className ?? ""}`}
         >
           {children}
         </div>
       ) : (
-        <CodeBlock code={code} />
+        <div className="overflow-hidden rounded-b-xl">
+          <CodeBlock code={code} />
+        </div>
       )}
     </div>
   )
