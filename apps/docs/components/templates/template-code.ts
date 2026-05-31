@@ -84,121 +84,643 @@ const nextConfig = {}
 export default nextConfig`
 
 // ─── Nova ─────────────────────────────────────────────────────────────────────
-const novaPage = `import { ArrowRight, BarChart3, Check, Shield, Sparkles, Zap } from "lucide-react"
+const novaPage = `"use client"
 
-const features = [
-  { icon: Zap, title: "Lightning Fast", desc: "Deploy in seconds with our global edge network across 35 regions." },
-  { icon: Shield, title: "Enterprise Security", desc: "SOC2 Type II, GDPR compliant. Zero-knowledge encryption." },
-  { icon: BarChart3, title: "Real-time Analytics", desc: "Monitor every request, latency, and error in a beautiful dashboard." },
-]
+import React from "react"
 
-const pricing = [
-  { name: "Starter", price: "$0", period: "/mo", features: ["5 projects", "10GB bandwidth", "Community support"] },
-  { name: "Pro", price: "$29", period: "/mo", features: ["Unlimited projects", "500GB bandwidth", "Priority support", "Analytics"], highlight: true },
-  { name: "Enterprise", price: "Custom", period: "", features: ["Custom limits", "Dedicated infra", "SLA guarantee", "SSO/SAML"] },
-]
+import {
+  Activity,
+  ArrowRight,
+  BarChart3,
+  Bell,
+  Check,
+  ChevronRight,
+  Database,
+  Globe,
+  Layout,
+  Lock,
+  MessageSquare,
+  Moon,
+  Search,
+  Settings,
+  Shield,
+  Sparkles,
+  Star,
+  Sun,
+  Users,
+  Zap,
+} from "lucide-react"
 
 export default function Page() {
+  const [activeTheme, setActiveTheme] = React.useState<"system" | "light" | "dark">("dark")
+  const [loginOpen, setLoginOpen] = React.useState(false)
+  const [signupOpen, setSignupOpen] = React.useState(false)
+
+  const isDark = activeTheme === "dark" || activeTheme === "system"
+  const bg = isDark ? "#07070d" : "#f8fafc"
+  const text = isDark ? "white" : "#0f172a"
+
   return (
-    <main className="min-h-screen bg-[#05050f] text-white">
-      {/* Navbar */}
-      <nav className="flex items-center justify-between px-10 py-5 border-b border-white/5">
-        <div className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
-            <Zap className="h-4 w-4 text-white" />
+    <div
+      className="relative min-h-screen font-sans"
+      style={{ fontFamily: "system-ui,sans-serif", background: bg, color: text }}
+    >
+      {/* Login Modal */}
+      {loginOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          onClick={() => setLoginOpen(false)}
+        >
+          <div
+            className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border shadow-2xl"
+            style={{
+              borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+              background: isDark ? "#12121e" : "#fff",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setLoginOpen(false)}
+              className="absolute right-4 top-4 text-xs"
+              style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}
+            >
+              ✕
+            </button>
+            <div className="p-8">
+              <h2 className="mb-1 text-xl font-bold" style={{ color: text }}>Welcome back</h2>
+              <p className="mb-6 text-xs" style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.5)" }}>
+                Sign in to your Nova account
+              </p>
+              <div className="mb-3 grid grid-cols-2 gap-2">
+                {["Google", "GitHub"].map((s) => (
+                  <button
+                    key={s}
+                    className="flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-semibold border transition-colors"
+                    style={{
+                      borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+                      color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.55)",
+                      background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.02)",
+                    }}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+              <div className="relative my-4 flex items-center">
+                <div className="flex-1 border-t" style={{ borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)" }} />
+                <span className="mx-3 text-[10px]" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}>or</span>
+                <div className="flex-1 border-t" style={{ borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)" }} />
+              </div>
+              <div className="space-y-3">
+                {["Email", "Password"].map((p) => (
+                  <input
+                    key={p}
+                    type={p === "Password" ? "password" : "email"}
+                    placeholder={p}
+                    className="w-full rounded-xl border px-4 py-2.5 text-sm outline-none"
+                    style={{
+                      borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+                      background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.03)",
+                      color: text,
+                    }}
+                  />
+                ))}
+              </div>
+              <button className="mt-4 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">
+                Sign in
+              </button>
+              <p className="mt-4 text-center text-xs" style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}>
+                No account?{" "}
+                <button
+                  className="text-blue-400 hover:text-blue-300"
+                  onClick={() => { setLoginOpen(false); setSignupOpen(true) }}
+                >
+                  Sign up free
+                </button>
+              </p>
+            </div>
           </div>
-          <span className="font-bold tracking-tight">Nova</span>
         </div>
-        <nav className="hidden md:flex items-center gap-7 text-sm text-white/50">
-          <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#docs">Docs</a>
-        </nav>
-        <div className="flex items-center gap-3">
-          <a href="#" className="text-sm text-white/60 hover:text-white">Sign in</a>
-          <a href="#" className="text-sm bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-5 py-2 rounded-full font-medium">
-            Get started →
-          </a>
+      )}
+
+      {/* Signup Modal */}
+      {signupOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          onClick={() => setSignupOpen(false)}
+        >
+          <div
+            className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border shadow-2xl"
+            style={{
+              borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+              background: isDark ? "#12121e" : "#fff",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSignupOpen(false)}
+              className="absolute right-4 top-4 text-xs"
+              style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}
+            >
+              ✕
+            </button>
+            <div className="p-8">
+              <h2 className="mb-1 text-xl font-bold" style={{ color: text }}>Get started free</h2>
+              <p className="mb-6 text-xs" style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.5)" }}>
+                14-day trial, no credit card required
+              </p>
+              <div className="space-y-3">
+                {["Your name", "Work email", "Password"].map((p) => (
+                  <input
+                    key={p}
+                    type={p === "Password" ? "password" : p.includes("email") ? "email" : "text"}
+                    placeholder={p}
+                    className="w-full rounded-xl border px-4 py-2.5 text-sm outline-none"
+                    style={{
+                      borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+                      background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.03)",
+                      color: text,
+                    }}
+                  />
+                ))}
+              </div>
+              <button className="mt-4 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">
+                Create account
+              </button>
+              <p className="mt-4 text-center text-xs" style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}>
+                Already have one?{" "}
+                <button
+                  className="text-blue-400 hover:text-blue-300"
+                  onClick={() => { setSignupOpen(false); setLoginOpen(true) }}
+                >
+                  Sign in
+                </button>
+              </p>
+            </div>
+          </div>
         </div>
-      </nav>
+      )}
+
+      {/* Nav */}
+      <div
+        className="sticky top-0 z-50 border-b"
+        style={{
+          background: isDark ? "rgba(7,7,13,0.85)" : "rgba(248,250,252,0.85)",
+          borderColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.06)",
+          backdropFilter: "blur(12px)",
+        }}
+      >
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-8">
+          <div className="flex items-center gap-8">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
+                <Zap className="h-4 w-4 text-white" />
+              </div>
+              <span className="text-sm font-bold" style={{ color: text }}>Nova</span>
+            </div>
+            <nav className="hidden items-center gap-1 md:flex">
+              {[
+                { label: "Features", href: "#nova-features" },
+                { label: "Changelog", href: "#" },
+                { label: "Docs", href: "#" },
+                { label: "Pricing", href: "#nova-pricing" },
+                { label: "Blog", href: "#" },
+              ].map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="rounded-md px-2.5 py-1.5 text-sm transition-colors"
+                  style={{ color: isDark ? "rgba(255,255,255,0.4)" : "rgba(15,23,42,0.5)" }}
+                >
+                  {label}
+                </a>
+              ))}
+            </nav>
+          </div>
+          <div className="flex items-center gap-2">
+            <div
+              className="hidden items-center gap-0.5 rounded-xl p-1 md:flex"
+              style={{ background: isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.05)" }}
+            >
+              {(["system", "light", "dark"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setActiveTheme(t)}
+                  className="rounded-lg px-2.5 py-1 text-xs font-medium capitalize transition-all"
+                  style={{
+                    background: activeTheme === t
+                      ? isDark ? "rgba(255,255,255,0.1)" : "rgba(15,23,42,0.08)"
+                      : "transparent",
+                    color: activeTheme === t ? text : isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)",
+                  }}
+                >
+                  {t === "system" ? "System" : t === "light" ? <Sun className="h-3 w-3" /> : <Moon className="h-3 w-3" />}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="rounded-lg px-3 py-1.5 text-sm transition-colors"
+              style={{ color: isDark ? "rgba(255,255,255,0.4)" : "rgba(15,23,42,0.5)" }}
+            >
+              Log in
+            </button>
+            <button
+              onClick={() => setSignupOpen(true)}
+              className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500"
+            >
+              Get started
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Hero */}
-      <section className="relative flex flex-col items-center text-center px-8 pt-32 pb-20">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[700px] bg-violet-600/20 blur-[140px] rounded-full pointer-events-none" />
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm text-violet-300 mb-10">
-            <Sparkles className="h-4 w-4" /> Introducing Nova 2.0 — Now with AI
+      <div className="mx-auto max-w-6xl px-8 pb-20 pt-24 text-center">
+        <div
+          className="mb-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs"
+          style={{
+            borderColor: isDark ? "rgba(59,130,246,0.2)" : "rgba(37,99,235,0.15)",
+            background: isDark ? "rgba(59,130,246,0.08)" : "rgba(37,99,235,0.04)",
+            color: isDark ? "rgba(147,197,253,1)" : "rgba(37,99,235,1)",
+          }}
+        >
+          <Sparkles className="h-3 w-3" /> Introducing Nova 3.0 — Built for scale
+        </div>
+        <h1
+          className="mx-auto mb-6 max-w-4xl text-5xl font-extrabold leading-tight tracking-tight md:text-7xl"
+          style={{ color: text }}
+        >
+          Ship faster.{" "}
+          <span className="text-blue-500">Scale further.</span>
+        </h1>
+        <p
+          className="mx-auto mb-10 max-w-xl text-lg leading-relaxed"
+          style={{ color: isDark ? "rgba(255,255,255,0.4)" : "rgba(15,23,42,0.5)" }}
+        >
+          The unified developer platform that takes you from commit to production in seconds.
+          Built for engineering teams that refuse to slow down.
+        </p>
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <button
+            onClick={() => setSignupOpen(true)}
+            className="group flex items-center gap-2 rounded-xl bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500"
+          >
+            Get started free{" "}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </button>
+          <button
+            className="rounded-xl border px-8 py-3.5 text-sm transition-all"
+            style={{
+              borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+              color: isDark ? "rgba(255,255,255,0.4)" : "rgba(15,23,42,0.5)",
+            }}
+          >
+            View demo
+          </button>
+        </div>
+        <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <div className="flex -space-x-2">
+            {["bg-blue-400", "bg-sky-400", "bg-indigo-400", "bg-violet-400"].map((c, i) => (
+              <div key={i} className={\`flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#07070d] \${c} text-[9px] font-bold text-white\`} />
+            ))}
           </div>
-          <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 bg-gradient-to-b from-white to-white/50 bg-clip-text text-transparent">
-            Build faster.<br />Ship with confidence.
-          </h1>
-          <p className="text-lg text-white/40 mb-10">
-            The developer platform that scales from zero to millions.
+          <p className="text-xs" style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}>
+            Trusted by <span style={{ color: isDark ? "rgba(255,255,255,0.6)" : "rgba(15,23,42,0.7)" }} className="font-semibold">18,000+</span> engineering teams
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#" className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg shadow-violet-500/25">
-              Start for free
-            </a>
-            <a href="#" className="text-white/60 px-8 py-3 rounded-full border border-white/10 flex items-center gap-2">
-              View demo <ArrowRight className="h-4 w-4" />
-            </a>
+          <div className="flex items-center gap-4">
+            {["SOC 2 Type II", "GDPR", "ISO 27001"].map((b) => (
+              <span key={b} className="flex items-center gap-1 text-[10px]" style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.35)" }}>
+                <Check className="h-2.5 w-2.5 text-emerald-500" /> {b}
+              </span>
+            ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Features */}
-      <section id="features" className="px-10 py-24">
-        <div className="text-center mb-16">
-          <p className="text-xs text-violet-400 font-semibold uppercase tracking-widest mb-3">Everything you need</p>
-          <h2 className="text-4xl font-bold">Built for modern teams</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {features.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="rounded-2xl border border-white/5 bg-white/[0.03] p-8 hover:border-violet-500/30 transition-all">
-              <div className="h-10 w-10 rounded-xl bg-violet-500/10 flex items-center justify-center mb-5">
-                <Icon className="h-5 w-5 text-violet-400" />
+      {/* Dashboard Mockup */}
+      <div className="mx-auto mb-20 max-w-5xl px-8">
+        <div
+          className="overflow-hidden rounded-2xl border shadow-2xl"
+          style={{ borderColor: isDark ? "rgba(255,255,255,0.07)" : "rgba(15,23,42,0.06)" }}
+        >
+          <div
+            className="flex items-center gap-2 border-b px-4 py-3"
+            style={{
+              background: isDark ? "#0e0e17" : "#f1f5f9",
+              borderColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.06)",
+            }}
+          >
+            <div className="flex gap-1.5">
+              <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+              <div className="h-2.5 w-2.5 rounded-full bg-[#ffbc2e]" />
+              <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+            </div>
+            <div
+              className="mx-3 flex flex-1 items-center gap-2 rounded-md px-3 py-1"
+              style={{ background: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.05)" }}
+            >
+              <Lock className="h-2.5 w-2.5 text-emerald-400" />
+              <span className="text-[10px]" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}>nova.io/dashboard</span>
+            </div>
+          </div>
+          <div className="flex flex-col" style={{ background: isDark ? "#0b0b12" : "#f8fafc" }}>
+            <div className="flex md:flex-row flex-col">
+              {/* Sidebar */}
+              <div
+                className="shrink-0 border-b px-3 py-4 md:w-44 md:border-b-0 md:border-r md:py-5"
+                style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.05)" }}
+              >
+                <div className="mb-4 flex items-center gap-2 px-2">
+                  <div className="h-5 w-5 rounded-md bg-blue-600" />
+                  <span className="text-xs font-bold" style={{ color: text }}>Acme Corp</span>
+                </div>
+                {[
+                  { label: "Dashboard", active: true },
+                  { label: "Analytics", active: false },
+                  { label: "Team", active: false },
+                  { label: "Storage", active: false },
+                  { label: "Domains", active: false },
+                  { label: "Settings", active: false },
+                ].map(({ label, active }) => (
+                  <button
+                    key={label}
+                    className={\`mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] \${active ? "bg-blue-600/15 font-medium text-blue-400" : ""}\`}
+                    style={!active ? { color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.4)" } : {}}
+                  >
+                    {label}
+                  </button>
+                ))}
               </div>
-              <h3 className="font-semibold mb-3">{title}</h3>
-              <p className="text-sm text-white/40 leading-relaxed">{desc}</p>
+              {/* Main */}
+              <div className="flex-1 p-5">
+                <div className="mb-5 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-semibold" style={{ color: text }}>Overview</h3>
+                    <p className="text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}>Last 30 days · All regions</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      className="rounded-lg border px-3 py-1.5 text-[10px] transition-colors"
+                      style={{
+                        borderColor: isDark ? "rgba(255,255,255,0.07)" : "rgba(15,23,42,0.08)",
+                        color: isDark ? "rgba(255,255,255,0.4)" : "rgba(15,23,42,0.5)",
+                      }}
+                    >
+                      30 days
+                    </button>
+                    <button className="rounded-lg bg-blue-600 px-3 py-1.5 text-[10px] font-semibold text-white hover:bg-blue-500">
+                      New deploy
+                    </button>
+                  </div>
+                </div>
+                <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+                  {[
+                    { label: "MRR", val: "$2.4M", delta: "+18%" },
+                    { label: "Active users", val: "14.2K", delta: "+31%" },
+                    { label: "Uptime", val: "99.99%", delta: "30d avg" },
+                    { label: "P95 latency", val: "42ms", delta: "−6ms" },
+                  ].map(({ label, val, delta }) => (
+                    <div
+                      key={label}
+                      className="rounded-xl border p-4"
+                      style={{
+                        borderColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.06)",
+                        background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.8)",
+                      }}
+                    >
+                      <p className="mb-1 text-[10px]" style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.4)" }}>{label}</p>
+                      <p className="text-xl font-bold" style={{ color: text }}>{val}</p>
+                      <p className="mt-1 text-[10px] font-medium text-emerald-400">{delta}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                  <div
+                    className="rounded-xl border p-4 md:col-span-2"
+                    style={{
+                      borderColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.06)",
+                      background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.8)",
+                    }}
+                  >
+                    <p className="mb-3 text-[11px] font-medium" style={{ color: isDark ? "rgba(255,255,255,0.6)" : "rgba(15,23,42,0.6)" }}>Revenue trend</p>
+                    <div className="flex h-20 items-end gap-1">
+                      {[30,45,38,60,52,70,55,80,68,85,90,78,88,75,94,82,96].map((h,i) => (
+                        <div key={i} className="flex-1 rounded-sm bg-blue-600" style={{ height: \`\${h}%\`, opacity: 0.25 + i * 0.042 }} />
+                      ))}
+                    </div>
+                  </div>
+                  <div
+                    className="rounded-xl border p-4"
+                    style={{
+                      borderColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.06)",
+                      background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.8)",
+                    }}
+                  >
+                    <p className="mb-3 text-[11px] font-medium" style={{ color: isDark ? "rgba(255,255,255,0.6)" : "rgba(15,23,42,0.6)" }}>Recent activity</p>
+                    <div className="space-y-2.5">
+                      {[
+                        { msg: "Deploy #482 succeeded", time: "2m ago", c: "bg-emerald-400" },
+                        { msg: "New user signup", time: "8m ago", c: "bg-blue-400" },
+                        { msg: "Alert resolved", time: "15m ago", c: "bg-sky-400" },
+                        { msg: "Config updated", time: "1h ago", c: "bg-amber-400" },
+                      ].map(({ msg, time, c }) => (
+                        <div key={msg} className="flex items-start gap-2">
+                          <div className={\`mt-1 h-1.5 w-1.5 shrink-0 rounded-full \${c}\`} />
+                          <div>
+                            <p className="text-[10px]" style={{ color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.6)" }}>{msg}</p>
+                            <p className="text-[9px]" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)" }}>{time}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Logos */}
+      <div
+        className="border-t py-12"
+        style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+      >
+        <p className="mb-8 text-center text-xs" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)" }}>
+          Trusted by world-class teams
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3 px-8">
+          {["Stripe", "Notion", "Linear", "Vercel", "Loom", "Figma", "Prisma", "Supabase"].map((n) => (
+            <div
+              key={n}
+              className="rounded-lg border px-4 py-2 text-xs font-semibold"
+              style={{
+                borderColor: isDark ? "rgba(255,255,255,0.07)" : "rgba(15,23,42,0.08)",
+                color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.35)",
+                background: isDark ? "rgba(255,255,255,0.02)" : "rgba(15,23,42,0.02)",
+              }}
+            >
+              {n}
             </div>
           ))}
         </div>
-      </section>
+      </div>
+
+      {/* Features */}
+      <div
+        id="nova-features"
+        className="mx-auto max-w-6xl border-t px-8 py-24"
+        style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+      >
+        <div className="mb-14 text-center">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-blue-500">Platform</p>
+          <h2 className="text-4xl font-extrabold tracking-tight" style={{ color: text }}>
+            Everything your team needs
+          </h2>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            { icon: Zap, title: "Instant deployments", desc: "Push to deploy in under 10 seconds. Our global edge network handles the rest.", accent: "border-blue-500/20 bg-blue-500/[0.04]", ic: "text-blue-400" },
+            { icon: Shield, title: "Enterprise security", desc: "SOC2 Type II certified. End-to-end encryption. Zero-trust networking by default.", accent: "border-emerald-500/20 bg-emerald-500/[0.04]", ic: "text-emerald-400" },
+            { icon: BarChart3, title: "Real-time observability", desc: "Live metrics, traces, and logs. Know what's happening in your system right now.", accent: "border-purple-500/20 bg-purple-500/[0.04]", ic: "text-purple-400" },
+          ].map(({ icon: Icon, title, desc, accent, ic }) => (
+            <div key={title} className={\`rounded-2xl border \${accent} p-7\`}>
+              <div className="mb-5 inline-flex rounded-xl border border-white/[0.06] bg-white/[0.04] p-3">
+                <Icon className={\`h-5 w-5 \${ic}\`} />
+              </div>
+              <h3 className="mb-2 font-semibold" style={{ color: text }}>{title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.5)" }}>{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Pricing */}
-      <section id="pricing" className="px-10 py-24 border-t border-white/5">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Simple pricing</h2>
-          <p className="text-white/40">No surprises. Cancel anytime.</p>
+      <div
+        id="nova-pricing"
+        className="mx-auto max-w-6xl border-t px-8 py-24"
+        style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+      >
+        <div className="mb-14 text-center">
+          <h2 className="text-4xl font-extrabold tracking-tight" style={{ color: text }}>Simple pricing</h2>
+          <p className="mt-3 text-sm" style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.5)" }}>
+            No surprises. Scale as you grow.
+          </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {pricing.map(({ name, price, period, features, highlight }) => (
-            <div key={name} className={\`rounded-2xl p-8 border \${highlight ? "border-violet-500/50 bg-violet-500/10" : "border-white/5 bg-white/[0.02]"}\`}>
-              <p className="text-sm text-white/50 mb-2">{name}</p>
-              <div className="flex items-baseline gap-1 mb-6">
-                <span className="text-4xl font-extrabold">{price}</span>
-                <span className="text-sm text-white/30">{period}</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                {features.map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-white/60">
-                    <Check className="h-4 w-4 text-violet-400 shrink-0" />{f}
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            { name: "Hobby", price: "Free", desc: "For personal projects", features: ["3 projects", "100GB bandwidth", "Community support"], cta: "Get started", hl: false },
+            { name: "Pro", price: "$29/mo", desc: "For growing teams", features: ["Unlimited projects", "500GB bandwidth", "Priority support", "Advanced analytics"], cta: "Start free trial", hl: true },
+            { name: "Enterprise", price: "Custom", desc: "For large organizations", features: ["Custom limits", "Dedicated infrastructure", "SLA guarantee", "SSO / SAML"], cta: "Contact sales", hl: false },
+          ].map(({ name, price, desc, features, cta, hl }) => (
+            <div
+              key={name}
+              className="rounded-2xl border p-8"
+              style={{
+                borderColor: hl ? "rgba(59,130,246,0.4)" : isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)",
+                background: hl
+                  ? isDark ? "rgba(59,130,246,0.07)" : "rgba(37,99,235,0.04)"
+                  : isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.8)",
+              }}
+            >
+              <p className="mb-1 text-sm font-semibold" style={{ color: isDark ? "rgba(255,255,255,0.6)" : "rgba(15,23,42,0.6)" }}>{name}</p>
+              <p className="mb-2 text-3xl font-extrabold" style={{ color: text }}>{price}</p>
+              <p className="mb-6 text-xs" style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}>{desc}</p>
+              <ul className="mb-7 space-y-2.5">
+                {features.map((f) => (
+                  <li key={f} className="flex items-center gap-2 text-sm" style={{ color: isDark ? "rgba(255,255,255,0.55)" : "rgba(15,23,42,0.65)" }}>
+                    <Check className="h-3.5 w-3.5 text-blue-400 shrink-0" /> {f}
                   </li>
                 ))}
               </ul>
-              <button className={\`w-full py-3 rounded-xl font-medium transition-all \${highlight ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white" : "border border-white/10 text-white/60 hover:border-white/20"}\`}>
-                {highlight ? "Get started" : "Choose plan"}
+              <button
+                onClick={() => setSignupOpen(true)}
+                className={\`w-full rounded-xl py-3 text-sm font-semibold transition-all \${hl ? "bg-blue-600 text-white hover:bg-blue-500" : "border"}\`}
+                style={!hl ? { borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)", color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.55)" } : {}}
+              >
+                {cta}
               </button>
             </div>
           ))}
         </div>
-      </section>
+      </div>
+
+      {/* CTA */}
+      <div className="mx-auto max-w-6xl px-8 pb-24">
+        <div className="rounded-3xl border border-blue-500/20 bg-blue-950/20 p-12 text-center md:p-16">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-white">Ready to ship faster?</h2>
+          <p className="mx-auto mb-8 max-w-md text-sm text-white/35">
+            Join 18,000+ teams already building on Nova. Set up in under 5 minutes.
+          </p>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <button
+              onClick={() => setSignupOpen(true)}
+              className="group flex items-center gap-2 rounded-xl bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-500"
+            >
+              Get started free <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </button>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="rounded-xl border border-white/[0.08] px-8 py-3.5 text-sm text-white/50 hover:border-white/[0.15] hover:text-white/70"
+            >
+              Talk to sales
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 px-10 py-8 text-center text-sm text-white/20">
-        © 2024 Nova. Built with Next.js & Tailwind CSS.
+      <footer
+        className="border-t py-12"
+        style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+      >
+        <div className="mx-auto max-w-6xl px-8">
+          <div className="mb-10 grid grid-cols-2 gap-6 md:grid-cols-5 md:gap-8">
+            <div className="col-span-2">
+              <div className="mb-3 flex items-center gap-2.5">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
+                  <Zap className="h-3.5 w-3.5 text-white" />
+                </div>
+                <span className="font-bold" style={{ color: text }}>Nova</span>
+              </div>
+              <p className="mb-4 max-w-[220px] text-xs leading-relaxed" style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.4)" }}>
+                The unified platform for modern engineering teams.
+              </p>
+            </div>
+            {[
+              { heading: "Product", links: ["Features", "Pricing", "Changelog", "Roadmap"] },
+              { heading: "Docs", links: ["Getting started", "API reference", "Guides", "Status"] },
+              { heading: "Company", links: ["About", "Blog", "Careers", "Contact"] },
+            ].map(({ heading, links }) => (
+              <div key={heading}>
+                <p className="mb-4 text-[10px] font-bold uppercase tracking-widest" style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.35)" }}>{heading}</p>
+                <ul className="space-y-2.5">
+                  {links.map((l) => (
+                    <li key={l}>
+                      <a href="#" className="text-xs transition-colors" style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.5)" }}>{l}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div
+            className="flex flex-col gap-3 border-t pt-6 md:flex-row md:items-center md:justify-between"
+            style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
+          >
+            <p className="text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)" }}>
+              © 2025 Nova, Inc. All rights reserved.
+            </p>
+            <div className="flex gap-4">
+              {["Privacy", "Terms", "Security"].map((l) => (
+                <a key={l} href="#" className="text-[11px] transition-colors" style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)" }}>{l}</a>
+              ))}
+            </div>
+          </div>
+        </div>
       </footer>
-    </main>
+    </div>
   )
 }`
 

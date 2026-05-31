@@ -49,68 +49,129 @@ export function NovaPreview() {
           onClick={() => setLoginOpen(false)}
         >
           <div
-            className="w-full max-w-sm overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0e0e17] p-8 shadow-2xl"
+            className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border shadow-2xl"
+            style={{
+              background: isDark ? "#0e0e17" : "#ffffff",
+              borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mb-6 flex items-center gap-2.5">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
-                <Zap className="h-3.5 w-3.5 text-white" />
-              </div>
-              <span className="font-bold text-white">Nova</span>
-            </div>
-            <h2 className="mb-1 text-xl font-bold text-white">Welcome back</h2>
-            <p className="mb-6 text-sm text-white/40">Sign in to your Nova account</p>
-            <div className="mb-4">
-              <label className="mb-1.5 block text-xs font-medium text-white/50">Email</label>
-              <input
-                type="email"
-                placeholder="you@company.com"
-                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
-              />
-            </div>
-            <div className="mb-6">
-              <div className="mb-1.5 flex items-center justify-between">
-                <label className="text-xs font-medium text-white/50">Password</label>
-                <button className="text-xs text-blue-400 hover:text-blue-300">
-                  Forgot password?
-                </button>
-              </div>
-              <input
-                type="password"
-                placeholder="••••••••"
-                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
-              />
-            </div>
-            <button className="mb-4 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">
-              Sign in
+            <button
+              onClick={() => setLoginOpen(false)}
+              className="absolute right-4 top-4 text-xs"
+              style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.3)" }}
+            >
+              ✕
             </button>
-            <div className="mb-4 flex items-center gap-3">
-              <div className="h-px flex-1 bg-white/[0.06]" />
-              <span className="text-[11px] text-white/25">or continue with</span>
-              <div className="h-px flex-1 bg-white/[0.06]" />
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              {["GitHub", "Google"].map((p) => (
-                <button
-                  key={p}
-                  className="rounded-xl border border-white/[0.08] bg-white/[0.03] py-2.5 text-xs font-medium text-white/60 hover:bg-white/[0.06]"
-                >
-                  {p}
-                </button>
-              ))}
-            </div>
-            <p className="mt-5 text-center text-xs text-white/30">
-              No account?{" "}
-              <button
-                className="text-blue-400 hover:text-blue-300"
-                onClick={() => {
-                  setLoginOpen(false)
-                  setSignupOpen(true)
-                }}
+            <div className="p-8">
+              <div className="mb-6 flex items-center gap-2.5">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
+                  <Zap className="h-3.5 w-3.5 text-white" />
+                </div>
+                <span className="font-bold" style={{ color: text }}>
+                  Nova
+                </span>
+              </div>
+              <h2 className="mb-1 text-xl font-bold" style={{ color: text }}>
+                Welcome back
+              </h2>
+              <p
+                className="mb-6 text-sm"
+                style={{ color: isDark ? "rgba(255,255,255,0.4)" : "rgba(15,23,42,0.5)" }}
               >
-                Sign up free
+                Sign in to your Nova account
+              </p>
+              <div className="mb-4">
+                <label
+                  className="mb-1.5 block text-xs font-medium"
+                  style={{ color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.55)" }}
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="you@company.com"
+                  className="w-full rounded-xl border px-4 py-2.5 text-sm outline-none"
+                  style={{
+                    borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.1)",
+                    background: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.03)",
+                    color: text,
+                  }}
+                />
+              </div>
+              <div className="mb-6">
+                <div className="mb-1.5 flex items-center justify-between">
+                  <label
+                    className="text-xs font-medium"
+                    style={{ color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.55)" }}
+                  >
+                    Password
+                  </label>
+                  <button className="text-xs text-blue-400 hover:text-blue-300">
+                    Forgot password?
+                  </button>
+                </div>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  className="w-full rounded-xl border px-4 py-2.5 text-sm outline-none"
+                  style={{
+                    borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.1)",
+                    background: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.03)",
+                    color: text,
+                  }}
+                />
+              </div>
+              <button className="mb-4 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">
+                Sign in
               </button>
-            </p>
+              <div className="mb-4 flex items-center gap-3">
+                <div
+                  className="h-px flex-1"
+                  style={{ background: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)" }}
+                />
+                <span
+                  className="text-[11px]"
+                  style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.35)" }}
+                >
+                  or continue with
+                </span>
+                <div
+                  className="h-px flex-1"
+                  style={{ background: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)" }}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {["GitHub", "Google"].map((p) => (
+                  <button
+                    key={p}
+                    className="rounded-xl border py-2.5 text-xs font-medium transition-colors"
+                    style={{
+                      borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.1)",
+                      background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.02)",
+                      color: isDark ? "rgba(255,255,255,0.6)" : "rgba(15,23,42,0.6)",
+                    }}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+              <p
+                className="mt-5 text-center text-xs"
+                style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}
+              >
+                No account?{" "}
+                <button
+                  className="text-blue-400 hover:text-blue-300"
+                  onClick={() => {
+                    setLoginOpen(false)
+                    setSignupOpen(true)
+                  }}
+                >
+                  Sign up free
+                </button>
+              </p>
+            </div>
           </div>
         </div>
       )}
@@ -122,77 +183,109 @@ export function NovaPreview() {
           onClick={() => setSignupOpen(false)}
         >
           <div
-            className="w-full max-w-sm overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0e0e17] p-8 shadow-2xl"
+            className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border shadow-2xl"
+            style={{
+              background: isDark ? "#0e0e17" : "#ffffff",
+              borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mb-6 flex items-center gap-2.5">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
-                <Zap className="h-3.5 w-3.5 text-white" />
-              </div>
-              <span className="font-bold text-white">Nova</span>
-            </div>
-            <h2 className="mb-1 text-xl font-bold text-white">Create your account</h2>
-            <p className="mb-6 text-sm text-white/40">Start shipping faster today — free forever</p>
-            <div className="mb-4">
-              <label className="mb-1.5 block text-xs font-medium text-white/50">Full name</label>
-              <input
-                type="text"
-                placeholder="Jane Smith"
-                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="mb-1.5 block text-xs font-medium text-white/50">Work email</label>
-              <input
-                type="email"
-                placeholder="you@company.com"
-                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
-              />
-            </div>
-            <div className="mb-6">
-              <label className="mb-1.5 block text-xs font-medium text-white/50">Password</label>
-              <input
-                type="password"
-                placeholder="Min. 8 characters"
-                className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/20 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30"
-              />
-            </div>
-            <button className="mb-4 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">
-              Create account
+            <button
+              onClick={() => setSignupOpen(false)}
+              className="absolute right-4 top-4 text-xs"
+              style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.3)" }}
+            >
+              ✕
             </button>
-            <p className="text-center text-[11px] text-white/20">
-              By signing up you agree to our{" "}
-              <button className="text-white/40 hover:text-white/60">Terms</button> and{" "}
-              <button className="text-white/40 hover:text-white/60">Privacy Policy</button>
-            </p>
-            <p className="mt-4 text-center text-xs text-white/30">
-              Already have an account?{" "}
-              <button
-                className="text-blue-400 hover:text-blue-300"
-                onClick={() => {
-                  setSignupOpen(false)
-                  setLoginOpen(true)
-                }}
+            <div className="p-8">
+              <div className="mb-6 flex items-center gap-2.5">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
+                  <Zap className="h-3.5 w-3.5 text-white" />
+                </div>
+                <span className="font-bold" style={{ color: text }}>
+                  Nova
+                </span>
+              </div>
+              <h2 className="mb-1 text-xl font-bold" style={{ color: text }}>
+                Create your account
+              </h2>
+              <p
+                className="mb-6 text-sm"
+                style={{ color: isDark ? "rgba(255,255,255,0.4)" : "rgba(15,23,42,0.5)" }}
               >
-                Sign in
+                Start shipping faster today — free forever
+              </p>
+              {[
+                { label: "Full name", type: "text", ph: "Jane Smith" },
+                { label: "Work email", type: "email", ph: "you@company.com" },
+                { label: "Password", type: "password", ph: "Min. 8 characters" },
+              ].map(({ label, type, ph }) => (
+                <div key={label} className="mb-4">
+                  <label
+                    className="mb-1.5 block text-xs font-medium"
+                    style={{ color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.55)" }}
+                  >
+                    {label}
+                  </label>
+                  <input
+                    type={type}
+                    placeholder={ph}
+                    className="w-full rounded-xl border px-4 py-2.5 text-sm outline-none"
+                    style={{
+                      borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.1)",
+                      background: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.03)",
+                      color: text,
+                    }}
+                  />
+                </div>
+              ))}
+              <button className="mb-4 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">
+                Create account
               </button>
-            </p>
+              <p
+                className="text-center text-[11px]"
+                style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)" }}
+              >
+                By signing up you agree to our{" "}
+                <button className="text-blue-400 hover:text-blue-300">Terms</button> and{" "}
+                <button className="text-blue-400 hover:text-blue-300">Privacy Policy</button>
+              </p>
+              <p
+                className="mt-4 text-center text-xs"
+                style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}
+              >
+                Already have an account?{" "}
+                <button
+                  className="text-blue-400 hover:text-blue-300"
+                  onClick={() => {
+                    setSignupOpen(false)
+                    setLoginOpen(true)
+                  }}
+                >
+                  Sign in
+                </button>
+              </p>
+            </div>
           </div>
         </div>
       )}
 
       {/* Nav */}
-      <nav
-        className="sticky top-0 z-50 border-b border-white/[0.05] backdrop-blur-xl"
-        style={{ background: isDark ? "rgba(7,7,13,0.9)" : "rgba(248,250,252,0.9)" }}
+      <div
+        className="sticky top-0 z-50 border-b"
+        style={{
+          background: isDark ? "rgba(7,7,13,0.85)" : "rgba(248,250,252,0.85)",
+          borderColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.06)",
+          backdropFilter: "blur(12px)",
+        }}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-8 py-4">
-          <div className="flex items-center gap-8">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
+          <div className="flex items-center gap-6">
             <div className="flex items-center gap-2.5">
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
-                <Zap className="h-3.5 w-3.5 text-white" />
+                <Zap className="h-4 w-4 text-white" />
               </div>
-              <span className="text-sm font-bold tracking-tight" style={{ color: text }}>
+              <span className="text-sm font-bold" style={{ color: text }}>
                 Nova
               </span>
             </div>
@@ -254,7 +347,7 @@ export function NovaPreview() {
             </button>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* Hero */}
       <div className="relative flex flex-col items-center overflow-hidden px-8 pb-24 pt-28 text-center">
@@ -384,8 +477,8 @@ export function NovaPreview() {
             <Bell className="h-3.5 w-3.5 text-white/20" />
             <Settings className="h-3.5 w-3.5 text-white/20" />
           </div>
-          <div className="flex bg-[#0b0b12]">
-            <div className="w-44 shrink-0 border-r border-white/[0.04] px-3 py-5">
+          <div className="flex flex-col bg-[#0b0b12] md:flex-row">
+            <div className="shrink-0 border-b border-white/[0.04] px-3 py-4 md:w-44 md:border-b-0 md:border-r md:py-5">
               <div className="mb-4 flex items-center gap-2 px-2">
                 <div className="h-5 w-5 rounded-md bg-blue-600" />
                 <span className="text-xs font-bold text-white">Acme Corp</span>
@@ -440,7 +533,7 @@ export function NovaPreview() {
                   </button>
                 </div>
               </div>
-              <div className="mb-5 grid grid-cols-4 gap-3">
+              <div className="mb-5 grid grid-cols-2 gap-3 md:grid-cols-4">
                 {[
                   { label: "MRR", val: "$2.4M", delta: "+18%" },
                   { label: "Active users", val: "14.2K", delta: "+31%" },
@@ -457,8 +550,8 @@ export function NovaPreview() {
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="col-span-2 rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                <div className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4 md:col-span-2">
                   <div className="mb-3 flex items-center justify-between">
                     <p className="text-[11px] font-medium text-white/60">Revenue trend</p>
                     <div className="flex gap-1">
@@ -890,8 +983,8 @@ export function NovaPreview() {
         style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
       >
         <div className="mx-auto max-w-6xl px-8">
-          <div className="mb-12 grid grid-cols-5 gap-8">
-            <div className="col-span-2">
+          <div className="mb-12 grid grid-cols-2 gap-6 md:grid-cols-5 md:gap-8">
+            <div className="col-span-2 md:col-span-2">
               <div className="mb-4 flex items-center gap-2.5">
                 <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
                   <Zap className="h-3.5 w-3.5 text-white" />
@@ -950,7 +1043,7 @@ export function NovaPreview() {
             ))}
           </div>
           <div
-            className="flex items-center justify-between border-t pt-6"
+            className="flex flex-col gap-3 border-t pt-6 md:flex-row md:items-center md:justify-between"
             style={{ borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)" }}
           >
             <p
@@ -979,9 +1072,16 @@ export function NovaPreview() {
 
 // ─── Zenith: Studio Portfolio — Pentagram / BASE aesthetic ───────────────────
 export function ZenithPreview() {
+  const [activeTheme, setActiveTheme] = React.useState<"system" | "light" | "dark">("light")
   const [loginOpen, setLoginOpen] = React.useState(false)
-  const [signupOpen, setSignupOpen] = React.useState(false)
   const [projectOpen, setProjectOpen] = React.useState(false)
+
+  const isDark = activeTheme === "dark"
+  const bg = isDark ? "#111111" : "#f8f6f1"
+  const text = isDark ? "#ffffff" : "#1a1a1a"
+  const muted = isDark ? "rgba(255,255,255,0.4)" : "rgba(26,26,26,0.45)"
+  const border = isDark ? "rgba(255,255,255,0.07)" : "rgba(26,26,26,0.08)"
+  const cardBg = isDark ? "rgba(255,255,255,0.03)" : "#ffffff"
 
   const Modal = ({
     open,
@@ -998,12 +1098,14 @@ export function ZenithPreview() {
         onClick={onClose}
       >
         <div
-          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl bg-[#f8f6f1] shadow-2xl"
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl shadow-2xl"
+          style={{ background: isDark ? "#1a1a1a" : "#f8f6f1", border: `1px solid ${border}` }}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 text-xs text-[#1a1a1a]/30 transition-colors hover:text-[#1a1a1a]"
+            className="absolute right-4 top-4 text-xs"
+            style={{ color: muted }}
           >
             ✕
           </button>
@@ -1014,182 +1116,251 @@ export function ZenithPreview() {
 
   return (
     <div
-      className="relative min-h-[1200px] bg-[#f8f6f1] font-sans text-[#1a1a1a]"
-      style={{ fontFamily: "system-ui,sans-serif" }}
+      className="relative min-h-[1400px] font-sans"
+      style={{ fontFamily: "system-ui,sans-serif", background: bg, color: text }}
     >
-      {/* Login Modal */}
       <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-black text-[#1a1a1a]">Welcome back</h2>
-          <p className="mb-6 text-xs text-[#1a1a1a]/40">Sign in to your Zenith account</p>
-          <div className="space-y-3">
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
-            />
-          </div>
-          <button className="mt-4 w-full rounded-xl bg-[#1a1a1a] py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#2a2a2a]">
+          <h2 className="mb-1 text-xl font-black" style={{ color: text }}>
+            Client portal
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            Access your project files & invoices
+          </p>
+          {[
+            { label: "Email", type: "email", ph: "you@company.com" },
+            { label: "Password", type: "password", ph: "••••••••" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.04)" : "rgba(26,26,26,0.03)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
+          <button
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-bold text-white transition-colors"
+            style={{ background: text }}
+          >
             Sign in
           </button>
-          <p className="mt-4 text-center text-xs text-[#1a1a1a]/40">
-            No account?{" "}
+          <p className="mt-4 text-center text-xs" style={{ color: muted }}>
+            New client?{" "}
             <button
-              className="font-semibold text-[#1a1a1a] underline"
+              className="font-semibold underline"
+              style={{ color: text }}
               onClick={() => {
                 setLoginOpen(false)
-                setSignupOpen(true)
+                setProjectOpen(true)
               }}
             >
-              Sign up
+              Start a project
             </button>
           </p>
         </div>
       </Modal>
 
-      {/* Signup Modal */}
-      <Modal open={signupOpen} onClose={() => setSignupOpen(false)}>
-        <div className="p-8">
-          <h2 className="mb-1 text-xl font-black text-[#1a1a1a]">Create account</h2>
-          <p className="mb-6 text-xs text-[#1a1a1a]/40">Join the Zenith community</p>
-          <div className="space-y-3">
-            <input
-              type="text"
-              placeholder="Full name"
-              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
-            />
-          </div>
-          <button className="mt-4 w-full rounded-xl bg-[#1a1a1a] py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#2a2a2a]">
-            Create account
-          </button>
-          <p className="mt-4 text-center text-xs text-[#1a1a1a]/40">
-            Already have one?{" "}
-            <button
-              className="font-semibold text-[#1a1a1a] underline"
-              onClick={() => {
-                setSignupOpen(false)
-                setLoginOpen(true)
-              }}
-            >
-              Sign in
-            </button>
-          </p>
-        </div>
-      </Modal>
-
-      {/* Project Modal */}
       <Modal open={projectOpen} onClose={() => setProjectOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-black text-[#1a1a1a]">Start a project</h2>
-          <p className="mb-6 text-xs text-[#1a1a1a]/40">Tell us about your brand and goals</p>
-          <div className="space-y-3">
-            <input
-              type="text"
-              placeholder="Company name"
-              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
-            />
-            <input
-              type="email"
-              placeholder="Your email"
-              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
-            />
+          <h2 className="mb-1 text-xl font-black" style={{ color: text }}>
+            Start a project
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            Tell us about your brand and goals
+          </p>
+          {[
+            { label: "Company", type: "text", ph: "Acme Inc." },
+            { label: "Email", type: "email", ph: "you@company.com" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.04)" : "rgba(26,26,26,0.03)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
+          <div className="mb-4">
+            <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+              About the project
+            </label>
             <textarea
-              placeholder="Describe your project..."
               rows={3}
-              className="w-full resize-none rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
+              placeholder="Describe your vision..."
+              className="w-full resize-none rounded-xl px-4 py-2.5 text-sm outline-none"
+              style={{
+                border: `1px solid ${border}`,
+                background: isDark ? "rgba(255,255,255,0.04)" : "rgba(26,26,26,0.03)",
+                color: text,
+              }}
             />
           </div>
-          <button className="mt-4 w-full rounded-xl bg-[#1a1a1a] py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#2a2a2a]">
+          <button
+            className="w-full rounded-xl py-2.5 text-sm font-bold text-white"
+            style={{ background: text }}
+          >
             Send inquiry
           </button>
         </div>
       </Modal>
 
       {/* Nav */}
-      <nav className="flex items-center justify-between px-6 py-6 md:px-10 md:py-7">
-        <span className="text-sm font-black uppercase tracking-[0.15em]">Zenith</span>
-        <div className="hidden items-center gap-8 md:flex">
-          {["Work", "Studio", "Services", "Journal"].map((l) => (
-            <button
-              key={l}
-              className="text-xs font-medium tracking-wide text-[#1a1a1a]/50 transition-colors hover:text-[#1a1a1a]"
+      <div
+        className="sticky top-0 z-50"
+        style={{
+          background: isDark ? "rgba(17,17,17,0.9)" : "rgba(248,246,241,0.9)",
+          backdropFilter: "blur(12px)",
+          borderBottom: `1px solid ${border}`,
+        }}
+      >
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
+          <div className="flex items-center gap-8">
+            <span
+              className="text-sm font-black uppercase tracking-[0.15em]"
+              style={{ color: text }}
             >
-              {l}
+              Zenith
+            </span>
+            <nav className="hidden items-center gap-1 md:flex">
+              {["Work", "Studio", "Services", "Journal"].map((l) => (
+                <button
+                  key={l}
+                  className="rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors"
+                  style={{ color: muted }}
+                >
+                  {l}
+                </button>
+              ))}
+            </nav>
+          </div>
+          <div className="flex items-center gap-2">
+            <div
+              className="hidden items-center rounded-lg p-0.5 md:flex"
+              style={{ background: isDark ? "rgba(255,255,255,0.06)" : "rgba(26,26,26,0.06)" }}
+            >
+              {(["System", "Light", "Dark"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setActiveTheme(t.toLowerCase() as "system" | "light" | "dark")}
+                  className="rounded-md px-2.5 py-1 text-[10px] font-medium transition-all"
+                  style={{
+                    background:
+                      activeTheme === t.toLowerCase()
+                        ? isDark
+                          ? "rgba(255,255,255,0.12)"
+                          : "rgba(26,26,26,0.1)"
+                        : "transparent",
+                    color: activeTheme === t.toLowerCase() ? text : muted,
+                  }}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="px-3 py-1.5 text-xs transition-colors"
+              style={{ color: muted }}
+            >
+              Log in
             </button>
-          ))}
+            <button
+              onClick={() => setProjectOpen(true)}
+              className="rounded-full border px-5 py-2 text-xs font-semibold transition-colors"
+              style={{
+                borderColor: isDark ? "rgba(255,255,255,0.15)" : "rgba(26,26,26,0.15)",
+                color: text,
+              }}
+            >
+              Start a project
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setLoginOpen(true)}
-            className="hidden px-3 py-1.5 text-xs text-[#1a1a1a]/40 transition-colors hover:text-[#1a1a1a] md:block"
-          >
-            Log in
-          </button>
-          <button
-            onClick={() => setProjectOpen(true)}
-            className="rounded-full border border-[#1a1a1a]/15 px-5 py-2 text-xs font-semibold text-[#1a1a1a] transition-colors hover:border-[#1a1a1a]/40"
-          >
-            Start a project
-          </button>
-        </div>
-      </nav>
+      </div>
 
       {/* Hero */}
-      <div className="border-[#1a1a1a]/8 border-t px-6 pb-16 pt-14 md:px-10 md:pb-20 md:pt-16">
+      <div
+        className="mx-auto max-w-6xl border-t px-4 pb-16 pt-14 md:px-8 md:pb-20 md:pt-16"
+        style={{ borderColor: border }}
+      >
         <div className="grid gap-8 lg:grid-cols-[1fr_auto]">
           <div>
-            <p className="mb-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#1a1a1a]/35">
+            <p
+              className="mb-8 text-[10px] font-semibold uppercase tracking-[0.2em]"
+              style={{ color: muted }}
+            >
               Independent creative studio — Est. 2016
             </p>
-            <h1 className="text-[48px] font-black leading-[0.95] tracking-tight text-[#1a1a1a] md:text-[64px]">
+            <h1
+              className="text-[48px] font-black leading-[0.95] tracking-tight md:text-[64px]"
+              style={{ color: text }}
+            >
               We shape
               <br />
-              <span className="font-light italic text-[#1a1a1a]/30">brands</span>
+              <span
+                className="font-light italic"
+                style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(26,26,26,0.2)" }}
+              >
+                brands
+              </span>
               <br />
               that endure.
             </h1>
           </div>
           <div className="flex max-w-xs flex-col justify-end">
-            <p className="text-sm leading-relaxed text-[#1a1a1a]/50">
+            <p className="text-sm leading-relaxed" style={{ color: muted }}>
               Zenith is a multidisciplinary studio working at the intersection of brand, digital,
-              and motion. We partner with ambitious companies to create work that lasts.
+              and motion.
             </p>
             <button
               onClick={() => setProjectOpen(true)}
-              className="group mt-6 flex w-fit items-center gap-2 text-sm font-semibold text-[#1a1a1a]"
+              className="group mt-6 flex w-fit items-center gap-2 text-sm font-semibold"
+              style={{ color: text }}
             >
-              View selected work
+              View selected work{" "}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
         </div>
-
-        {/* Stats */}
-        <div className="border-[#1a1a1a]/8 mt-16 grid grid-cols-2 gap-0 border-t md:grid-cols-4">
+        <div
+          className="mt-16 grid grid-cols-2 border-t md:grid-cols-4"
+          style={{ borderColor: border }}
+        >
           {[
             ["140+", "Projects"],
             ["$2B+", "Client revenue"],
             ["9", "Awards"],
             ["3", "Offices"],
           ].map(([n, l]) => (
-            <div key={l} className="border-[#1a1a1a]/8 border-r py-6 pr-6 last:border-r-0">
-              <p className="text-3xl font-black tracking-tight">{n}</p>
-              <p className="mt-1 text-xs font-medium uppercase tracking-wider text-[#1a1a1a]/35">
+            <div
+              key={l}
+              className="border-r py-6 pr-6 last:border-r-0"
+              style={{ borderColor: border }}
+            >
+              <p className="text-3xl font-black tracking-tight" style={{ color: text }}>
+                {n}
+              </p>
+              <p
+                className="mt-1 text-xs font-medium uppercase tracking-wider"
+                style={{ color: muted }}
+              >
                 {l}
               </p>
             </div>
@@ -1197,26 +1368,62 @@ export function ZenithPreview() {
         </div>
       </div>
 
-      {/* Portfolio grid */}
-      <div className="border-[#1a1a1a]/8 border-t px-6 py-14 md:px-10 md:py-16">
+      {/* Portfolio */}
+      <div
+        className="mx-auto max-w-6xl border-t px-4 py-14 md:px-8 md:py-16"
+        style={{ borderColor: border }}
+      >
         <div className="mb-10 flex items-center justify-between">
-          <h2 className="text-xl font-bold">Selected work</h2>
-          <button className="text-xs font-medium text-[#1a1a1a]/40 transition-colors hover:text-[#1a1a1a]">
+          <h2 className="text-xl font-bold" style={{ color: text }}>
+            Selected work
+          </h2>
+          <button className="text-xs font-medium transition-colors" style={{ color: muted }}>
             All projects →
           </button>
         </div>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
           {[
-            { label: "Brand system", client: "Meridian Capital", year: "2024", bg: "bg-[#1a1a1a]" },
-            { label: "Campaign identity", client: "Lune Studio", year: "2024", bg: "bg-stone-200" },
-            { label: "Digital product", client: "Arch Software", year: "2023", bg: "bg-amber-100" },
-            { label: "Annual report", client: "Vega Capital", year: "2023", bg: "bg-slate-800" },
-            { label: "Motion & film", client: "Pattern NYC", year: "2023", bg: "bg-rose-100" },
-            { label: "Web experience", client: "Croft Ventures", year: "2024", bg: "bg-sky-100" },
-          ].map(({ label, client, year, bg }) => (
+            {
+              client: "Meridian Capital",
+              label: "Brand system",
+              year: "2024",
+              bg: isDark ? "#222" : "#1a1a1a",
+            },
+            {
+              client: "Lune Studio",
+              label: "Campaign identity",
+              year: "2024",
+              bg: isDark ? "#2a2520" : "#e7e0d4",
+            },
+            {
+              client: "Arch Software",
+              label: "Digital product",
+              year: "2023",
+              bg: isDark ? "#25211a" : "#fef3c7",
+            },
+            {
+              client: "Vega Capital",
+              label: "Annual report",
+              year: "2023",
+              bg: isDark ? "#1a1f2a" : "#1e293b",
+            },
+            {
+              client: "Pattern NYC",
+              label: "Motion & film",
+              year: "2023",
+              bg: isDark ? "#2a1a1f" : "#ffe4e6",
+            },
+            {
+              client: "Croft Ventures",
+              label: "Web experience",
+              year: "2024",
+              bg: isDark ? "#1a2030" : "#e0f2fe",
+            },
+          ].map(({ client, label, year, bg: cardColor }) => (
             <div
               key={client}
-              className={`group relative aspect-[4/3] overflow-hidden rounded-xl ${bg}`}
+              className="group relative aspect-[4/3] overflow-hidden rounded-xl"
+              style={{ background: cardColor }}
             >
               <div className="absolute inset-0 flex flex-col justify-between bg-black/40 p-4 opacity-0 transition-all duration-200 group-hover:opacity-100">
                 <span className="text-[9px] font-semibold uppercase tracking-widest text-white/60">
@@ -1227,44 +1434,54 @@ export function ZenithPreview() {
                   <p className="text-[9px] text-white/60">{label}</p>
                 </div>
               </div>
-              <div className="absolute bottom-3 left-3 opacity-100 transition-all group-hover:opacity-0">
-                <p className="text-[9px] font-medium uppercase tracking-wider text-white/40 mix-blend-difference">
-                  {client}
-                </p>
-              </div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Services */}
-      <div className="border-[#1a1a1a]/8 border-t px-6 py-14 md:px-10 md:py-16">
+      <div
+        className="mx-auto max-w-6xl border-t px-4 py-14 md:px-8 md:py-16"
+        style={{ borderColor: border }}
+      >
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
-            <h2 className="mb-2 text-3xl font-bold">What we do</h2>
-            <p className="text-sm text-[#1a1a1a]/40">
+            <h2 className="mb-2 text-3xl font-bold" style={{ color: text }}>
+              What we do
+            </h2>
+            <p className="text-sm" style={{ color: muted }}>
               End-to-end creative services for brands at every stage.
             </p>
           </div>
-          <div className="divide-[#1a1a1a]/8 divide-y">
+          <div style={{ borderTop: `1px solid ${border}` }}>
             {[
               ["Brand Identity", "Strategy, visual identity, guidelines, naming"],
-              ["Digital Design", "UX design, web, product, prototyping"],
+              ["Digital Design", "UX, web, product, prototyping"],
               ["Motion & Film", "Brand films, 3D, social content, animation"],
               ["Development", "Next.js, React, TypeScript, CMS, ecommerce"],
             ].map(([t, d], i) => (
               <button
                 key={t}
-                className="group flex w-full cursor-pointer items-center justify-between py-5 text-left"
+                className="group flex w-full items-center justify-between py-5 text-left"
+                style={{ borderBottom: `1px solid ${border}` }}
               >
                 <div className="flex items-center gap-6">
-                  <span className="w-6 text-[10px] font-semibold text-[#1a1a1a]/25">0{i + 1}</span>
+                  <span className="w-6 text-[10px] font-semibold" style={{ color: muted }}>
+                    0{i + 1}
+                  </span>
                   <div>
-                    <p className="text-sm font-semibold">{t}</p>
-                    <p className="text-xs text-[#1a1a1a]/40">{d}</p>
+                    <p className="text-sm font-semibold" style={{ color: text }}>
+                      {t}
+                    </p>
+                    <p className="text-xs" style={{ color: muted }}>
+                      {d}
+                    </p>
                   </div>
                 </div>
-                <ChevronRight className="h-4 w-4 text-[#1a1a1a]/20 transition-all group-hover:translate-x-0.5 group-hover:text-[#1a1a1a]/60" />
+                <ChevronRight
+                  className="h-4 w-4 transition-all group-hover:translate-x-0.5"
+                  style={{ color: muted }}
+                />
               </button>
             ))}
           </div>
@@ -1272,39 +1489,127 @@ export function ZenithPreview() {
       </div>
 
       {/* CTA */}
-      <div className="mx-6 mb-16 rounded-3xl bg-[#1a1a1a] p-12 text-center text-white md:mx-10 md:p-16">
-        <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/30">
-          Get in touch
-        </p>
-        <h2 className="mb-6 text-3xl font-black tracking-tight md:text-4xl">
-          Have a project in mind?
-        </h2>
-        <p className="mx-auto mb-10 max-w-sm text-sm text-white/40">
-          We take on select engagements. Tell us about your brand and goals.
-        </p>
-        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <button
-            onClick={() => setProjectOpen(true)}
-            className="rounded-full bg-white px-10 py-3.5 text-sm font-bold text-[#1a1a1a] transition-colors hover:bg-white/90"
+      <div className="mx-auto max-w-6xl px-4 pb-16 md:px-8">
+        <div className="rounded-3xl p-12 text-center md:p-16" style={{ background: text }}>
+          <p
+            className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em]"
+            style={{ color: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.3)" }}
           >
-            Start a project
-          </button>
-          <button
-            onClick={() => setLoginOpen(true)}
-            className="rounded-full border border-white/20 px-8 py-3.5 text-sm text-white/50 transition-colors hover:border-white/40 hover:text-white/80"
+            Get in touch
+          </p>
+          <h2
+            className="mb-6 text-3xl font-black tracking-tight md:text-4xl"
+            style={{ color: isDark ? "#000" : "#fff" }}
           >
-            Client login
-          </button>
+            Have a project in mind?
+          </h2>
+          <p
+            className="mx-auto mb-10 max-w-sm text-sm"
+            style={{ color: isDark ? "rgba(0,0,0,0.4)" : "rgba(255,255,255,0.5)" }}
+          >
+            We take on select engagements. Tell us about your brand and goals.
+          </p>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <button
+              onClick={() => setProjectOpen(true)}
+              className="rounded-full px-10 py-3.5 text-sm font-bold transition-colors"
+              style={{ background: isDark ? "#000" : "#fff", color: isDark ? "#fff" : "#1a1a1a" }}
+            >
+              Start a project
+            </button>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="rounded-full border px-8 py-3.5 text-sm transition-colors"
+              style={{
+                borderColor: isDark ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.2)",
+                color: isDark ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.6)",
+              }}
+            >
+              Client login
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t py-12" style={{ borderColor: border }}>
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="mb-10 grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
+            <div className="col-span-2 md:col-span-1">
+              <span
+                className="mb-3 block text-sm font-black uppercase tracking-[0.15em]"
+                style={{ color: text }}
+              >
+                Zenith
+              </span>
+              <p className="mb-4 text-xs leading-relaxed" style={{ color: muted }}>
+                Multidisciplinary creative studio. Est. 2016.
+              </p>
+              <p className="text-xs" style={{ color: muted }}>
+                studio@zenith.co
+              </p>
+            </div>
+            {[
+              { heading: "Studio", links: ["About", "Team", "Awards", "Careers"] },
+              {
+                heading: "Work",
+                links: ["Brand Identity", "Digital Design", "Motion", "Development"],
+              },
+              { heading: "Connect", links: ["Instagram", "LinkedIn", "Dribbble", "Journal"] },
+            ].map(({ heading, links }) => (
+              <div key={heading}>
+                <p
+                  className="mb-4 text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: muted }}
+                >
+                  {heading}
+                </p>
+                <ul className="space-y-2.5">
+                  {links.map((l) => (
+                    <li key={l}>
+                      <button className="text-xs transition-colors" style={{ color: muted }}>
+                        {l}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div
+            className="flex flex-col gap-3 border-t pt-6 md:flex-row md:items-center md:justify-between"
+            style={{ borderColor: border }}
+          >
+            <p className="text-[11px]" style={{ color: muted }}>
+              © 2025 Zenith Studio. All rights reserved.
+            </p>
+            <div className="flex gap-4">
+              {["Privacy", "Terms"].map((l) => (
+                <button key={l} className="text-[11px] transition-colors" style={{ color: muted }}>
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
 
 // ─── Pulse: Bold Startup — Loom / Notion aesthetic ───────────────────────────
 export function PulsePreview() {
+  const [activeTheme, setActiveTheme] = React.useState<"system" | "light" | "dark">("light")
   const [loginOpen, setLoginOpen] = React.useState(false)
   const [signupOpen, setSignupOpen] = React.useState(false)
+
+  const isDark = activeTheme === "dark"
+  const bg = isDark ? "#0d0d0d" : "#ffffff"
+  const text = isDark ? "#ffffff" : "#111111"
+  const muted = isDark ? "rgba(255,255,255,0.4)" : "rgba(17,17,17,0.45)"
+  const border = isDark ? "rgba(255,255,255,0.07)" : "rgba(17,17,17,0.08)"
+  const cardBg = isDark ? "rgba(255,255,255,0.03)" : "#ffffff"
+  const orange = "#ff6b35"
 
   const Modal = ({
     open,
@@ -1321,12 +1626,14 @@ export function PulsePreview() {
         onClick={onClose}
       >
         <div
-          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl bg-white shadow-2xl"
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl shadow-2xl"
+          style={{ background: isDark ? "#1a1a1a" : "#ffffff", border: `1px solid ${border}` }}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 text-xs text-gray-300 transition-colors hover:text-gray-600"
+            className="absolute right-4 top-4 text-xs"
+            style={{ color: muted }}
           >
             ✕
           </button>
@@ -1337,49 +1644,70 @@ export function PulsePreview() {
 
   return (
     <div
-      className="relative min-h-[1200px] bg-white font-sans text-[#111]"
-      style={{ fontFamily: "system-ui,sans-serif" }}
+      className="relative min-h-[1400px] font-sans"
+      style={{ fontFamily: "system-ui,sans-serif", background: bg, color: text }}
     >
-      {/* Login Modal */}
       <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-black text-gray-900">Welcome back</h2>
-          <p className="mb-6 text-xs text-gray-400">Sign in to your Pulse workspace</p>
+          <h2 className="mb-1 text-xl font-black" style={{ color: text }}>
+            Welcome back
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            Sign in to your Pulse workspace
+          </p>
           <div className="mb-3 grid grid-cols-2 gap-2">
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-gray-100 py-2.5 text-xs font-semibold text-gray-600 transition-colors hover:bg-gray-50">
-              <Globe className="h-3.5 w-3.5" /> Google
-            </button>
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-gray-100 py-2.5 text-xs font-semibold text-gray-600 transition-colors hover:bg-gray-50">
-              <Lock className="h-3.5 w-3.5" /> GitHub
-            </button>
+            {["Google", "GitHub"].map((s) => (
+              <button
+                key={s}
+                className="flex items-center justify-center gap-2 rounded-xl border py-2.5 text-xs font-semibold transition-colors"
+                style={{
+                  borderColor: border,
+                  color: muted,
+                  background: isDark ? "rgba(255,255,255,0.03)" : "rgba(17,17,17,0.02)",
+                }}
+              >
+                {s}
+              </button>
+            ))}
           </div>
           <div className="relative my-4 flex items-center">
-            <div className="flex-1 border-t border-gray-100" />
-            <span className="mx-3 text-[10px] text-gray-300">or</span>
-            <div className="flex-1 border-t border-gray-100" />
+            <div className="flex-1 border-t" style={{ borderColor: border }} />
+            <span className="mx-3 text-[10px]" style={{ color: muted }}>
+              or
+            </span>
+            <div className="flex-1 border-t" style={{ borderColor: border }} />
           </div>
-          <div className="space-y-3">
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
-            />
-          </div>
+          {[
+            { label: "Email", type: "email", ph: "you@company.com" },
+            { label: "Password", type: "password", ph: "••••••••" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.04)" : "rgba(17,17,17,0.03)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
           <button
-            className="mt-4 w-full rounded-xl py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-400/20"
-            style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-bold text-white"
+            style={{ background: orange }}
           >
             Sign in
           </button>
-          <p className="mt-4 text-center text-xs text-gray-400">
+          <p className="mt-4 text-center text-xs" style={{ color: muted }}>
             No account?{" "}
             <button
-              className="font-semibold text-orange-500"
+              className="font-semibold"
+              style={{ color: orange }}
               onClick={() => {
                 setLoginOpen(false)
                 setSignupOpen(true)
@@ -1391,38 +1719,46 @@ export function PulsePreview() {
         </div>
       </Modal>
 
-      {/* Signup Modal */}
       <Modal open={signupOpen} onClose={() => setSignupOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-black text-gray-900">Get started free</h2>
-          <p className="mb-6 text-xs text-gray-400">14-day trial, no credit card required</p>
-          <div className="space-y-3">
-            <input
-              type="text"
-              placeholder="Your name"
-              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
-            />
-            <input
-              type="email"
-              placeholder="Work email"
-              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
-            />
-          </div>
+          <h2 className="mb-1 text-xl font-black" style={{ color: text }}>
+            Get started free
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            14-day trial, no credit card required
+          </p>
+          {[
+            { label: "Your name", type: "text", ph: "Jane Smith" },
+            { label: "Work email", type: "email", ph: "you@company.com" },
+            { label: "Password", type: "password", ph: "Min. 8 characters" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.04)" : "rgba(17,17,17,0.03)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
           <button
-            className="mt-4 w-full rounded-xl py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-400/20"
-            style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-bold text-white"
+            style={{ background: orange }}
           >
-            Create free account
+            Create account
           </button>
-          <p className="mt-4 text-center text-xs text-gray-400">
+          <p className="mt-4 text-center text-xs" style={{ color: muted }}>
             Already have one?{" "}
             <button
-              className="font-semibold text-orange-500"
+              className="font-semibold"
+              style={{ color: orange }}
               onClick={() => {
                 setSignupOpen(false)
                 setLoginOpen(true)
@@ -1435,151 +1771,257 @@ export function PulsePreview() {
       </Modal>
 
       {/* Nav */}
-      <nav className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-100 bg-white/90 px-6 py-4 backdrop-blur-sm md:px-10">
-        <div className="flex items-center gap-2">
-          <div
-            className="flex h-7 w-7 items-center justify-center rounded-lg"
-            style={{ background: "linear-gradient(135deg,#ff6b35,#f7c59f)" }}
-          >
-            <Zap className="h-4 w-4 text-white" />
+      <div
+        className="sticky top-0 z-10"
+        style={{
+          background: isDark ? "rgba(13,13,13,0.9)" : "rgba(255,255,255,0.9)",
+          backdropFilter: "blur(12px)",
+          borderBottom: `1px solid ${border}`,
+        }}
+      >
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div
+                className="flex h-7 w-7 items-center justify-center rounded-lg"
+                style={{ background: orange }}
+              >
+                <Zap className="h-4 w-4 text-white" />
+              </div>
+              <span className="text-sm font-bold" style={{ color: text }}>
+                Pulse
+              </span>
+            </div>
+            <nav className="hidden items-center gap-1 md:flex">
+              {["Product", "Customers", "Pricing", "Blog"].map((l) => (
+                <button
+                  key={l}
+                  className="rounded-lg px-3 py-1.5 text-sm transition-colors"
+                  style={{ color: muted }}
+                >
+                  {l}
+                </button>
+              ))}
+            </nav>
           </div>
-          <span className="text-sm font-bold">Pulse</span>
-        </div>
-        <div className="hidden items-center gap-1 md:flex">
-          {["Product", "Customers", "Pricing", "Blog"].map((l) => (
-            <button
-              key={l}
-              className="rounded-lg px-3 py-1.5 text-sm text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-900"
+          <div className="flex items-center gap-2">
+            <div
+              className="hidden items-center rounded-lg p-0.5 md:flex"
+              style={{ background: isDark ? "rgba(255,255,255,0.06)" : "rgba(17,17,17,0.05)" }}
             >
-              {l}
+              {(["System", "Light", "Dark"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setActiveTheme(t.toLowerCase() as "system" | "light" | "dark")}
+                  className="rounded-md px-2.5 py-1 text-[10px] font-medium capitalize transition-all"
+                  style={{
+                    background:
+                      activeTheme === t.toLowerCase()
+                        ? isDark
+                          ? "rgba(255,255,255,0.12)"
+                          : "rgba(17,17,17,0.1)"
+                        : "transparent",
+                    color: activeTheme === t.toLowerCase() ? text : muted,
+                  }}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="px-3 py-1.5 text-sm transition-colors"
+              style={{ color: muted }}
+            >
+              Log in
             </button>
-          ))}
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setLoginOpen(true)}
-            className="px-3 py-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900"
-          >
-            Log in
-          </button>
-          <button
-            onClick={() => setSignupOpen(true)}
-            className="rounded-lg px-4 py-2 text-sm font-semibold text-white transition-all"
-            style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
-          >
-            Get started free
-          </button>
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <div className="px-6 pb-20 pt-20 md:px-10 md:pt-24">
-        <div className="max-w-4xl">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-100 bg-orange-50 px-3.5 py-1.5 text-xs font-semibold text-orange-600">
-            <Circle className="h-2 w-2 fill-orange-500 text-orange-500" />
-            Now with AI-powered task prioritization
-          </div>
-          <h1 className="mb-6 text-[48px] font-black leading-[1.0] tracking-tight text-gray-900 md:text-[64px]">
-            Do your best work.
-            <br />
-            <span className="text-transparent" style={{ WebkitTextStroke: "2px #e5e7eb" }}>
-              Every single day.
-            </span>
-          </h1>
-          <p className="mb-10 max-w-xl text-lg leading-relaxed text-gray-500">
-            Pulse keeps your team focused, aligned, and moving fast — without the meetings, the
-            noise, or the bottlenecks.
-          </p>
-          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <button
               onClick={() => setSignupOpen(true)}
-              className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-400/30 transition-all hover:shadow-orange-400/50"
-              style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
+              className="rounded-lg px-4 py-2 text-sm font-semibold text-white"
+              style={{ background: orange }}
             >
-              Start free — no card needed <ArrowRight className="h-4 w-4" />
+              Get started free
             </button>
-            <div className="flex items-center gap-2 text-sm text-gray-400">
-              <Check className="h-4 w-4 text-emerald-500" /> 14-day trial
-            </div>
           </div>
         </div>
       </div>
 
-      {/* App UI mockup */}
-      <div className="mx-6 mb-20 overflow-hidden rounded-2xl border border-gray-100 shadow-xl shadow-gray-100 md:mx-10">
-        <div className="flex flex-col md:flex-row">
-          {/* Sidebar */}
-          <div className="flex gap-3 border-b border-gray-50 bg-gray-50/80 p-4 md:w-44 md:flex-col md:border-b-0 md:border-r">
-            <p className="hidden text-[9px] font-semibold uppercase tracking-widest text-gray-300 md:block">
-              My workspace
-            </p>
-            {["Inbox", "Today", "Projects", "Team", "Reports"].map((l, i) => (
-              <div
-                key={l}
-                className={`flex items-center gap-2 rounded-lg px-2 py-1.5 text-[11px] ${i === 1 ? "bg-orange-50 font-semibold text-orange-600" : "text-gray-400"}`}
-              >
-                <div
-                  className={`h-1.5 w-1.5 rounded-full ${i === 1 ? "bg-orange-500" : "bg-gray-200"}`}
-                />
-                {l}
-              </div>
-            ))}
+      {/* Hero */}
+      <div className="mx-auto max-w-6xl px-4 pb-20 pt-20 md:px-8 md:pt-24">
+        <div
+          className="mb-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold"
+          style={{
+            borderColor: "rgba(255,107,53,0.2)",
+            background: "rgba(255,107,53,0.06)",
+            color: orange,
+          }}
+        >
+          <Circle className="h-2 w-2 fill-current" /> Now with AI-powered task prioritization
+        </div>
+        <h1
+          className="mb-6 text-[48px] font-black leading-[1.0] tracking-tight md:text-[64px]"
+          style={{ color: text }}
+        >
+          Do your best work.
+          <br />
+          <span
+            style={{
+              WebkitTextStroke: isDark ? "2px rgba(255,255,255,0.15)" : "2px #e5e7eb",
+              color: "transparent",
+            }}
+          >
+            Every single day.
+          </span>
+        </h1>
+        <p className="mb-10 max-w-xl text-lg leading-relaxed" style={{ color: muted }}>
+          Pulse keeps your team focused, aligned, and moving fast — without the meetings, the noise,
+          or the bottlenecks.
+        </p>
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <button
+            onClick={() => setSignupOpen(true)}
+            className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-bold text-white shadow-lg"
+            style={{ background: orange, boxShadow: "0 8px 24px rgba(255,107,53,0.25)" }}
+          >
+            Start free — no card needed <ArrowRight className="h-4 w-4" />
+          </button>
+          <div className="flex items-center gap-2 text-sm" style={{ color: muted }}>
+            <Check className="h-4 w-4 text-emerald-500" /> 14-day trial
           </div>
-          {/* Main */}
-          <div className="flex-1 p-5">
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-gray-900">Today — 4 tasks</h3>
-              <button className="rounded-lg bg-orange-500 px-3 py-1 text-[10px] font-semibold text-white">
-                Add task
-              </button>
-            </div>
-            <div className="space-y-2">
-              {[
-                { t: "Finalize Q3 investor deck", tag: "Finance", done: true },
-                { t: "Review product roadmap with team", tag: "Product", done: false },
-                { t: "Write release notes for v2.1", tag: "Marketing", done: false },
-                { t: "Sync with design on onboarding flow", tag: "Design", done: false },
-              ].map(({ t, tag, done }) => (
+        </div>
+      </div>
+
+      {/* App mockup */}
+      <div className="mx-auto mb-16 max-w-6xl px-4 md:px-8">
+        <div
+          className="overflow-hidden rounded-2xl shadow-xl"
+          style={{ border: `1px solid ${border}` }}
+        >
+          <div className="flex flex-col md:flex-row">
+            <div
+              className="border-b p-4 md:w-44 md:border-b-0 md:border-r"
+              style={{
+                background: isDark ? "rgba(255,255,255,0.02)" : "#f9fafb",
+                borderColor: border,
+              }}
+            >
+              <p
+                className="mb-3 text-[9px] font-semibold uppercase tracking-widest"
+                style={{ color: muted }}
+              >
+                My workspace
+              </p>
+              {["Inbox", "Today", "Projects", "Team", "Reports"].map((l, i) => (
                 <div
-                  key={t}
-                  className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${done ? "border-gray-50 bg-gray-50/60" : "border-gray-100 bg-white"}`}
+                  key={l}
+                  className="mb-0.5 flex items-center gap-2 rounded-lg px-2 py-1.5 text-[11px]"
+                  style={{
+                    background: i === 1 ? "rgba(255,107,53,0.08)" : "transparent",
+                    color: i === 1 ? orange : muted,
+                    fontWeight: i === 1 ? 600 : 400,
+                  }}
                 >
                   <div
-                    className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 ${done ? "border-emerald-400 bg-emerald-400" : "border-gray-200"}`}
-                  >
-                    {done && <Check className="h-2.5 w-2.5 text-white" />}
-                  </div>
-                  <p
-                    className={`flex-1 text-xs font-medium ${done ? "text-gray-300 line-through" : "text-gray-700"}`}
-                  >
-                    {t}
-                  </p>
-                  <span className="rounded-full border border-gray-100 bg-gray-50 px-2 py-0.5 text-[9px] font-semibold text-gray-300">
-                    {tag}
-                  </span>
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{
+                      background: i === 1 ? orange : isDark ? "rgba(255,255,255,0.1)" : "#e5e7eb",
+                    }}
+                  />
+                  {l}
                 </div>
               ))}
             </div>
+            <div className="flex-1 p-5" style={{ background: cardBg }}>
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-sm font-bold" style={{ color: text }}>
+                  Today — 4 tasks
+                </h3>
+                <button
+                  className="rounded-lg px-3 py-1 text-[10px] font-semibold text-white"
+                  style={{ background: orange }}
+                >
+                  Add task
+                </button>
+              </div>
+              <div className="space-y-2">
+                {[
+                  { t: "Finalize Q3 investor deck", tag: "Finance", done: true },
+                  { t: "Review product roadmap", tag: "Product", done: false },
+                  { t: "Write release notes v2.1", tag: "Marketing", done: false },
+                  { t: "Sync with design team", tag: "Design", done: false },
+                ].map(({ t, tag, done }) => (
+                  <div
+                    key={t}
+                    className="flex items-center gap-3 rounded-xl border px-4 py-3"
+                    style={{
+                      borderColor: done ? (isDark ? "rgba(255,255,255,0.04)" : "#f3f4f6") : border,
+                      background: done ? (isDark ? "rgba(255,255,255,0.01)" : "#f9fafb") : cardBg,
+                    }}
+                  >
+                    <div
+                      className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2"
+                      style={{
+                        borderColor: done
+                          ? "#34d399"
+                          : isDark
+                            ? "rgba(255,255,255,0.15)"
+                            : "#e5e7eb",
+                        background: done ? "#34d399" : "transparent",
+                      }}
+                    >
+                      {done && <Check className="h-2.5 w-2.5 text-white" />}
+                    </div>
+                    <p
+                      className="flex-1 text-xs font-medium"
+                      style={{
+                        color: done ? muted : text,
+                        textDecoration: done ? "line-through" : "none",
+                      }}
+                    >
+                      {t}
+                    </p>
+                    <span
+                      className="rounded-full border px-2 py-0.5 text-[9px] font-semibold"
+                      style={{ borderColor: border, color: muted }}
+                    >
+                      {tag}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Social proof */}
-      <div className="border-t border-gray-50 bg-gray-50/50 px-6 py-14 md:px-10 md:py-16">
-        <p className="mb-8 text-center text-sm text-gray-400">
+      {/* Logos */}
+      <div className="border-t py-10" style={{ borderColor: border }}>
+        <p className="mb-8 text-center text-sm" style={{ color: muted }}>
           Trusted by high-performance teams at
         </p>
-        <div className="mb-14 flex flex-wrap items-center justify-center gap-6 md:gap-10">
+        <div className="flex flex-wrap items-center justify-center gap-3 px-4">
           {["Linear", "Vercel", "Notion", "Figma", "Stripe"].map((n) => (
-            <span
+            <div
               key={n}
-              className="rounded-lg border border-gray-100 bg-white px-3 py-1.5 text-xs font-bold tracking-tight text-gray-300"
+              className="rounded-lg border px-4 py-2 text-xs font-bold"
+              style={{
+                borderColor: border,
+                color: muted,
+                background: isDark ? "rgba(255,255,255,0.02)" : "#f9fafb",
+              }}
             >
               {n}
-            </span>
+            </div>
           ))}
         </div>
-        <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
+      </div>
+
+      {/* Testimonials */}
+      <div
+        className="mx-auto max-w-6xl border-t px-4 py-16 md:px-8"
+        style={{ borderColor: border }}
+      >
+        <div className="grid gap-4 md:grid-cols-3">
           {[
             {
               q: "Our team went from 60% to 94% on-time delivery in 8 weeks.",
@@ -1597,68 +2039,93 @@ export function PulsePreview() {
               role: "Product Lead, Linear",
             },
           ].map(({ q, name, role }) => (
-            <div key={name} className="rounded-2xl border border-gray-100 bg-white p-6">
+            <div
+              key={name}
+              className="rounded-2xl border p-6"
+              style={{ borderColor: border, background: cardBg }}
+            >
               <div className="mb-4 flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                 ))}
               </div>
-              <p className="mb-4 text-sm font-medium leading-relaxed text-gray-600">
+              <p className="mb-4 text-sm leading-relaxed" style={{ color: muted }}>
                 &ldquo;{q}&rdquo;
               </p>
-              <div>
-                <p className="text-xs font-bold text-gray-900">{name}</p>
-                <p className="text-xs text-gray-400">{role}</p>
-              </div>
+              <p className="text-xs font-bold" style={{ color: text }}>
+                {name}
+              </p>
+              <p className="text-xs" style={{ color: muted }}>
+                {role}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Pricing */}
-      <div className="px-6 py-20 md:px-10">
-        <h2 className="mb-2 text-center text-3xl font-black tracking-tight text-gray-900">
+      <div
+        className="mx-auto max-w-6xl border-t px-4 py-16 md:px-8"
+        style={{ borderColor: border }}
+      >
+        <h2 className="mb-2 text-center text-3xl font-black tracking-tight" style={{ color: text }}>
           Simple pricing
         </h2>
-        <p className="mb-12 text-center text-sm text-gray-400">No surprises, no lock-in.</p>
-        <div className="mx-auto grid max-w-3xl gap-4 md:grid-cols-3">
+        <p className="mb-12 text-center text-sm" style={{ color: muted }}>
+          No surprises. Cancel anytime.
+        </p>
+        <div className="grid gap-4 md:grid-cols-3">
           {[
             {
               name: "Starter",
               price: "$0",
-              desc: "For individuals and small teams.",
+              desc: "For individuals & small teams.",
               cta: "Get started",
               hl: false,
             },
             {
               name: "Pro",
               price: "$12",
-              desc: "For growing teams that need more.",
+              desc: "For growing teams.",
               cta: "Start free trial",
               hl: true,
             },
             {
               name: "Business",
               price: "$39",
-              desc: "For scaling teams and orgs.",
+              desc: "For scaling organizations.",
               cta: "Contact sales",
               hl: false,
             },
           ].map(({ name, price, desc, cta, hl }) => (
             <div
               key={name}
-              className={`rounded-2xl border p-6 ${hl ? "border-orange-200 bg-orange-50/50" : "border-gray-100 bg-white"}`}
+              className="rounded-2xl border p-6"
+              style={{
+                borderColor: hl ? `${orange}40` : border,
+                background: hl ? `rgba(255,107,53,0.04)` : cardBg,
+              }}
             >
-              <p className="mb-1 text-sm font-bold text-gray-900">{name}</p>
-              <p className="mb-1 text-3xl font-black text-gray-900">
-                {price}
-                <span className="text-sm font-normal text-gray-400">/mo</span>
+              <p className="mb-1 text-sm font-bold" style={{ color: text }}>
+                {name}
               </p>
-              <p className="mb-5 text-xs text-gray-400">{desc}</p>
+              <p className="mb-1 text-3xl font-black" style={{ color: text }}>
+                {price}
+                <span className="text-sm font-normal" style={{ color: muted }}>
+                  /mo
+                </span>
+              </p>
+              <p className="mb-5 text-xs" style={{ color: muted }}>
+                {desc}
+              </p>
               <button
                 onClick={() => setSignupOpen(true)}
-                className={`w-full rounded-xl py-2.5 text-xs font-semibold transition-all ${hl ? "text-white shadow-sm shadow-orange-200" : "border border-gray-100 text-gray-600 hover:border-gray-200"}`}
-                style={hl ? { background: "linear-gradient(135deg,#ff6b35,#e85d04)" } : {}}
+                className="w-full rounded-xl py-2.5 text-xs font-semibold transition-all"
+                style={
+                  hl
+                    ? { background: orange, color: "#fff" }
+                    : { border: `1px solid ${border}`, color: muted }
+                }
               >
                 {cta}
               </button>
@@ -1668,35 +2135,109 @@ export function PulsePreview() {
       </div>
 
       {/* CTA */}
-      <div className="px-6 py-20 text-center md:px-10">
-        <h2 className="mb-4 text-4xl font-black tracking-tight text-gray-900 md:text-5xl">
+      <div className="mx-auto max-w-6xl px-4 pb-20 text-center md:px-8">
+        <h2 className="mb-4 text-4xl font-black tracking-tight md:text-5xl" style={{ color: text }}>
           Ready to move faster?
         </h2>
-        <p className="mb-10 text-lg text-gray-400">Join 80,000+ teams already using Pulse.</p>
+        <p className="mb-10 text-lg" style={{ color: muted }}>
+          Join 80,000+ teams already using Pulse.
+        </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <button
             onClick={() => setSignupOpen(true)}
-            className="rounded-2xl px-12 py-4 text-base font-black text-white shadow-2xl shadow-orange-400/20 transition-all hover:shadow-orange-400/40"
-            style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
+            className="rounded-2xl px-12 py-4 text-base font-black text-white shadow-2xl"
+            style={{ background: orange, boxShadow: "0 16px 48px rgba(255,107,53,0.2)" }}
           >
-            Get started — it&apos;s free
+            Get started — it's free
           </button>
           <button
             onClick={() => setLoginOpen(true)}
-            className="rounded-2xl border border-gray-200 px-8 py-4 text-base font-semibold text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-700"
+            className="rounded-2xl border px-8 py-4 text-base font-semibold transition-colors"
+            style={{ borderColor: border, color: muted }}
           >
             Sign in
           </button>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t py-12" style={{ borderColor: border }}>
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="mb-10 grid grid-cols-2 gap-6 md:grid-cols-5 md:gap-8">
+            <div className="col-span-2">
+              <div className="mb-3 flex items-center gap-2">
+                <div
+                  className="flex h-7 w-7 items-center justify-center rounded-lg"
+                  style={{ background: orange }}
+                >
+                  <Zap className="h-4 w-4 text-white" />
+                </div>
+                <span className="font-bold" style={{ color: text }}>
+                  Pulse
+                </span>
+              </div>
+              <p className="mb-4 max-w-[220px] text-xs leading-relaxed" style={{ color: muted }}>
+                The productivity platform for high-performance teams.
+              </p>
+            </div>
+            {[
+              { heading: "Product", links: ["Features", "Pricing", "Changelog", "Roadmap"] },
+              { heading: "Company", links: ["About", "Blog", "Careers", "Press"] },
+              { heading: "Legal", links: ["Privacy", "Terms", "Security", "Cookies"] },
+            ].map(({ heading, links }) => (
+              <div key={heading}>
+                <p
+                  className="mb-4 text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: muted }}
+                >
+                  {heading}
+                </p>
+                <ul className="space-y-2.5">
+                  {links.map((l) => (
+                    <li key={l}>
+                      <button className="text-xs" style={{ color: muted }}>
+                        {l}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div
+            className="flex flex-col gap-3 border-t pt-6 md:flex-row md:items-center md:justify-between"
+            style={{ borderColor: border }}
+          >
+            <p className="text-[11px]" style={{ color: muted }}>
+              © 2025 Pulse, Inc. All rights reserved.
+            </p>
+            <div className="flex gap-4">
+              {["Privacy", "Terms"].map((l) => (
+                <button key={l} className="text-[11px]" style={{ color: muted }}>
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
 
 // ─── Orbit: Analytics SaaS — Mixpanel / PostHog aesthetic ────────────────────
 export function OrbitPreview() {
+  const [activeTheme, setActiveTheme] = React.useState<"system" | "light" | "dark">("dark")
   const [loginOpen, setLoginOpen] = React.useState(false)
   const [signupOpen, setSignupOpen] = React.useState(false)
+
+  const isDark = activeTheme === "dark" || activeTheme === "system"
+  const bg = isDark ? "#0a0f1e" : "#f0f9ff"
+  const text = isDark ? "#ffffff" : "#0f172a"
+  const muted = isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.45)"
+  const border = isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.08)"
+  const cardBg = isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.8)"
+  const sky = "#0ea5e9"
 
   const Modal = ({
     open,
@@ -1713,12 +2254,14 @@ export function OrbitPreview() {
         onClick={onClose}
       >
         <div
-          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1220] shadow-2xl shadow-black/50"
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl shadow-2xl"
+          style={{ background: isDark ? "#0d1220" : "#ffffff", border: `1px solid ${border}` }}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 text-xs text-white/20 transition-colors hover:text-white/60"
+            className="absolute right-4 top-4 text-xs"
+            style={{ color: muted }}
           >
             ✕
           </button>
@@ -1729,46 +2272,70 @@ export function OrbitPreview() {
 
   return (
     <div
-      className="relative min-h-[1200px] bg-[#0a0f1e] font-sans text-white"
-      style={{ fontFamily: "system-ui,sans-serif" }}
+      className="relative min-h-[1400px] font-sans"
+      style={{ fontFamily: "system-ui,sans-serif", background: bg, color: text }}
     >
-      {/* Login Modal */}
       <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-bold text-white">Sign in to Orbit</h2>
-          <p className="mb-6 text-xs text-white/35">Your analytics, all in one place</p>
+          <h2 className="mb-1 text-xl font-bold" style={{ color: text }}>
+            Sign in to Orbit
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            Your analytics, all in one place
+          </p>
           <div className="mb-3 grid grid-cols-2 gap-2">
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 text-xs font-semibold text-white/50 transition-colors hover:border-white/[0.12] hover:text-white/70">
-              <Globe className="h-3.5 w-3.5" /> Google
-            </button>
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 text-xs font-semibold text-white/50 transition-colors hover:border-white/[0.12] hover:text-white/70">
-              <Lock className="h-3.5 w-3.5" /> GitHub
-            </button>
+            {["Google", "GitHub"].map((s) => (
+              <button
+                key={s}
+                className="flex items-center justify-center gap-2 rounded-xl border py-2.5 text-xs font-semibold"
+                style={{
+                  borderColor: border,
+                  color: muted,
+                  background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.02)",
+                }}
+              >
+                {s}
+              </button>
+            ))}
           </div>
           <div className="relative my-4 flex items-center">
-            <div className="flex-1 border-t border-white/[0.06]" />
-            <span className="mx-3 text-[10px] text-white/20">or continue with email</span>
-            <div className="flex-1 border-t border-white/[0.06]" />
+            <div className="flex-1 border-t" style={{ borderColor: border }} />
+            <span className="mx-3 text-[10px]" style={{ color: muted }}>
+              or
+            </span>
+            <div className="flex-1 border-t" style={{ borderColor: border }} />
           </div>
-          <div className="space-y-3">
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
-            />
-          </div>
-          <button className="mt-4 w-full rounded-xl bg-sky-500 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-400">
+          {[
+            { label: "Email", type: "email", ph: "you@company.com" },
+            { label: "Password", type: "password", ph: "••••••••" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.02)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
+          <button
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-semibold text-white"
+            style={{ background: sky }}
+          >
             Sign in
           </button>
-          <p className="mt-4 text-center text-xs text-white/30">
+          <p className="mt-4 text-center text-xs" style={{ color: muted }}>
             No account?{" "}
             <button
-              className="text-sky-400 hover:text-sky-300"
+              className="font-semibold"
+              style={{ color: sky }}
               onClick={() => {
                 setLoginOpen(false)
                 setSignupOpen(true)
@@ -1780,35 +2347,46 @@ export function OrbitPreview() {
         </div>
       </Modal>
 
-      {/* Signup Modal */}
       <Modal open={signupOpen} onClose={() => setSignupOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-bold text-white">Start your free trial</h2>
-          <p className="mb-6 text-xs text-white/35">14 days free, no credit card required</p>
-          <div className="space-y-3">
-            <input
-              type="text"
-              placeholder="Full name"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
-            />
-            <input
-              type="email"
-              placeholder="Work email"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
-            />
-          </div>
-          <button className="mt-4 w-full rounded-xl bg-sky-500 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-400">
+          <h2 className="mb-1 text-xl font-bold" style={{ color: text }}>
+            Start your free trial
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            14 days free, no credit card required
+          </p>
+          {[
+            { label: "Full name", type: "text", ph: "Jane Smith" },
+            { label: "Work email", type: "email", ph: "you@company.com" },
+            { label: "Password", type: "password", ph: "Min. 8 characters" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.02)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
+          <button
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-semibold text-white"
+            style={{ background: sky }}
+          >
             Create free account
           </button>
-          <p className="mt-4 text-center text-xs text-white/30">
-            Already have an account?{" "}
+          <p className="mt-4 text-center text-xs" style={{ color: muted }}>
+            Already have one?{" "}
             <button
-              className="text-sky-400 hover:text-sky-300"
+              className="font-semibold"
+              style={{ color: sky }}
               onClick={() => {
                 setSignupOpen(false)
                 setLoginOpen(true)
@@ -1821,66 +2399,117 @@ export function OrbitPreview() {
       </Modal>
 
       {/* Nav */}
-      <nav className="flex items-center justify-between border-b border-white/[0.05] px-6 py-4 md:px-10">
-        <div className="flex items-center gap-6 md:gap-8">
-          <div className="flex items-center gap-2">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-sky-500">
-              <TrendingUp className="h-3.5 w-3.5 text-white" />
-            </div>
-            <span className="text-sm font-bold text-white">Orbit</span>
-          </div>
-          <div className="hidden items-center gap-1 md:flex">
-            {["Product", "Integrations", "Customers", "Pricing", "Docs"].map((l) => (
-              <button
-                key={l}
-                className="rounded-md px-3 py-1.5 text-xs text-white/35 transition-colors hover:text-white/70"
+      <div
+        className="sticky top-0 z-10"
+        style={{
+          background: isDark ? "rgba(10,15,30,0.9)" : "rgba(240,249,255,0.9)",
+          backdropFilter: "blur(12px)",
+          borderBottom: `1px solid ${border}`,
+        }}
+      >
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div
+                className="flex h-6 w-6 items-center justify-center rounded-md"
+                style={{ background: sky }}
               >
-                {l}
-              </button>
-            ))}
+                <TrendingUp className="h-3.5 w-3.5 text-white" />
+              </div>
+              <span className="text-sm font-bold" style={{ color: text }}>
+                Orbit
+              </span>
+            </div>
+            <nav className="hidden items-center gap-1 md:flex">
+              {["Product", "Integrations", "Customers", "Pricing", "Docs"].map((l) => (
+                <button
+                  key={l}
+                  className="rounded-md px-3 py-1.5 text-xs transition-colors"
+                  style={{ color: muted }}
+                >
+                  {l}
+                </button>
+              ))}
+            </nav>
+          </div>
+          <div className="flex items-center gap-2">
+            <div
+              className="hidden items-center rounded-lg p-0.5 md:flex"
+              style={{ background: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.05)" }}
+            >
+              {(["System", "Light", "Dark"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setActiveTheme(t.toLowerCase() as "system" | "light" | "dark")}
+                  className="rounded-md px-2.5 py-1 text-[10px] font-medium capitalize transition-all"
+                  style={{
+                    background:
+                      activeTheme === t.toLowerCase()
+                        ? isDark
+                          ? "rgba(255,255,255,0.1)"
+                          : "rgba(15,23,42,0.08)"
+                        : "transparent",
+                    color: activeTheme === t.toLowerCase() ? text : muted,
+                  }}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="px-3 py-1.5 text-xs transition-colors"
+              style={{ color: muted }}
+            >
+              Sign in
+            </button>
+            <button
+              onClick={() => setSignupOpen(true)}
+              className="rounded-lg px-4 py-1.5 text-xs font-semibold text-white transition-colors"
+              style={{ background: sky }}
+            >
+              Start free trial
+            </button>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setLoginOpen(true)}
-            className="px-3 py-1.5 text-xs text-white/35 transition-colors hover:text-white/60"
-          >
-            Sign in
-          </button>
-          <button
-            onClick={() => setSignupOpen(true)}
-            className="rounded-lg bg-sky-500 px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-sky-400"
-          >
-            Start free trial
-          </button>
-        </div>
-      </nav>
+      </div>
 
       {/* Hero */}
-      <div className="px-6 pb-14 pt-20 text-center md:px-10 md:pb-16 md:pt-24">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/[0.08] px-3.5 py-1.5 text-xs text-sky-400">
-          <Star className="h-3 w-3" />
-          Rated #1 product analytics tool — G2 Winter 2024
+      <div className="mx-auto max-w-6xl px-4 pb-14 pt-20 text-center md:px-8 md:pt-24">
+        <div
+          className="mb-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs"
+          style={{
+            borderColor: "rgba(14,165,233,0.2)",
+            background: "rgba(14,165,233,0.06)",
+            color: sky,
+          }}
+        >
+          <Star className="h-3 w-3" /> Rated #1 product analytics tool — G2 Winter 2024
         </div>
-        <h1 className="mx-auto mb-6 max-w-3xl text-[40px] font-extrabold leading-[1.05] tracking-tight md:text-[52px]">
+        <h1
+          className="mx-auto mb-6 max-w-3xl text-[40px] font-extrabold leading-[1.05] tracking-tight md:text-[52px]"
+          style={{ color: text }}
+        >
           Understand your users.
           <br />
-          <span className="text-sky-400">Grow your product.</span>
+          <span style={{ color: sky }}>Grow your product.</span>
         </h1>
-        <p className="mx-auto mb-10 max-w-lg text-[15px] leading-relaxed text-white/40">
+        <p className="mx-auto mb-10 max-w-lg text-[15px] leading-relaxed" style={{ color: muted }}>
           Orbit auto-captures every user interaction and turns it into clarity. No SQL, no data team
           required — just answers.
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <button
             onClick={() => setSignupOpen(true)}
-            className="flex items-center gap-2 rounded-xl bg-sky-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition-colors hover:bg-sky-400"
+            className="flex items-center gap-2 rounded-xl px-7 py-3 text-sm font-semibold text-white shadow-lg"
+            style={{ background: sky, boxShadow: "0 8px 24px rgba(14,165,233,0.25)" }}
           >
             Start free — 14 days <ArrowRight className="h-3.5 w-3.5" />
           </button>
           <button
             onClick={() => setLoginOpen(true)}
-            className="rounded-xl border border-white/[0.07] px-7 py-3 text-sm text-white/50 transition-all hover:border-white/15 hover:text-white/70"
+            className="rounded-xl border px-7 py-3 text-sm transition-all"
+            style={{ borderColor: border, color: muted }}
           >
             View live demo
           </button>
@@ -1888,67 +2517,103 @@ export function OrbitPreview() {
       </div>
 
       {/* Dashboard */}
-      <div className="mx-6 mb-14 overflow-hidden rounded-2xl border border-white/[0.06] shadow-2xl shadow-black/50 md:mx-10">
-        <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#0d1220] px-4 py-3">
-          {["bg-[#ff5f57]", "bg-[#ffbc2e]", "bg-[#28c840]"].map((c, i) => (
-            <div key={i} className={`h-2 w-2 rounded-full ${c}`} />
-          ))}
-          <span className="ml-2 text-[10px] text-white/20">Orbit — Analytics</span>
-        </div>
-        <div className="bg-[#0d1220] p-5">
-          <div className="mb-4 flex flex-wrap items-center gap-2">
-            {["Overview", "Funnels", "Retention", "Cohorts"].map((t, i) => (
-              <button
-                key={t}
-                className={`rounded-md px-3 py-1 text-[10px] font-medium transition-colors ${i === 0 ? "bg-sky-500/15 text-sky-400" : "text-white/25 hover:text-white/50"}`}
-              >
-                {t}
-              </button>
+      <div className="mx-auto mb-14 max-w-6xl px-4 md:px-8">
+        <div
+          className="overflow-hidden rounded-2xl shadow-2xl"
+          style={{ border: `1px solid ${border}` }}
+        >
+          <div
+            className="flex items-center gap-2 border-b px-4 py-3"
+            style={{ background: isDark ? "#0d1220" : "#e0f2fe", borderColor: border }}
+          >
+            {["bg-[#ff5f57]", "bg-[#ffbc2e]", "bg-[#28c840]"].map((c, i) => (
+              <div key={i} className={`h-2 w-2 rounded-full ${c}`} />
             ))}
+            <span className="ml-2 text-[10px]" style={{ color: muted }}>
+              Orbit — Analytics
+            </span>
           </div>
-          <div className="grid gap-3 md:grid-cols-4">
-            {[
-              { label: "Active users", value: "48,291", change: "+12.4%" },
-              { label: "Conversion", value: "3.87%", change: "+0.41%" },
-              { label: "Avg. session", value: "4m 22s", change: "+8.1%" },
-              { label: "Revenue", value: "$91,204", change: "+23.5%" },
-            ].map(({ label, value, change }) => (
-              <div
-                key={label}
-                className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4"
-              >
-                <p className="mb-2 text-[10px] text-white/30">{label}</p>
-                <p className="text-xl font-bold">{value}</p>
-                <p className="mt-1 text-[10px] text-emerald-400">{change}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
-            <p className="mb-4 text-xs font-medium text-white/40">Active users — last 30 days</p>
-            <div className="flex items-end gap-1" style={{ height: 64 }}>
-              {[
-                30, 45, 40, 55, 50, 65, 70, 60, 80, 75, 90, 85, 95, 88, 100, 92, 88, 95, 102, 98,
-                110, 105, 115, 112, 118, 108, 122, 130, 125, 140,
-              ].map((h, i) => (
-                <div
-                  key={i}
-                  className="flex-1 rounded-sm bg-sky-500/60"
-                  style={{ height: `${(h / 140) * 100}%` }}
-                />
+          <div className="p-5" style={{ background: isDark ? "#0d1220" : "#f0f9ff" }}>
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+              {["Overview", "Funnels", "Retention", "Cohorts"].map((t, i) => (
+                <button
+                  key={t}
+                  className="rounded-md px-3 py-1 text-[10px] font-medium transition-colors"
+                  style={{
+                    background:
+                      i === 0
+                        ? isDark
+                          ? "rgba(14,165,233,0.15)"
+                          : "rgba(14,165,233,0.1)"
+                        : "transparent",
+                    color: i === 0 ? sky : muted,
+                  }}
+                >
+                  {t}
+                </button>
               ))}
+            </div>
+            <div className="grid gap-3 md:grid-cols-4">
+              {[
+                { label: "Active users", value: "48,291", change: "+12.4%" },
+                { label: "Conversion", value: "3.87%", change: "+0.41%" },
+                { label: "Avg. session", value: "4m 22s", change: "+8.1%" },
+                { label: "Revenue", value: "$91,204", change: "+23.5%" },
+              ].map(({ label, value, change }) => (
+                <div
+                  key={label}
+                  className="rounded-xl border p-4"
+                  style={{ borderColor: border, background: cardBg }}
+                >
+                  <p className="mb-2 text-[10px]" style={{ color: muted }}>
+                    {label}
+                  </p>
+                  <p className="text-xl font-bold" style={{ color: text }}>
+                    {value}
+                  </p>
+                  <p className="mt-1 text-[10px] text-emerald-400">{change}</p>
+                </div>
+              ))}
+            </div>
+            <div
+              className="mt-3 rounded-xl border p-4"
+              style={{ borderColor: border, background: cardBg }}
+            >
+              <p className="mb-4 text-xs font-medium" style={{ color: muted }}>
+                Active users — last 30 days
+              </p>
+              <div className="flex items-end gap-1" style={{ height: 56 }}>
+                {[
+                  30, 45, 40, 55, 50, 65, 70, 60, 80, 75, 90, 85, 95, 88, 100, 92, 88, 95, 102, 98,
+                  110, 105, 115, 112, 118, 108, 122, 130, 125, 140,
+                ].map((h, i) => (
+                  <div
+                    key={i}
+                    className="flex-1 rounded-sm"
+                    style={{
+                      height: `${(h / 140) * 100}%`,
+                      background: sky,
+                      opacity: 0.4 + (i / 30) * 0.6,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Logos */}
-      <div className="border-t border-white/[0.04] px-6 py-10 md:px-10">
-        <p className="mb-8 text-center text-xs text-white/25">Trusted by data-driven teams at</p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
+      <div className="border-t py-10" style={{ borderColor: border }}>
+        <p className="mb-8 text-center text-xs" style={{ color: muted }}>
+          Trusted by data-driven teams at
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3 px-4">
           {["Stripe", "Notion", "Linear", "Vercel", "Loom", "Figma"].map((n) => (
             <div
               key={n}
-              className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/30"
+              className="rounded-lg border px-4 py-2 text-xs font-semibold"
+              style={{ borderColor: border, color: muted, background: cardBg }}
             >
               {n}
             </div>
@@ -1957,11 +2622,17 @@ export function OrbitPreview() {
       </div>
 
       {/* Features */}
-      <div className="px-6 py-16 md:px-10">
-        <h2 className="mb-2 text-center text-3xl font-extrabold tracking-tight">
+      <div
+        className="mx-auto max-w-6xl border-t px-4 py-16 md:px-8"
+        style={{ borderColor: border }}
+      >
+        <h2
+          className="mb-2 text-center text-3xl font-extrabold tracking-tight"
+          style={{ color: text }}
+        >
           Analytics that actually answers questions
         </h2>
-        <p className="mb-14 text-center text-sm text-white/35">
+        <p className="mb-12 text-center text-sm" style={{ color: muted }}>
           Built for product teams, loved by engineers.
         </p>
         <div className="grid gap-4 md:grid-cols-3">
@@ -1969,70 +2640,162 @@ export function OrbitPreview() {
             {
               icon: Activity,
               title: "Auto-capture events",
-              desc: "No manual tracking. Orbit captures every click, page view, and interaction automatically.",
-              c: "text-sky-400",
-              b: "border-sky-500/10 bg-sky-500/[0.03]",
+              desc: "No manual tracking. Orbit captures every click and interaction automatically.",
+              accent: sky,
             },
             {
               icon: BarChart3,
               title: "Funnel analysis",
               desc: "See where users drop off and optimize your conversion at every step.",
-              c: "text-emerald-400",
-              b: "border-emerald-500/10 bg-emerald-500/[0.03]",
+              accent: "#10b981",
             },
             {
               icon: Users,
               title: "Cohort retention",
               desc: "Understand which features drive long-term retention and which drive churn.",
-              c: "text-purple-400",
-              b: "border-purple-500/10 bg-purple-500/[0.03]",
+              accent: "#a78bfa",
             },
-          ].map(({ icon: Icon, title, desc, c, b }) => (
-            <div key={title} className={`rounded-2xl border ${b} p-7`}>
-              <div className="mb-4 inline-flex rounded-xl border border-white/[0.05] bg-white/[0.03] p-3">
-                <Icon className={`h-5 w-5 ${c}`} />
+          ].map(({ icon: Icon, title, desc, accent }) => (
+            <div
+              key={title}
+              className="rounded-2xl border p-7"
+              style={{ borderColor: border, background: cardBg }}
+            >
+              <div
+                className="mb-4 inline-flex rounded-xl p-3"
+                style={{
+                  background: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.04)",
+                  border: `1px solid ${border}`,
+                }}
+              >
+                <Icon className="h-5 w-5" style={{ color: accent }} />
               </div>
-              <h3 className="mb-2 font-semibold text-white">{title}</h3>
-              <p className="text-sm leading-relaxed text-white/35">{desc}</p>
+              <h3 className="mb-2 font-semibold" style={{ color: text }}>
+                {title}
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: muted }}>
+                {desc}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
       {/* CTA */}
-      <div className="px-6 pb-24 md:px-10">
-        <div className="rounded-3xl border border-sky-500/20 bg-sky-500/[0.05] p-12 text-center md:p-16">
-          <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
+      <div className="mx-auto max-w-6xl px-4 pb-20 md:px-8">
+        <div
+          className="rounded-3xl border p-12 text-center md:p-16"
+          style={{
+            borderColor: "rgba(14,165,233,0.2)",
+            background: isDark ? "rgba(14,165,233,0.05)" : "rgba(14,165,233,0.04)",
+          }}
+        >
+          <h2
+            className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl"
+            style={{ color: text }}
+          >
             Start understanding your users
           </h2>
-          <p className="mx-auto mb-8 max-w-md text-sm leading-relaxed text-white/35">
+          <p className="mx-auto mb-8 max-w-md text-sm leading-relaxed" style={{ color: muted }}>
             Join 5,000+ product teams who use Orbit to make better decisions.
           </p>
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <button
               onClick={() => setSignupOpen(true)}
-              className="flex items-center gap-2 rounded-xl bg-sky-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/20 hover:bg-sky-400"
+              className="flex items-center gap-2 rounded-xl px-8 py-3.5 text-sm font-semibold text-white shadow-lg"
+              style={{ background: sky }}
             >
               Start free trial <ArrowRight className="h-4 w-4" />
             </button>
             <button
               onClick={() => setLoginOpen(true)}
-              className="rounded-xl border border-white/[0.07] px-8 py-3.5 text-sm text-white/40 hover:border-white/15 hover:text-white/60"
+              className="rounded-xl border px-8 py-3.5 text-sm transition-all"
+              style={{ borderColor: border, color: muted }}
             >
               Sign in
             </button>
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t py-12" style={{ borderColor: border }}>
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="mb-10 grid grid-cols-2 gap-6 md:grid-cols-5 md:gap-8">
+            <div className="col-span-2">
+              <div className="mb-3 flex items-center gap-2">
+                <div
+                  className="flex h-6 w-6 items-center justify-center rounded-md"
+                  style={{ background: sky }}
+                >
+                  <TrendingUp className="h-3.5 w-3.5 text-white" />
+                </div>
+                <span className="font-bold" style={{ color: text }}>
+                  Orbit
+                </span>
+              </div>
+              <p className="mb-4 max-w-[220px] text-xs leading-relaxed" style={{ color: muted }}>
+                Product analytics for modern teams that ship fast.
+              </p>
+            </div>
+            {[
+              { heading: "Product", links: ["Features", "Pricing", "Integrations", "Changelog"] },
+              { heading: "Company", links: ["About", "Blog", "Careers", "Press"] },
+              { heading: "Legal", links: ["Privacy", "Terms", "Security", "GDPR"] },
+            ].map(({ heading, links }) => (
+              <div key={heading}>
+                <p
+                  className="mb-4 text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: muted }}
+                >
+                  {heading}
+                </p>
+                <ul className="space-y-2.5">
+                  {links.map((l) => (
+                    <li key={l}>
+                      <button className="text-xs" style={{ color: muted }}>
+                        {l}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div
+            className="flex flex-col gap-3 border-t pt-6 md:flex-row md:items-center md:justify-between"
+            style={{ borderColor: border }}
+          >
+            <p className="text-[11px]" style={{ color: muted }}>
+              © 2025 Orbit Analytics, Inc. All rights reserved.
+            </p>
+            <div className="flex gap-4">
+              {["Privacy", "Terms"].map((l) => (
+                <button key={l} className="text-[11px]" style={{ color: muted }}>
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
 
 // ─── Lumina: Creative Agency — IDEO / Instrument aesthetic ───────────────────
 export function LuminaPreview() {
+  const [activeTheme, setActiveTheme] = React.useState<"system" | "light" | "dark">("dark")
   const [loginOpen, setLoginOpen] = React.useState(false)
   const [contactOpen, setContactOpen] = React.useState(false)
-  const [menuOpen, setMenuOpen] = React.useState(false)
+
+  const isDark = activeTheme === "dark" || activeTheme === "system"
+  const bg = isDark ? "#0c0c0c" : "#faf5eb"
+  const text = isDark ? "#ffffff" : "#111111"
+  const muted = isDark ? "rgba(255,255,255,0.35)" : "rgba(17,17,17,0.4)"
+  const border = isDark ? "rgba(255,255,255,0.06)" : "rgba(17,17,17,0.08)"
+  const cardBg = isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.6)"
+  const gold = "#f59e0b"
 
   const Modal = ({
     open,
@@ -2045,16 +2808,18 @@ export function LuminaPreview() {
   }) =>
     open ? (
       <div
-        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
         onClick={onClose}
       >
         <div
-          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0c0c0c] shadow-2xl"
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl shadow-2xl"
+          style={{ background: isDark ? "#161616" : "#faf5eb", border: `1px solid ${border}` }}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 text-xs text-white/20 transition-colors hover:text-white/60"
+            className="absolute right-4 top-4 text-xs"
+            style={{ color: muted }}
           >
             ✕
           </button>
@@ -2065,33 +2830,48 @@ export function LuminaPreview() {
 
   return (
     <div
-      className="relative min-h-[1200px] bg-[#0c0c0c] font-sans text-white"
-      style={{ fontFamily: "system-ui,sans-serif" }}
+      className="relative min-h-[1400px] font-sans"
+      style={{ fontFamily: "system-ui,sans-serif", background: bg, color: text }}
     >
-      {/* Login Modal */}
       <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-black text-white">Client portal</h2>
-          <p className="mb-6 text-xs text-white/30">Access your project dashboard</p>
-          <div className="space-y-3">
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
-            />
-          </div>
-          <button className="mt-4 w-full rounded-xl bg-amber-400 py-2.5 text-sm font-black text-black transition-colors hover:bg-amber-300">
+          <h2 className="mb-1 text-xl font-black" style={{ color: text }}>
+            Client portal
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            Access your project dashboard
+          </p>
+          {[
+            { label: "Email", type: "email", ph: "you@company.com" },
+            { label: "Password", type: "password", ph: "••••••••" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.04)" : "rgba(17,17,17,0.03)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
+          <button
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-black text-black"
+            style={{ background: gold }}
+          >
             Sign in
           </button>
-          <p className="mt-4 text-center text-xs text-white/25">
+          <p className="mt-4 text-center text-xs" style={{ color: muted }}>
             New client?{" "}
             <button
-              className="font-semibold text-amber-400"
+              className="font-semibold"
+              style={{ color: gold }}
               onClick={() => {
                 setLoginOpen(false)
                 setContactOpen(true)
@@ -2103,145 +2883,196 @@ export function LuminaPreview() {
         </div>
       </Modal>
 
-      {/* Contact Modal */}
       <Modal open={contactOpen} onClose={() => setContactOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-black text-white">Let's work together</h2>
-          <p className="mb-6 text-xs text-white/30">Tell us about your project</p>
-          <div className="space-y-3">
-            <input
-              type="text"
-              placeholder="Your name"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
-            />
-            <select className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white/50 outline-none focus:border-amber-400/40">
-              <option value="">Service needed</option>
-              <option>Brand Identity</option>
-              <option>Digital Design</option>
-              <option>Motion & Film</option>
-              <option>Development</option>
-            </select>
+          <h2 className="mb-1 text-xl font-black" style={{ color: text }}>
+            Let's work together
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            Tell us about your project
+          </p>
+          {[
+            { label: "Name", type: "text", ph: "Jane Smith" },
+            { label: "Email", type: "email", ph: "you@company.com" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.04)" : "rgba(17,17,17,0.03)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
+          <div className="mb-4">
+            <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+              Your vision
+            </label>
             <textarea
-              placeholder="Tell us about your vision..."
               rows={3}
-              className="w-full resize-none rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
+              placeholder="Describe your brand challenge..."
+              className="w-full resize-none rounded-xl px-4 py-2.5 text-sm outline-none"
+              style={{
+                border: `1px solid ${border}`,
+                background: isDark ? "rgba(255,255,255,0.04)" : "rgba(17,17,17,0.03)",
+                color: text,
+              }}
             />
           </div>
-          <button className="mt-4 w-full rounded-xl bg-amber-400 py-2.5 text-sm font-black text-black transition-colors hover:bg-amber-300">
+          <button
+            className="w-full rounded-xl py-2.5 text-sm font-black text-black"
+            style={{ background: gold }}
+          >
             Send inquiry
           </button>
         </div>
       </Modal>
 
       {/* Nav */}
-      <nav className="flex items-center justify-between px-6 py-7 md:px-10 md:py-8">
-        <span className="text-sm font-black uppercase tracking-[0.25em] text-white">Lumina</span>
-        <div className="hidden items-center gap-8 md:flex">
-          {["Work", "Studio", "Services", "Journal", "Contact"].map((l) => (
-            <button
-              key={l}
-              className="text-xs font-medium tracking-wide text-white/30 transition-colors hover:text-white/70"
+      <div
+        className="sticky top-0 z-10"
+        style={{
+          background: isDark ? "rgba(12,12,12,0.9)" : "rgba(250,245,235,0.9)",
+          backdropFilter: "blur(12px)",
+          borderBottom: `1px solid ${border}`,
+        }}
+      >
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
+          <div className="flex items-center gap-8">
+            <span
+              className="text-sm font-black uppercase tracking-[0.25em]"
+              style={{ color: text }}
             >
-              {l}
-            </button>
-          ))}
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setLoginOpen(true)}
-            className="hidden text-xs text-white/25 transition-colors hover:text-white/60 md:block"
-          >
-            Log in
-          </button>
-          <button
-            onClick={() => setContactOpen(true)}
-            className="rounded-full border border-white/15 px-5 py-2 text-xs text-white/50 transition-all hover:border-white/30 hover:text-white/80"
-          >
-            Start a project
-          </button>
-          <button
-            className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-white/30 hover:border-white/20 hover:text-white/60 md:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <Menu className="h-4 w-4" />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="border-t border-white/[0.05] bg-[#0c0c0c] px-6 py-4 md:hidden">
-          {["Work", "Studio", "Services", "Journal", "Contact"].map((l) => (
-            <button
-              key={l}
-              className="block w-full py-2.5 text-left text-sm text-white/40 hover:text-white/80"
-              onClick={() => setMenuOpen(false)}
+              Lumina
+            </span>
+            <nav className="hidden items-center gap-6 md:flex">
+              {["Work", "Studio", "Services", "Journal"].map((l) => (
+                <button
+                  key={l}
+                  className="text-xs font-medium tracking-wide transition-colors"
+                  style={{ color: muted }}
+                >
+                  {l}
+                </button>
+              ))}
+            </nav>
+          </div>
+          <div className="flex items-center gap-2">
+            <div
+              className="hidden items-center rounded-lg p-0.5 md:flex"
+              style={{ background: isDark ? "rgba(255,255,255,0.06)" : "rgba(17,17,17,0.06)" }}
             >
-              {l}
+              {(["System", "Light", "Dark"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setActiveTheme(t.toLowerCase() as "system" | "light" | "dark")}
+                  className="rounded-md px-2.5 py-1 text-[10px] font-medium capitalize transition-all"
+                  style={{
+                    background:
+                      activeTheme === t.toLowerCase()
+                        ? isDark
+                          ? "rgba(255,255,255,0.1)"
+                          : "rgba(17,17,17,0.1)"
+                        : "transparent",
+                    color: activeTheme === t.toLowerCase() ? text : muted,
+                  }}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="px-3 py-1.5 text-xs transition-colors"
+              style={{ color: muted }}
+            >
+              Log in
             </button>
-          ))}
-          <button
-            onClick={() => {
-              setMenuOpen(false)
-              setLoginOpen(true)
-            }}
-            className="mt-2 block w-full py-2.5 text-left text-sm font-semibold text-amber-400"
-          >
-            Log in
-          </button>
+            <button
+              onClick={() => setContactOpen(true)}
+              className="rounded-full border px-5 py-2 text-xs transition-all"
+              style={{
+                borderColor: isDark ? "rgba(255,255,255,0.15)" : "rgba(17,17,17,0.15)",
+                color: text,
+              }}
+            >
+              Start a project
+            </button>
+          </div>
         </div>
-      )}
+      </div>
 
-      {/* Hero — oversized type */}
-      <div className="overflow-hidden px-6 pb-20 pt-10 md:px-10 md:pb-24 md:pt-12">
+      {/* Hero */}
+      <div className="mx-auto max-w-6xl overflow-hidden px-4 pb-20 pt-12 md:px-8 md:pb-24 md:pt-14">
         <div className="mb-10 flex items-center gap-4">
-          <div className="h-px flex-1 bg-white/10" />
-          <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/25">
+          <div className="h-px flex-1" style={{ background: border }} />
+          <p
+            className="text-[10px] font-semibold uppercase tracking-[0.25em]"
+            style={{ color: muted }}
+          >
             Creative studio — New York
           </p>
-          <div className="h-px flex-1 bg-white/10" />
+          <div className="h-px flex-1" style={{ background: border }} />
         </div>
-        <h1 className="text-[56px] font-black leading-[0.88] tracking-tight md:text-[80px]">
-          <span className="text-white">We make</span>
+        <h1
+          className="text-[56px] font-black leading-[0.88] tracking-tight md:text-[80px]"
+          style={{ color: text }}
+        >
+          We make
           <br />
           <span
             className="font-extralight italic"
-            style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.25)", color: "transparent" }}
+            style={{
+              WebkitTextStroke: isDark ? "1.5px rgba(255,255,255,0.2)" : "1.5px rgba(17,17,17,0.2)",
+              color: "transparent",
+            }}
           >
             brands
           </span>
-          <span className="text-white"> feel</span>
+          <span style={{ color: text }}> feel</span>
           <br />
-          <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+          <span
+            style={{
+              background: "linear-gradient(90deg,#f59e0b,#fb923c)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
             inevitable.
           </span>
         </h1>
         <div className="mt-10 flex flex-col items-start gap-6 md:mt-12 md:flex-row md:items-end md:justify-between">
-          <p className="max-w-xs text-sm leading-relaxed text-white/35">
+          <p className="max-w-xs text-sm leading-relaxed" style={{ color: muted }}>
             Strategic design studio. We partner with the world's most ambitious companies to create
             brands that endure.
           </p>
           <button
             onClick={() => setContactOpen(true)}
-            className="group flex h-14 w-14 items-center justify-center rounded-full bg-amber-400 transition-colors hover:bg-amber-300 md:h-16 md:w-16"
+            className="group flex h-14 w-14 shrink-0 items-center justify-center rounded-full transition-colors"
+            style={{ background: gold }}
           >
-            <ArrowRight className="h-5 w-5 text-black transition-transform group-hover:translate-x-0.5 md:h-6 md:w-6" />
+            <ArrowRight className="h-5 w-5 text-black transition-transform group-hover:translate-x-0.5" />
           </button>
         </div>
       </div>
 
       {/* Portfolio */}
-      <div className="border-t border-white/[0.05] px-6 py-14 md:px-10 md:py-16">
+      <div
+        className="mx-auto max-w-6xl border-t px-4 py-14 md:px-8 md:py-16"
+        style={{ borderColor: border }}
+      >
         <div className="mb-8 flex items-center justify-between">
-          <p className="text-xs font-semibold uppercase tracking-widest text-white/25">
+          <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: muted }}>
             Selected projects
           </p>
-          <button className="text-xs text-white/25 transition-colors hover:text-white/60">
+          <button className="text-xs transition-colors" style={{ color: muted }}>
             All work →
           </button>
         </div>
@@ -2251,49 +3082,53 @@ export function LuminaPreview() {
               title: "Meridian",
               cat: "Global banking rebrand",
               year: "2024",
-              bg: "from-slate-800 to-slate-900",
+              gfrom: isDark ? "#1a1a2e" : "#dde1ff",
+              gto: isDark ? "#16213e" : "#c5ceff",
             },
             {
               title: "Solstice",
               cat: "Tech startup identity",
               year: "2024",
-              bg: "from-amber-900/40 to-orange-950",
+              gfrom: isDark ? "#2a1a00" : "#fef3c7",
+              gto: isDark ? "#1a1000" : "#fde68a",
             },
             {
               title: "Archetype",
-              cat: "Fashion e-commerce platform",
+              cat: "Fashion e-commerce",
               year: "2023",
-              bg: "from-rose-950 to-slate-900",
+              gfrom: isDark ? "#2a0a0f" : "#ffe4e6",
+              gto: isDark ? "#1a0508" : "#fecdd3",
             },
             {
               title: "Forma",
               cat: "B2B SaaS product design",
               year: "2023",
-              bg: "from-sky-950 to-slate-900",
+              gfrom: isDark ? "#0a1a2a" : "#e0f2fe",
+              gto: isDark ? "#050f18" : "#bae6fd",
             },
-          ].map(({ title, cat, year, bg }) => (
+          ].map(({ title, cat, year, gfrom, gto }) => (
             <div
               key={title}
-              className={`group relative h-48 overflow-hidden rounded-2xl bg-gradient-to-br ${bg} border border-white/[0.05]`}
+              className="group relative h-48 overflow-hidden rounded-2xl"
+              style={{
+                background: `linear-gradient(135deg, ${gfrom}, ${gto})`,
+                border: `1px solid ${border}`,
+              }}
             >
-              <div
-                className="absolute inset-0 opacity-[0.07]"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px)",
-                  backgroundSize: "24px 24px",
-                }}
-              />
               <div className="absolute inset-0 flex flex-col justify-between p-6">
-                <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-semibold uppercase tracking-widest text-white/30">
-                    {year}
-                  </span>
-                  <ArrowRight className="h-4 w-4 text-white/0 transition-all group-hover:text-white/60" />
-                </div>
+                <span
+                  className="text-[9px] font-semibold uppercase tracking-widest"
+                  style={{ color: muted }}
+                >
+                  {year}
+                </span>
                 <div>
-                  <p className="text-xl font-black tracking-tight text-white">{title}</p>
-                  <p className="text-[10px] text-white/30">{cat}</p>
+                  <p className="text-xl font-black tracking-tight" style={{ color: text }}>
+                    {title}
+                  </p>
+                  <p className="text-[10px]" style={{ color: muted }}>
+                    {cat}
+                  </p>
                 </div>
               </div>
             </div>
@@ -2302,7 +3137,10 @@ export function LuminaPreview() {
       </div>
 
       {/* Awards */}
-      <div className="border-t border-white/[0.05] px-6 py-12 md:px-10 md:py-14">
+      <div
+        className="mx-auto max-w-6xl border-t px-4 py-12 md:px-8 md:py-14"
+        style={{ borderColor: border }}
+      >
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {[
             { n: "14×", l: "Cannes Lions", sub: "Gold & Silver" },
@@ -2311,44 +3149,125 @@ export function LuminaPreview() {
             { n: "5×", l: "Clio Awards", sub: "Grand Prix" },
           ].map(({ n, l, sub }) => (
             <div key={l}>
-              <p className="text-3xl font-black text-amber-400">{n}</p>
-              <p className="mt-1 text-sm font-semibold text-white/70">{l}</p>
-              <p className="text-[10px] text-white/25">{sub}</p>
+              <p className="text-3xl font-black" style={{ color: gold }}>
+                {n}
+              </p>
+              <p className="mt-1 text-sm font-semibold" style={{ color: text }}>
+                {l}
+              </p>
+              <p className="text-[10px]" style={{ color: muted }}>
+                {sub}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
       {/* CTA */}
-      <div className="border-t border-white/[0.05] px-6 py-16 md:px-10 md:py-20">
+      <div
+        className="mx-auto max-w-6xl border-t px-4 py-16 md:px-8 md:py-20"
+        style={{ borderColor: border }}
+      >
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-4xl font-black tracking-tight text-white md:text-5xl">
+            <h2 className="text-4xl font-black tracking-tight md:text-5xl" style={{ color: text }}>
               Next project?
             </h2>
-            <p className="mt-3 max-w-sm text-sm text-white/35">
+            <p className="mt-3 max-w-sm text-sm" style={{ color: muted }}>
               We work with brands who are ready to think differently. Let's talk.
             </p>
           </div>
           <div className="flex flex-col items-start gap-3 md:items-end">
             <button
               onClick={() => setContactOpen(true)}
-              className="rounded-full bg-amber-400 px-8 py-3.5 text-sm font-black text-black transition-colors hover:bg-amber-300"
+              className="rounded-full px-8 py-3.5 text-sm font-black text-black transition-colors"
+              style={{ background: gold }}
             >
               Start a conversation
             </button>
-            <p className="text-xs text-white/20">studio@lumina.co · +1 212 000 0000</p>
+            <p className="text-xs" style={{ color: muted }}>
+              studio@lumina.co · +1 212 000 0000
+            </p>
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t py-12" style={{ borderColor: border }}>
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="mb-10 grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
+            <div className="col-span-2 md:col-span-1">
+              <span
+                className="mb-3 block text-sm font-black uppercase tracking-[0.25em]"
+                style={{ color: text }}
+              >
+                Lumina
+              </span>
+              <p className="mb-4 text-xs leading-relaxed" style={{ color: muted }}>
+                Strategic design studio. New York · London · Tokyo.
+              </p>
+              <p className="text-xs" style={{ color: gold }}>
+                studio@lumina.co
+              </p>
+            </div>
+            {[
+              { heading: "Studio", links: ["About", "Team", "Process", "Careers"] },
+              { heading: "Work", links: ["Brand", "Digital", "Motion", "Development"] },
+              { heading: "Connect", links: ["Instagram", "Behance", "LinkedIn", "Journal"] },
+            ].map(({ heading, links }) => (
+              <div key={heading}>
+                <p
+                  className="mb-4 text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: muted }}
+                >
+                  {heading}
+                </p>
+                <ul className="space-y-2.5">
+                  {links.map((l) => (
+                    <li key={l}>
+                      <button className="text-xs" style={{ color: muted }}>
+                        {l}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div
+            className="flex flex-col gap-3 border-t pt-6 md:flex-row md:items-center md:justify-between"
+            style={{ borderColor: border }}
+          >
+            <p className="text-[11px]" style={{ color: muted }}>
+              © 2025 Lumina Studio. All rights reserved.
+            </p>
+            <div className="flex gap-4">
+              {["Privacy", "Terms"].map((l) => (
+                <button key={l} className="text-[11px]" style={{ color: muted }}>
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
 
 // ─── Apex: Enterprise — Palantir / Stripe aesthetic ──────────────────────────
 export function ApexPreview() {
+  const [activeTheme, setActiveTheme] = React.useState<"system" | "light" | "dark">("light")
   const [loginOpen, setLoginOpen] = React.useState(false)
   const [demoOpen, setDemoOpen] = React.useState(false)
+
+  const isDark = activeTheme === "dark"
+  const bg = isDark ? "#09090f" : "#ffffff"
+  const text = isDark ? "#ffffff" : "#0f172a"
+  const muted = isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.45)"
+  const border = isDark ? "rgba(255,255,255,0.07)" : "rgba(15,23,42,0.08)"
+  const cardBg = isDark ? "rgba(255,255,255,0.02)" : "#f8fafc"
+  const accent = isDark ? "#60a5fa" : "#1d4ed8"
 
   const Modal = ({
     open,
@@ -2365,12 +3284,14 @@ export function ApexPreview() {
         onClick={onClose}
       >
         <div
-          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl bg-white shadow-2xl"
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl shadow-2xl"
+          style={{ background: isDark ? "#12121f" : "#ffffff", border: `1px solid ${border}` }}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 text-xs text-slate-300 transition-colors hover:text-slate-600"
+            className="absolute right-4 top-4 text-xs"
+            style={{ color: muted }}
           >
             ✕
           </button>
@@ -2381,51 +3302,80 @@ export function ApexPreview() {
 
   return (
     <div
-      className="relative min-h-[1200px] bg-white font-sans text-slate-900"
-      style={{ fontFamily: "system-ui,sans-serif" }}
+      className="relative min-h-[1400px] font-sans"
+      style={{ fontFamily: "system-ui,sans-serif", background: bg, color: text }}
     >
-      {/* Login Modal */}
       <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
         <div className="p-8">
           <div className="mb-6 flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-900">
-              <Globe className="h-4 w-4 text-white" />
+            <div
+              className="flex h-7 w-7 items-center justify-center rounded-lg"
+              style={{ background: text }}
+            >
+              <Globe className="h-4 w-4" style={{ color: bg }} />
             </div>
-            <span className="text-sm font-bold tracking-tight text-slate-900">Apex Platform</span>
+            <span className="text-sm font-bold" style={{ color: text }}>
+              Apex Platform
+            </span>
           </div>
-          <h2 className="mb-1 text-xl font-bold text-slate-900">Sign in to your account</h2>
-          <p className="mb-6 text-xs text-slate-400">
+          <h2 className="mb-1 text-xl font-bold" style={{ color: text }}>
+            Sign in to your account
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
             Enterprise SSO available for your organization
           </p>
-          <div className="mb-4 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3">
-            <button className="flex w-full items-center justify-center gap-2 text-sm font-semibold text-blue-700">
+          <div
+            className="mb-4 rounded-xl border p-3 text-center"
+            style={{
+              borderColor: isDark ? "rgba(96,165,250,0.2)" : "rgba(29,78,216,0.15)",
+              background: isDark ? "rgba(96,165,250,0.06)" : "rgba(29,78,216,0.04)",
+            }}
+          >
+            <button
+              className="flex w-full items-center justify-center gap-2 text-sm font-semibold"
+              style={{ color: accent }}
+            >
               <Lock className="h-4 w-4" /> Continue with SSO
             </button>
           </div>
           <div className="relative my-4 flex items-center">
-            <div className="flex-1 border-t border-slate-100" />
-            <span className="mx-3 text-[10px] text-slate-300">or sign in with email</span>
-            <div className="flex-1 border-t border-slate-100" />
+            <div className="flex-1 border-t" style={{ borderColor: border }} />
+            <span className="mx-3 text-[10px]" style={{ color: muted }}>
+              or sign in with email
+            </span>
+            <div className="flex-1 border-t" style={{ borderColor: border }} />
           </div>
-          <div className="space-y-3">
-            <input
-              type="email"
-              placeholder="Work email"
-              className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
-            />
-          </div>
-          <button className="mt-4 w-full rounded-xl bg-slate-900 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
+          {[
+            { label: "Work email", type: "email", ph: "you@company.com" },
+            { label: "Password", type: "password", ph: "••••••••" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
+          <button
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-semibold transition-colors"
+            style={{ background: text, color: bg }}
+          >
             Sign in
           </button>
-          <p className="mt-4 text-center text-xs text-slate-400">
+          <p className="mt-4 text-center text-xs" style={{ color: muted }}>
             Need an account?{" "}
             <button
-              className="font-semibold text-slate-700 underline"
+              className="font-semibold underline"
+              style={{ color: text }}
               onClick={() => {
                 setLoginOpen(false)
                 setDemoOpen(true)
@@ -2437,169 +3387,238 @@ export function ApexPreview() {
         </div>
       </Modal>
 
-      {/* Demo Modal */}
       <Modal open={demoOpen} onClose={() => setDemoOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-bold text-slate-900">Request a demo</h2>
-          <p className="mb-6 text-xs text-slate-400">Our team will reach out within 24 hours</p>
-          <div className="space-y-3">
-            <div className="grid grid-cols-2 gap-2">
+          <h2 className="mb-1 text-xl font-bold" style={{ color: text }}>
+            Request a demo
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            Our team will reach out within 24 hours
+          </p>
+          <div className="mb-3 grid grid-cols-2 gap-2">
+            {[
+              { label: "First name", ph: "Jane" },
+              { label: "Last name", ph: "Smith" },
+            ].map(({ label, ph }) => (
+              <div key={label}>
+                <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                  {label}
+                </label>
+                <input
+                  type="text"
+                  placeholder={ph}
+                  className="w-full rounded-xl px-3 py-2.5 text-sm outline-none"
+                  style={{
+                    border: `1px solid ${border}`,
+                    background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
+                    color: text,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+          {[
+            { label: "Work email", type: "email", ph: "you@company.com" },
+            { label: "Company", type: "text", ph: "Acme Corp" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
               <input
-                type="text"
-                placeholder="First name"
-                className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
-              />
-              <input
-                type="text"
-                placeholder="Last name"
-                className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
+                  color: text,
+                }}
               />
             </div>
-            <input
-              type="email"
-              placeholder="Work email"
-              className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
-            />
-            <input
-              type="text"
-              placeholder="Company name"
-              className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
-            />
-            <select className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-400 outline-none focus:border-slate-400">
-              <option value="">Company size</option>
-              <option>1–50</option>
-              <option>51–250</option>
-              <option>251–1000</option>
-              <option>1000+</option>
-            </select>
-          </div>
-          <button className="mt-4 w-full rounded-xl bg-slate-900 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
+          ))}
+          <button
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-semibold"
+            style={{ background: text, color: bg }}
+          >
             Request demo
           </button>
         </div>
       </Modal>
 
       {/* Nav */}
-      <nav className="flex items-center justify-between border-b border-slate-100 px-6 py-4 md:px-10">
-        <div className="flex items-center gap-6 md:gap-8">
-          <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-900">
-              <Globe className="h-4 w-4 text-white" />
-            </div>
-            <span className="text-sm font-bold tracking-tight">Apex</span>
-          </div>
-          <div className="hidden items-center gap-1 md:flex">
-            {["Platform", "Solutions", "Enterprise", "Security", "Pricing"].map((l) => (
-              <button
-                key={l}
-                className="rounded-md px-3 py-1.5 text-xs text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-900"
+      <div
+        className="sticky top-0 z-10"
+        style={{
+          background: isDark ? "rgba(9,9,15,0.9)" : "rgba(255,255,255,0.9)",
+          backdropFilter: "blur(12px)",
+          borderBottom: `1px solid ${border}`,
+        }}
+      >
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div
+                className="flex h-7 w-7 items-center justify-center rounded-lg"
+                style={{ background: text }}
               >
-                {l}
-              </button>
-            ))}
+                <Globe className="h-4 w-4" style={{ color: bg }} />
+              </div>
+              <span className="text-sm font-bold tracking-tight" style={{ color: text }}>
+                Apex
+              </span>
+            </div>
+            <nav className="hidden items-center gap-1 md:flex">
+              {["Platform", "Solutions", "Enterprise", "Security", "Pricing"].map((l) => (
+                <button
+                  key={l}
+                  className="rounded-md px-3 py-1.5 text-xs transition-colors"
+                  style={{ color: muted }}
+                >
+                  {l}
+                </button>
+              ))}
+            </nav>
+          </div>
+          <div className="flex items-center gap-2">
+            <div
+              className="hidden items-center rounded-lg p-0.5 md:flex"
+              style={{ background: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.05)" }}
+            >
+              {(["System", "Light", "Dark"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setActiveTheme(t.toLowerCase() as "system" | "light" | "dark")}
+                  className="rounded-md px-2.5 py-1 text-[10px] font-medium capitalize transition-all"
+                  style={{
+                    background:
+                      activeTheme === t.toLowerCase()
+                        ? isDark
+                          ? "rgba(255,255,255,0.1)"
+                          : "rgba(15,23,42,0.08)"
+                        : "transparent",
+                    color: activeTheme === t.toLowerCase() ? text : muted,
+                  }}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="px-3 py-1.5 text-xs transition-colors"
+              style={{ color: muted }}
+            >
+              Sign in
+            </button>
+            <button
+              onClick={() => setDemoOpen(true)}
+              className="rounded-lg px-5 py-2 text-xs font-semibold transition-colors"
+              style={{ background: text, color: bg }}
+            >
+              Request demo
+            </button>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setLoginOpen(true)}
-            className="px-3 py-1.5 text-xs text-slate-500 transition-colors hover:text-slate-900"
-          >
-            Sign in
-          </button>
-          <button
-            onClick={() => setDemoOpen(true)}
-            className="rounded-lg bg-slate-900 px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-slate-800"
-          >
-            Request demo
-          </button>
-        </div>
-      </nav>
+      </div>
 
       {/* Hero */}
-      <div className="px-6 py-16 md:px-10 md:py-24">
+      <div className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3.5 py-1.5 text-xs font-semibold text-blue-700">
-              <Lock className="h-3 w-3" />
-              SOC2 Type II · ISO 27001 · HIPAA · GDPR
+            <div
+              className="mb-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold"
+              style={{
+                borderColor: isDark ? "rgba(96,165,250,0.2)" : "rgba(29,78,216,0.15)",
+                background: isDark ? "rgba(96,165,250,0.06)" : "rgba(29,78,216,0.04)",
+                color: accent,
+              }}
+            >
+              <Lock className="h-3 w-3" /> SOC2 Type II · ISO 27001 · HIPAA · GDPR
             </div>
-            <h1 className="mb-6 text-[36px] font-extrabold leading-[1.08] tracking-tight text-slate-900 md:text-[48px]">
+            <h1
+              className="mb-6 text-[36px] font-extrabold leading-[1.08] tracking-tight md:text-[48px]"
+              style={{ color: text }}
+            >
               Enterprise infrastructure
               <br />
-              <span className="text-slate-400">built to scale with you.</span>
+              <span style={{ color: muted }}>built to scale with you.</span>
             </h1>
-            <p className="mb-8 max-w-xl text-[15px] leading-relaxed text-slate-500">
+            <p className="mb-8 max-w-xl text-[15px] leading-relaxed" style={{ color: muted }}>
               Apex gives Fortune 500 companies the security, compliance, and reliability they need —
               without sacrificing developer velocity.
             </p>
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
               <button
                 onClick={() => setDemoOpen(true)}
-                className="flex items-center gap-2 rounded-xl bg-slate-900 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition-colors hover:bg-slate-800"
+                className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-semibold shadow-lg"
+                style={{ background: text, color: bg }}
               >
                 Request a demo <ArrowRight className="h-4 w-4" />
               </button>
               <button
                 onClick={() => setLoginOpen(true)}
-                className="rounded-xl border border-slate-200 px-7 py-3.5 text-sm text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-700"
+                className="rounded-xl border px-7 py-3.5 text-sm transition-colors"
+                style={{ borderColor: border, color: muted }}
               >
                 Sign in
               </button>
             </div>
           </div>
-          {/* Dashboard mockup */}
-          <div className="rounded-2xl border border-slate-100 bg-slate-50 p-6 shadow-xl shadow-slate-100">
+          <div
+            className="rounded-2xl border p-6 shadow-xl"
+            style={{ border: `1px solid ${border}`, background: cardBg }}
+          >
             <div className="mb-4 flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-red-400" />
-              <div className="h-2 w-2 rounded-full bg-yellow-400" />
-              <div className="h-2 w-2 rounded-full bg-green-400" />
-              <span className="ml-2 text-[10px] text-slate-400">Apex Platform</span>
+              {["bg-red-400", "bg-yellow-400", "bg-green-400"].map((c, i) => (
+                <div key={i} className={`h-2 w-2 rounded-full ${c}`} />
+              ))}
+              <span className="ml-2 text-[10px]" style={{ color: muted }}>
+                Apex Platform
+              </span>
             </div>
-            <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+            <div className="mb-3 grid grid-cols-3 gap-2">
               {[
-                {
-                  label: "Uptime",
-                  value: "99.99%",
-                  sub: "last 90 days",
-                  color: "text-emerald-600",
-                  bg: "bg-emerald-50 border-emerald-100",
-                },
-                {
-                  label: "Latency",
-                  value: "12ms",
-                  sub: "p95 global",
-                  color: "text-blue-600",
-                  bg: "bg-blue-50 border-blue-100",
-                },
-                {
-                  label: "Requests",
-                  value: "2.4B",
-                  sub: "this month",
-                  color: "text-purple-600",
-                  bg: "bg-purple-50 border-purple-100",
-                },
-              ].map(({ label, value, sub, color, bg }) => (
-                <div key={label} className={`rounded-xl border ${bg} p-4`}>
-                  <p className="text-[10px] text-slate-400">{label}</p>
-                  <p className={`text-xl font-bold ${color}`}>{value}</p>
-                  <p className="text-[10px] text-slate-400">{sub}</p>
+                { label: "Uptime", value: "99.99%", sub: "last 90 days", c: "#10b981" },
+                { label: "Latency", value: "12ms", sub: "p95 global", c: accent },
+                { label: "Requests", value: "2.4B", sub: "this month", c: "#a78bfa" },
+              ].map(({ label, value, sub, c }) => (
+                <div
+                  key={label}
+                  className="rounded-xl border p-3"
+                  style={{
+                    borderColor: border,
+                    background: isDark ? "rgba(255,255,255,0.02)" : "#fff",
+                  }}
+                >
+                  <p className="text-[10px]" style={{ color: muted }}>
+                    {label}
+                  </p>
+                  <p className="text-lg font-bold" style={{ color: c }}>
+                    {value}
+                  </p>
+                  <p className="text-[9px]" style={{ color: muted }}>
+                    {sub}
+                  </p>
                 </div>
               ))}
             </div>
-            <div className="mt-3 rounded-xl border border-slate-100 bg-white p-4">
-              <p className="mb-3 text-[10px] font-medium text-slate-400">System health</p>
-              {[
-                { name: "API Gateway", status: "Operational", ok: true },
-                { name: "Database clusters", status: "Operational", ok: true },
-                { name: "CDN nodes", status: "Operational", ok: true },
-              ].map(({ name, status, ok }) => (
+            <div
+              className="rounded-xl border p-4"
+              style={{
+                borderColor: border,
+                background: isDark ? "rgba(255,255,255,0.02)" : "#fff",
+              }}
+            >
+              <p className="mb-3 text-[10px] font-medium" style={{ color: muted }}>
+                System health
+              </p>
+              {["API Gateway", "Database clusters", "CDN nodes"].map((name) => (
                 <div key={name} className="flex items-center justify-between py-1.5">
-                  <span className="text-[11px] text-slate-600">{name}</span>
-                  <span
-                    className={`text-[10px] font-semibold ${ok ? "text-emerald-600" : "text-red-500"}`}
-                  >
-                    {status}
+                  <span className="text-[11px]" style={{ color: text }}>
+                    {name}
                   </span>
+                  <span className="text-[10px] font-semibold text-emerald-500">Operational</span>
                 </div>
               ))}
             </div>
@@ -2607,14 +3626,17 @@ export function ApexPreview() {
         </div>
       </div>
 
-      {/* Trust logos */}
-      <div className="border-t border-slate-50 bg-slate-50/50 px-6 py-10 md:px-10">
-        <p className="mb-8 text-center text-xs text-slate-400">Trusted by enterprises worldwide</p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
+      {/* Logos */}
+      <div className="border-t py-10" style={{ borderColor: border }}>
+        <p className="mb-8 text-center text-xs" style={{ color: muted }}>
+          Trusted by enterprises worldwide
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3 px-4">
           {["Stripe", "Goldman Sachs", "Shopify", "Salesforce", "Adobe", "Twilio"].map((n) => (
             <div
               key={n}
-              className="rounded-lg border border-slate-100 bg-white px-4 py-2 text-xs font-semibold text-slate-300"
+              className="rounded-lg border px-4 py-2 text-xs font-semibold"
+              style={{ borderColor: border, color: muted, background: cardBg }}
             >
               {n}
             </div>
@@ -2623,11 +3645,17 @@ export function ApexPreview() {
       </div>
 
       {/* Features */}
-      <div className="px-6 py-16 md:px-10">
-        <h2 className="mb-2 text-center text-3xl font-extrabold tracking-tight text-slate-900">
+      <div
+        className="mx-auto max-w-6xl border-t px-4 py-16 md:px-8"
+        style={{ borderColor: border }}
+      >
+        <h2
+          className="mb-2 text-center text-3xl font-extrabold tracking-tight"
+          style={{ color: text }}
+        >
           Enterprise-grade, out of the box
         </h2>
-        <p className="mb-12 text-center text-sm text-slate-400">
+        <p className="mb-12 text-center text-sm" style={{ color: muted }}>
           Everything your security and compliance teams need.
         </p>
         <div className="grid gap-4 md:grid-cols-3">
@@ -2636,66 +3664,164 @@ export function ApexPreview() {
               icon: Shield,
               title: "Zero-trust security",
               desc: "End-to-end encryption, hardware security keys, and granular RBAC across every service.",
-              c: "text-blue-600",
-              b: "bg-blue-50 border-blue-100",
+              c: accent,
             },
             {
               icon: Lock,
               title: "Compliance ready",
               desc: "SOC2 Type II, ISO 27001, HIPAA, and GDPR compliance built in from day one.",
-              c: "text-emerald-600",
-              b: "bg-emerald-50 border-emerald-100",
+              c: "#10b981",
             },
             {
               icon: Globe,
               title: "Global infrastructure",
               desc: "Deploy to 40+ regions with automated failover, geo-redundancy, and 99.99% SLA.",
-              c: "text-purple-600",
-              b: "bg-purple-50 border-purple-100",
+              c: "#a78bfa",
             },
-          ].map(({ icon: Icon, title, desc, c, b }) => (
-            <div key={title} className={`rounded-2xl border ${b} p-7`}>
-              <div className="mb-4 inline-flex rounded-xl border border-slate-100 bg-white p-3 shadow-sm">
-                <Icon className={`h-5 w-5 ${c}`} />
+          ].map(({ icon: Icon, title, desc, c }) => (
+            <div
+              key={title}
+              className="rounded-2xl border p-7"
+              style={{ borderColor: border, background: cardBg }}
+            >
+              <div
+                className="mb-4 inline-flex rounded-xl p-3 shadow-sm"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.04)" : "#fff",
+                }}
+              >
+                <Icon className="h-5 w-5" style={{ color: c }} />
               </div>
-              <h3 className="mb-2 font-semibold text-slate-900">{title}</h3>
-              <p className="text-sm leading-relaxed text-slate-500">{desc}</p>
+              <h3 className="mb-2 font-semibold" style={{ color: text }}>
+                {title}
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: muted }}>
+                {desc}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
       {/* CTA */}
-      <div className="mx-6 mb-16 rounded-3xl bg-slate-900 p-12 text-center text-white md:mx-10 md:p-16">
-        <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
-          Ready for enterprise?
-        </h2>
-        <p className="mx-auto mb-8 max-w-md text-sm text-white/50">
-          Join 2,000+ enterprises who trust Apex for mission-critical infrastructure.
-        </p>
-        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <button
-            onClick={() => setDemoOpen(true)}
-            className="flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-100"
+      <div className="mx-auto max-w-6xl px-4 pb-20 md:px-8">
+        <div className="rounded-3xl p-12 text-center md:p-16" style={{ background: text }}>
+          <h2
+            className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl"
+            style={{ color: bg }}
           >
-            Request a demo <ArrowRight className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => setLoginOpen(true)}
-            className="rounded-xl border border-white/20 px-8 py-3.5 text-sm text-white/60 transition-colors hover:border-white/40 hover:text-white/80"
+            Ready for enterprise?
+          </h2>
+          <p
+            className="mx-auto mb-8 max-w-md text-sm"
+            style={{ color: isDark ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.5)" }}
           >
-            Sign in
-          </button>
+            Join 2,000+ enterprises who trust Apex for mission-critical infrastructure.
+          </p>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <button
+              onClick={() => setDemoOpen(true)}
+              className="flex items-center gap-2 rounded-xl px-8 py-3.5 text-sm font-semibold shadow-lg transition-colors"
+              style={{ background: bg, color: text }}
+            >
+              Request a demo <ArrowRight className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="rounded-xl border px-8 py-3.5 text-sm transition-colors"
+              style={{
+                borderColor: isDark ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.2)",
+                color: isDark ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.6)",
+              }}
+            >
+              Sign in
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t py-12" style={{ borderColor: border }}>
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="mb-10 grid grid-cols-2 gap-6 md:grid-cols-5 md:gap-8">
+            <div className="col-span-2">
+              <div className="mb-3 flex items-center gap-2">
+                <div
+                  className="flex h-7 w-7 items-center justify-center rounded-lg"
+                  style={{ background: text }}
+                >
+                  <Globe className="h-4 w-4" style={{ color: bg }} />
+                </div>
+                <span className="font-bold" style={{ color: text }}>
+                  Apex
+                </span>
+              </div>
+              <p className="mb-4 max-w-[220px] text-xs leading-relaxed" style={{ color: muted }}>
+                Enterprise infrastructure for modern teams.
+              </p>
+            </div>
+            {[
+              {
+                heading: "Platform",
+                links: ["Security", "Compliance", "Infrastructure", "Analytics"],
+              },
+              { heading: "Company", links: ["About", "Blog", "Careers", "Contact"] },
+              { heading: "Legal", links: ["Privacy", "Terms", "Security Policy", "SLA"] },
+            ].map(({ heading, links }) => (
+              <div key={heading}>
+                <p
+                  className="mb-4 text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: muted }}
+                >
+                  {heading}
+                </p>
+                <ul className="space-y-2.5">
+                  {links.map((l) => (
+                    <li key={l}>
+                      <button className="text-xs" style={{ color: muted }}>
+                        {l}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div
+            className="flex flex-col gap-3 border-t pt-6 md:flex-row md:items-center md:justify-between"
+            style={{ borderColor: border }}
+          >
+            <p className="text-[11px]" style={{ color: muted }}>
+              © 2025 Apex Technologies, Inc. All rights reserved.
+            </p>
+            <div className="flex gap-4">
+              {["Privacy", "Terms", "Security"].map((l) => (
+                <button key={l} className="text-[11px]" style={{ color: muted }}>
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
 
 // ─── Aura: Product Launch — Apple / Teenage Engineering aesthetic ─────────────
 export function AuraPreview() {
+  const [activeTheme, setActiveTheme] = React.useState<"system" | "light" | "dark">("dark")
   const [loginOpen, setLoginOpen] = React.useState(false)
   const [preorderOpen, setPreorderOpen] = React.useState(false)
+
+  const isDark = activeTheme === "dark" || activeTheme === "system"
+  const bg = isDark ? "#07030f" : "#faf5ff"
+  const text = isDark ? "#ffffff" : "#1e0a3c"
+  const muted = isDark ? "rgba(255,255,255,0.35)" : "rgba(30,10,60,0.45)"
+  const border = isDark ? "rgba(255,255,255,0.07)" : "rgba(124,58,237,0.1)"
+  const cardBg = isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.7)"
+  const purple = isDark ? "#a78bfa" : "#7c3aed"
 
   const Modal = ({
     open,
@@ -2712,12 +3838,14 @@ export function AuraPreview() {
         onClick={onClose}
       >
         <div
-          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border border-purple-500/20 bg-[#0d0718] shadow-2xl shadow-purple-900/50"
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl shadow-2xl"
+          style={{ background: isDark ? "#0d0718" : "#faf5ff", border: `1px solid ${border}` }}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 text-xs text-white/20 transition-colors hover:text-white/60"
+            className="absolute right-4 top-4 text-xs"
+            style={{ color: muted }}
           >
             ✕
           </button>
@@ -2728,52 +3856,79 @@ export function AuraPreview() {
 
   return (
     <div
-      className="relative min-h-[1200px] font-sans text-white"
-      style={{ fontFamily: "system-ui,sans-serif", background: "#07030f" }}
+      className="relative min-h-[1400px] font-sans"
+      style={{ fontFamily: "system-ui,sans-serif", background: bg, color: text }}
     >
-      {/* Background glow */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute left-1/2 top-0 h-[500px] w-[600px] -translate-x-1/2 rounded-full bg-purple-600/15 blur-[120px]" />
-        <div className="absolute -right-20 top-1/3 h-[300px] w-[300px] rounded-full bg-indigo-600/10 blur-[80px]" />
-      </div>
+      {isDark && (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+          <div
+            className="absolute left-1/2 top-0 h-[500px] w-[600px] -translate-x-1/2 rounded-full opacity-60"
+            style={{ background: "radial-gradient(ellipse,rgba(124,58,237,0.2),transparent 70%)" }}
+          />
+        </div>
+      )}
 
-      {/* Login Modal */}
       <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
         <div className="p-8">
-          <h2 className="mb-1 text-xl font-bold text-white">Welcome back</h2>
-          <p className="mb-6 text-xs text-white/35">Sign in to your Aura account</p>
+          <h2 className="mb-1 text-xl font-bold" style={{ color: text }}>
+            Welcome back
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            Sign in to your Aura account
+          </p>
           <div className="mb-3 grid grid-cols-2 gap-2">
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-purple-500/20 bg-purple-500/[0.06] py-2.5 text-xs font-semibold text-white/50 transition-colors hover:border-purple-500/30 hover:text-white/70">
-              <Globe className="h-3.5 w-3.5" /> Google
-            </button>
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-purple-500/20 bg-purple-500/[0.06] py-2.5 text-xs font-semibold text-white/50 transition-colors hover:border-purple-500/30 hover:text-white/70">
-              <Lock className="h-3.5 w-3.5" /> GitHub
-            </button>
+            {["Google", "GitHub"].map((s) => (
+              <button
+                key={s}
+                className="flex items-center justify-center gap-2 rounded-xl border py-2.5 text-xs font-semibold"
+                style={{
+                  borderColor: border,
+                  color: muted,
+                  background: isDark ? "rgba(255,255,255,0.03)" : "rgba(124,58,237,0.04)",
+                }}
+              >
+                {s}
+              </button>
+            ))}
           </div>
           <div className="relative my-4 flex items-center">
-            <div className="flex-1 border-t border-white/[0.06]" />
-            <span className="mx-3 text-[10px] text-white/20">or</span>
-            <div className="flex-1 border-t border-white/[0.06]" />
+            <div className="flex-1 border-t" style={{ borderColor: border }} />
+            <span className="mx-3 text-[10px]" style={{ color: muted }}>
+              or
+            </span>
+            <div className="flex-1 border-t" style={{ borderColor: border }} />
           </div>
-          <div className="space-y-3">
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-purple-500/40"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-purple-500/40"
-            />
-          </div>
-          <button className="mt-4 w-full rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition-opacity hover:opacity-90">
+          {[
+            { label: "Email", type: "email", ph: "you@company.com" },
+            { label: "Password", type: "password", ph: "••••••••" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.03)" : "rgba(124,58,237,0.03)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
+          <button
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-semibold text-white"
+            style={{ background: "linear-gradient(135deg,#7c3aed,#4f46e5)" }}
+          >
             Sign in
           </button>
-          <p className="mt-4 text-center text-xs text-white/30">
+          <p className="mt-4 text-center text-xs" style={{ color: muted }}>
             New here?{" "}
             <button
-              className="text-purple-400 hover:text-purple-300"
+              className="font-semibold"
+              style={{ color: purple }}
               onClick={() => {
                 setLoginOpen(false)
                 setPreorderOpen(true)
@@ -2785,181 +3940,317 @@ export function AuraPreview() {
         </div>
       </Modal>
 
-      {/* Pre-order Modal */}
       <Modal open={preorderOpen} onClose={() => setPreorderOpen(false)}>
         <div className="p-8">
-          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/[0.08] px-3 py-1 text-[10px] font-semibold text-purple-300">
+          <div
+            className="mb-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] font-semibold"
+            style={{
+              borderColor: border,
+              background: isDark ? "rgba(124,58,237,0.1)" : "rgba(124,58,237,0.08)",
+              color: purple,
+            }}
+          >
             <Sparkles className="h-3 w-3" /> Early access — 40% off
           </div>
-          <h2 className="mb-1 mt-3 text-xl font-bold text-white">Reserve your spot</h2>
-          <p className="mb-6 text-xs text-white/35">Join 12,000+ on the waitlist</p>
-          <div className="space-y-3">
-            <input
-              type="text"
-              placeholder="Your name"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-purple-500/40"
-            />
-            <input
-              type="email"
-              placeholder="Email address"
-              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-purple-500/40"
-            />
-          </div>
-          <button className="mt-4 w-full rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition-opacity hover:opacity-90">
+          <h2 className="mb-1 mt-3 text-xl font-bold" style={{ color: text }}>
+            Reserve your spot
+          </h2>
+          <p className="mb-6 text-xs" style={{ color: muted }}>
+            Join 12,000+ on the waitlist
+          </p>
+          {[
+            { label: "Your name", type: "text", ph: "Jane Smith" },
+            { label: "Email address", type: "email", ph: "you@company.com" },
+          ].map(({ label, type, ph }) => (
+            <div key={label} className="mb-3">
+              <label className="mb-1.5 block text-xs font-medium" style={{ color: muted }}>
+                {label}
+              </label>
+              <input
+                type={type}
+                placeholder={ph}
+                className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
+                style={{
+                  border: `1px solid ${border}`,
+                  background: isDark ? "rgba(255,255,255,0.03)" : "rgba(124,58,237,0.03)",
+                  color: text,
+                }}
+              />
+            </div>
+          ))}
+          <button
+            className="mt-2 w-full rounded-xl py-2.5 text-sm font-semibold text-white"
+            style={{ background: "linear-gradient(135deg,#7c3aed,#4f46e5)" }}
+          >
             Reserve my spot
           </button>
-          <p className="mt-3 text-center text-[10px] text-white/25">
+          <p className="mt-3 text-center text-[10px]" style={{ color: muted }}>
             No payment required to join waitlist
           </p>
         </div>
       </Modal>
 
       {/* Nav */}
-      <nav className="relative z-10 flex items-center justify-between px-6 py-5 md:px-10 md:py-6">
-        <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600">
-            <Sparkles className="h-4 w-4 text-white" />
+      <div
+        className="relative sticky top-0 z-10"
+        style={{
+          background: isDark ? "rgba(7,3,15,0.9)" : "rgba(250,245,255,0.9)",
+          backdropFilter: "blur(12px)",
+          borderBottom: `1px solid ${border}`,
+        }}
+      >
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-8">
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div
+                className="flex h-7 w-7 items-center justify-center rounded-xl"
+                style={{ background: "linear-gradient(135deg,#7c3aed,#4f46e5)" }}
+              >
+                <Sparkles className="h-4 w-4 text-white" />
+              </div>
+              <span className="text-sm font-bold" style={{ color: text }}>
+                Aura
+              </span>
+            </div>
+            <nav className="hidden items-center gap-1 md:flex">
+              {["Features", "Pricing", "Reviews", "About"].map((l) => (
+                <button
+                  key={l}
+                  className="rounded-lg px-3 py-1.5 text-xs transition-colors"
+                  style={{ color: muted }}
+                >
+                  {l}
+                </button>
+              ))}
+            </nav>
           </div>
-          <span className="text-sm font-bold tracking-tight">Aura</span>
-        </div>
-        <div className="hidden items-center gap-1 md:flex">
-          {["Features", "Pricing", "Reviews", "About"].map((l) => (
-            <button
-              key={l}
-              className="rounded-lg px-3 py-1.5 text-xs text-white/35 transition-colors hover:text-white/60"
+          <div className="flex items-center gap-2">
+            <div
+              className="hidden items-center rounded-lg p-0.5 md:flex"
+              style={{ background: isDark ? "rgba(255,255,255,0.06)" : "rgba(124,58,237,0.06)" }}
             >
-              {l}
+              {(["System", "Light", "Dark"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setActiveTheme(t.toLowerCase() as "system" | "light" | "dark")}
+                  className="rounded-md px-2.5 py-1 text-[10px] font-medium capitalize transition-all"
+                  style={{
+                    background:
+                      activeTheme === t.toLowerCase()
+                        ? isDark
+                          ? "rgba(255,255,255,0.1)"
+                          : "rgba(124,58,237,0.12)"
+                        : "transparent",
+                    color: activeTheme === t.toLowerCase() ? text : muted,
+                  }}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="px-3 py-1.5 text-xs transition-colors"
+              style={{ color: muted }}
+            >
+              Sign in
             </button>
-          ))}
+            <button
+              onClick={() => setPreorderOpen(true)}
+              className="rounded-lg px-4 py-2 text-xs font-semibold text-white shadow-lg"
+              style={{ background: "linear-gradient(135deg,#7c3aed,#4f46e5)" }}
+            >
+              Pre-order
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setLoginOpen(true)}
-            className="px-3 py-1.5 text-xs text-white/35 transition-colors hover:text-white/60"
-          >
-            Sign in
-          </button>
-          <button
-            onClick={() => setPreorderOpen(true)}
-            className="rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-purple-600/20 transition-opacity hover:opacity-90"
-          >
-            Pre-order
-          </button>
-        </div>
-      </nav>
+      </div>
 
       {/* Hero */}
-      <div className="relative z-10 px-6 pb-20 pt-16 text-center md:px-10 md:pt-24">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/[0.08] px-4 py-2 text-xs font-semibold text-purple-300">
-          <Sparkles className="h-3.5 w-3.5" />
-          Early access now open — 40% founding discount
+      <div className="relative z-10 mx-auto max-w-6xl px-4 pb-20 pt-16 text-center md:px-8 md:pt-24">
+        <div
+          className="mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold"
+          style={{
+            borderColor: border,
+            background: isDark ? "rgba(124,58,237,0.1)" : "rgba(124,58,237,0.06)",
+            color: purple,
+          }}
+        >
+          <Sparkles className="h-3.5 w-3.5" /> Early access now open — 40% founding discount
         </div>
-        <h1 className="mx-auto mb-6 max-w-4xl text-[44px] font-extrabold leading-[1.05] tracking-tight md:text-[60px]">
+        <h1
+          className="mx-auto mb-6 max-w-4xl text-[44px] font-extrabold leading-[1.05] tracking-tight md:text-[60px]"
+          style={{ color: text }}
+        >
           The creative tool you've
           <br />
-          <span className="bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
+          <span
+            style={{
+              background: "linear-gradient(135deg,#a78bfa,#818cf8)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
             been waiting for.
           </span>
         </h1>
-        <p className="mx-auto mb-10 max-w-lg text-[15px] leading-relaxed text-white/40">
+        <p className="mx-auto mb-10 max-w-lg text-[15px] leading-relaxed" style={{ color: muted }}>
           Aura transforms how teams create, collaborate, and ship beautiful products. Powered by AI,
           built for the way you work.
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <button
             onClick={() => setPreorderOpen(true)}
-            className="group flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 px-8 py-4 text-sm font-bold text-white shadow-2xl shadow-purple-600/30 transition-opacity hover:opacity-90"
+            className="group flex items-center gap-2 rounded-2xl px-8 py-4 text-sm font-bold text-white shadow-2xl"
+            style={{
+              background: "linear-gradient(135deg,#7c3aed,#4f46e5)",
+              boxShadow: "0 16px 48px rgba(124,58,237,0.3)",
+            }}
           >
             Reserve early access{" "}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </button>
           <button
             onClick={() => setLoginOpen(true)}
-            className="rounded-2xl border border-white/[0.08] px-8 py-4 text-sm text-white/40 transition-all hover:border-white/[0.15] hover:text-white/60"
+            className="rounded-2xl border px-8 py-4 text-sm transition-all"
+            style={{ borderColor: border, color: muted }}
           >
             Sign in
           </button>
         </div>
-        <p className="mt-5 text-xs text-white/25">12,400+ on the waitlist · Ships Q2 2025</p>
+        <p className="mt-5 text-xs" style={{ color: muted }}>
+          12,400+ on the waitlist · Ships Q2 2025
+        </p>
       </div>
 
       {/* Product mockup */}
-      <div className="relative z-10 mx-6 mb-16 overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.02] shadow-2xl shadow-purple-900/30 backdrop-blur-sm md:mx-10">
-        <div className="flex items-center gap-2 border-b border-white/[0.05] bg-white/[0.02] px-4 py-3">
-          {["bg-[#ff5f57]", "bg-[#ffbc2e]", "bg-[#28c840]"].map((c, i) => (
-            <div key={i} className={`h-2 w-2 rounded-full ${c}`} />
-          ))}
-          <span className="ml-2 text-[10px] text-white/20">Aura Studio</span>
-        </div>
-        <div className="grid md:grid-cols-[200px_1fr]">
-          {/* Sidebar */}
-          <div className="border-b border-white/[0.04] p-4 md:border-b-0 md:border-r">
-            <p className="mb-3 text-[9px] font-semibold uppercase tracking-widest text-white/25">
-              Workspace
-            </p>
-            {["Dashboard", "Projects", "Assets", "Templates", "Settings"].map((l, i) => (
-              <div
-                key={l}
-                className={`mb-1 flex items-center gap-2 rounded-lg px-3 py-2 text-[11px] ${i === 1 ? "bg-purple-600/20 font-semibold text-purple-300" : "text-white/25 hover:text-white/50"}`}
-              >
-                <div
-                  className={`h-1.5 w-1.5 rounded-full ${i === 1 ? "bg-purple-400" : "bg-white/10"}`}
-                />
-                {l}
-              </div>
+      <div className="relative z-10 mx-auto mb-14 max-w-6xl px-4 md:px-8">
+        <div
+          className="overflow-hidden rounded-2xl shadow-2xl"
+          style={{ border: `1px solid ${border}` }}
+        >
+          <div
+            className="flex items-center gap-2 border-b px-4 py-3"
+            style={{ background: isDark ? "rgba(13,7,24,0.8)" : "#f3e8ff", borderColor: border }}
+          >
+            {["bg-[#ff5f57]", "bg-[#ffbc2e]", "bg-[#28c840]"].map((c, i) => (
+              <div key={i} className={`h-2 w-2 rounded-full ${c}`} />
             ))}
+            <span className="ml-2 text-[10px]" style={{ color: muted }}>
+              Aura Studio
+            </span>
           </div>
-          {/* Main */}
-          <div className="p-5">
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-white">Projects</h3>
-              <button className="rounded-lg bg-purple-600/80 px-3 py-1.5 text-[10px] font-semibold text-white">
-                + New project
-              </button>
-            </div>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-              {[
-                {
-                  name: "Brand refresh",
-                  status: "In progress",
-                  color: "from-violet-900/40 to-indigo-900/40",
-                },
-                {
-                  name: "App redesign",
-                  status: "Review",
-                  color: "from-purple-900/40 to-pink-900/40",
-                },
-                { name: "Landing page", status: "Done", color: "from-indigo-900/40 to-sky-900/40" },
-              ].map(({ name, status, color }) => (
+          <div
+            className="flex flex-col md:flex-row"
+            style={{ background: isDark ? "rgba(13,7,24,0.6)" : "rgba(250,245,255,0.8)" }}
+          >
+            <div
+              className="border-b p-4 md:w-48 md:border-b-0 md:border-r"
+              style={{ borderColor: border }}
+            >
+              <p
+                className="mb-3 text-[9px] font-semibold uppercase tracking-widest"
+                style={{ color: muted }}
+              >
+                Workspace
+              </p>
+              {["Dashboard", "Projects", "Assets", "Templates", "Settings"].map((l, i) => (
                 <div
-                  key={name}
-                  className={`group relative h-24 cursor-pointer overflow-hidden rounded-xl bg-gradient-to-br ${color} border border-white/[0.05] p-4`}
+                  key={l}
+                  className="mb-1 flex items-center gap-2 rounded-lg px-3 py-2 text-[11px]"
+                  style={{
+                    background:
+                      i === 1
+                        ? isDark
+                          ? "rgba(124,58,237,0.2)"
+                          : "rgba(124,58,237,0.1)"
+                        : "transparent",
+                    color: i === 1 ? purple : muted,
+                    fontWeight: i === 1 ? 600 : 400,
+                  }}
                 >
                   <div
-                    className="absolute inset-0 opacity-[0.06]"
-                    style={{
-                      backgroundImage:
-                        "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-                      backgroundSize: "16px 16px",
-                    }}
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{ background: i === 1 ? purple : "transparent" }}
                   />
-                  <p className="relative text-[11px] font-semibold text-white/80">{name}</p>
-                  <span className="relative mt-1 inline-block rounded-full border border-white/10 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/40">
-                    {status}
-                  </span>
+                  {l}
                 </div>
               ))}
+            </div>
+            <div className="flex-1 p-5">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-sm font-bold" style={{ color: text }}>
+                  Projects
+                </h3>
+                <button
+                  className="rounded-lg px-3 py-1.5 text-[10px] font-semibold text-white"
+                  style={{ background: "linear-gradient(135deg,#7c3aed,#4f46e5)" }}
+                >
+                  + New project
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+                {[
+                  {
+                    name: "Brand refresh",
+                    status: "In progress",
+                    gfrom: isDark ? "rgba(109,40,217,0.3)" : "rgba(196,181,253,0.6)",
+                    gto: isDark ? "rgba(67,56,202,0.3)" : "rgba(165,180,252,0.6)",
+                  },
+                  {
+                    name: "App redesign",
+                    status: "Review",
+                    gfrom: isDark ? "rgba(126,34,206,0.3)" : "rgba(233,213,255,0.8)",
+                    gto: isDark ? "rgba(157,23,77,0.2)" : "rgba(251,207,232,0.8)",
+                  },
+                  {
+                    name: "Landing page",
+                    status: "Done",
+                    gfrom: isDark ? "rgba(29,78,216,0.3)" : "rgba(191,219,254,0.8)",
+                    gto: isDark ? "rgba(3,105,161,0.3)" : "rgba(186,230,253,0.8)",
+                  },
+                ].map(({ name, status, gfrom, gto }) => (
+                  <div
+                    key={name}
+                    className="group relative h-24 cursor-pointer overflow-hidden rounded-xl border"
+                    style={{
+                      background: `linear-gradient(135deg, ${gfrom}, ${gto})`,
+                      borderColor: border,
+                    }}
+                  >
+                    <div className="absolute inset-0 flex flex-col justify-between p-4">
+                      <p className="text-[11px] font-semibold" style={{ color: text }}>
+                        {name}
+                      </p>
+                      <span
+                        className="inline-block rounded-full border px-2 py-0.5 text-[9px]"
+                        style={{ borderColor: border, color: muted }}
+                      >
+                        {status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Reviews */}
-      <div className="relative z-10 border-t border-white/[0.04] px-6 py-16 md:px-10">
-        <h2 className="mb-2 text-center text-2xl font-bold tracking-tight md:text-3xl">
+      <div
+        className="relative z-10 mx-auto max-w-6xl border-t px-4 py-16 md:px-8"
+        style={{ borderColor: border }}
+      >
+        <h2
+          className="mb-2 text-center text-2xl font-bold tracking-tight md:text-3xl"
+          style={{ color: text }}
+        >
           Loved by creators
         </h2>
-        <p className="mb-12 text-center text-sm text-white/35">Beta users are already in love</p>
+        <p className="mb-12 text-center text-sm" style={{ color: muted }}>
+          Beta users are already in love
+        </p>
         <div className="grid gap-4 md:grid-cols-3">
           {[
             {
@@ -2978,41 +4269,126 @@ export function AuraPreview() {
               role: "Creative director, Forma",
             },
           ].map(({ q, name, role }) => (
-            <div key={name} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
+            <div
+              key={name}
+              className="rounded-2xl border p-6"
+              style={{ borderColor: border, background: cardBg }}
+            >
               <div className="mb-4 flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                 ))}
               </div>
-              <p className="mb-5 text-sm leading-relaxed text-white/50">&ldquo;{q}&rdquo;</p>
-              <div>
-                <p className="text-xs font-semibold text-white">{name}</p>
-                <p className="text-[11px] text-white/30">{role}</p>
-              </div>
+              <p className="mb-5 text-sm leading-relaxed" style={{ color: muted }}>
+                &ldquo;{q}&rdquo;
+              </p>
+              <p className="text-xs font-semibold" style={{ color: text }}>
+                {name}
+              </p>
+              <p className="text-[11px]" style={{ color: muted }}>
+                {role}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
       {/* CTA */}
-      <div className="relative z-10 px-6 pb-24 pt-8 text-center md:px-10">
-        <div className="mx-auto max-w-2xl rounded-3xl border border-purple-500/20 bg-purple-600/[0.08] p-12 md:p-16">
-          <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 pb-20 md:px-8">
+        <div
+          className="rounded-3xl border p-12 text-center md:p-16"
+          style={{
+            borderColor: isDark ? "rgba(124,58,237,0.2)" : "rgba(124,58,237,0.15)",
+            background: isDark ? "rgba(124,58,237,0.08)" : "rgba(124,58,237,0.04)",
+          }}
+        >
+          <h2
+            className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl"
+            style={{ color: text }}
+          >
             Be first in line
           </h2>
-          <p className="mx-auto mb-8 max-w-md text-sm text-white/40">
+          <p className="mx-auto mb-8 max-w-md text-sm" style={{ color: muted }}>
             Reserve your founding member spot today and lock in 40% off forever.
           </p>
           <button
             onClick={() => setPreorderOpen(true)}
-            className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 px-10 py-4 text-sm font-bold text-white shadow-2xl shadow-purple-600/30 transition-opacity hover:opacity-90"
+            className="group inline-flex items-center gap-2 rounded-2xl px-10 py-4 text-sm font-bold text-white shadow-2xl"
+            style={{
+              background: "linear-gradient(135deg,#7c3aed,#4f46e5)",
+              boxShadow: "0 16px 48px rgba(124,58,237,0.3)",
+            }}
           >
             Reserve early access{" "}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </button>
-          <p className="mt-4 text-xs text-white/25">12,400+ people joined already</p>
+          <p className="mt-4 text-xs" style={{ color: muted }}>
+            12,400+ people joined already
+          </p>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="relative z-10 border-t py-12" style={{ borderColor: border }}>
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="mb-10 grid grid-cols-2 gap-6 md:grid-cols-5 md:gap-8">
+            <div className="col-span-2">
+              <div className="mb-3 flex items-center gap-2">
+                <div
+                  className="flex h-7 w-7 items-center justify-center rounded-xl"
+                  style={{ background: "linear-gradient(135deg,#7c3aed,#4f46e5)" }}
+                >
+                  <Sparkles className="h-4 w-4 text-white" />
+                </div>
+                <span className="font-bold" style={{ color: text }}>
+                  Aura
+                </span>
+              </div>
+              <p className="mb-4 max-w-[220px] text-xs leading-relaxed" style={{ color: muted }}>
+                The creative OS for modern design teams.
+              </p>
+            </div>
+            {[
+              { heading: "Product", links: ["Features", "Pricing", "Changelog", "Roadmap"] },
+              { heading: "Company", links: ["About", "Blog", "Careers", "Press"] },
+              { heading: "Legal", links: ["Privacy", "Terms", "Security", "Cookies"] },
+            ].map(({ heading, links }) => (
+              <div key={heading}>
+                <p
+                  className="mb-4 text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: muted }}
+                >
+                  {heading}
+                </p>
+                <ul className="space-y-2.5">
+                  {links.map((l) => (
+                    <li key={l}>
+                      <button className="text-xs" style={{ color: muted }}>
+                        {l}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div
+            className="flex flex-col gap-3 border-t pt-6 md:flex-row md:items-center md:justify-between"
+            style={{ borderColor: border }}
+          >
+            <p className="text-[11px]" style={{ color: muted }}>
+              © 2025 Aura, Inc. All rights reserved.
+            </p>
+            <div className="flex gap-4">
+              {["Privacy", "Terms"].map((l) => (
+                <button key={l} className="text-[11px]" style={{ color: muted }}>
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
