@@ -70,12 +70,12 @@ export function Navbar() {
               </Link>
 
               {/* Desktop nav */}
-              <nav className="hidden items-center gap-0.5 md:flex">
+              <nav className="hidden items-center gap-0.5 lg:flex">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    className="rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                   >
                     {link.label}
                   </Link>
