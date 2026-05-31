@@ -187,7 +187,7 @@ export function Mentions({
         mounted &&
         createPortal(
           <div
-            className="fixed z-[9999] min-w-[200px] rounded-md border border-border bg-popover shadow-md"
+            className="absolute z-[9999] min-w-[200px] rounded-md border border-border bg-popover shadow-md"
             style={{
               top: containerRect.bottom + 4 + window.scrollY,
               left: containerRect.left + window.scrollX,
