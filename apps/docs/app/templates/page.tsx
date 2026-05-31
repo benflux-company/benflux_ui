@@ -8,7 +8,9 @@ import {
   ArrowRight,
   Code2,
   Download,
+  File,
   FileCode2,
+  Folder,
   Layers,
   Palette,
   Rocket,
@@ -342,9 +344,11 @@ export default function TemplatesPage() {
                     className="flex items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-muted/50"
                     style={{ paddingLeft: `${12 + indent * 20}px` }}
                   >
-                    <span className={type === "folder" ? "text-yellow-500" : "text-blue-400"}>
-                      {type === "folder" ? "📁" : "📄"}
-                    </span>
+                    {type === "folder" ? (
+                      <Folder className="h-4 w-4 shrink-0 text-amber-500" />
+                    ) : (
+                      <File className="h-4 w-4 shrink-0 text-blue-400" />
+                    )}
                     <span
                       className={
                         type === "folder" ? "font-semibold text-foreground" : "text-foreground"
