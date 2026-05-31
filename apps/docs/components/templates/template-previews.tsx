@@ -979,16 +979,152 @@ export function NovaPreview() {
 
 // ─── Zenith: Studio Portfolio — Pentagram / BASE aesthetic ───────────────────
 export function ZenithPreview() {
+  const [loginOpen, setLoginOpen] = React.useState(false)
+  const [signupOpen, setSignupOpen] = React.useState(false)
+  const [projectOpen, setProjectOpen] = React.useState(false)
+
+  const Modal = ({
+    open,
+    onClose,
+    children,
+  }: {
+    open: boolean
+    onClose: () => void
+    children: React.ReactNode
+  }) =>
+    open ? (
+      <div
+        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <div
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl bg-[#f8f6f1] shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 text-xs text-[#1a1a1a]/30 transition-colors hover:text-[#1a1a1a]"
+          >
+            ✕
+          </button>
+          {children}
+        </div>
+      </div>
+    ) : null
+
   return (
     <div
-      className="min-h-[1000px] bg-[#f8f6f1] font-sans text-[#1a1a1a]"
+      className="relative min-h-[1200px] bg-[#f8f6f1] font-sans text-[#1a1a1a]"
       style={{ fontFamily: "system-ui,sans-serif" }}
     >
+      {/* Login Modal */}
+      <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-black text-[#1a1a1a]">Welcome back</h2>
+          <p className="mb-6 text-xs text-[#1a1a1a]/40">Sign in to your Zenith account</p>
+          <div className="space-y-3">
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-[#1a1a1a] py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#2a2a2a]">
+            Sign in
+          </button>
+          <p className="mt-4 text-center text-xs text-[#1a1a1a]/40">
+            No account?{" "}
+            <button
+              className="font-semibold text-[#1a1a1a] underline"
+              onClick={() => {
+                setLoginOpen(false)
+                setSignupOpen(true)
+              }}
+            >
+              Sign up
+            </button>
+          </p>
+        </div>
+      </Modal>
+
+      {/* Signup Modal */}
+      <Modal open={signupOpen} onClose={() => setSignupOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-black text-[#1a1a1a]">Create account</h2>
+          <p className="mb-6 text-xs text-[#1a1a1a]/40">Join the Zenith community</p>
+          <div className="space-y-3">
+            <input
+              type="text"
+              placeholder="Full name"
+              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-[#1a1a1a] py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#2a2a2a]">
+            Create account
+          </button>
+          <p className="mt-4 text-center text-xs text-[#1a1a1a]/40">
+            Already have one?{" "}
+            <button
+              className="font-semibold text-[#1a1a1a] underline"
+              onClick={() => {
+                setSignupOpen(false)
+                setLoginOpen(true)
+              }}
+            >
+              Sign in
+            </button>
+          </p>
+        </div>
+      </Modal>
+
+      {/* Project Modal */}
+      <Modal open={projectOpen} onClose={() => setProjectOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-black text-[#1a1a1a]">Start a project</h2>
+          <p className="mb-6 text-xs text-[#1a1a1a]/40">Tell us about your brand and goals</p>
+          <div className="space-y-3">
+            <input
+              type="text"
+              placeholder="Company name"
+              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
+            />
+            <input
+              type="email"
+              placeholder="Your email"
+              className="w-full rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
+            />
+            <textarea
+              placeholder="Describe your project..."
+              rows={3}
+              className="w-full resize-none rounded-xl border border-[#1a1a1a]/10 bg-white px-4 py-2.5 text-sm text-[#1a1a1a] outline-none placeholder:text-[#1a1a1a]/30 focus:border-[#1a1a1a]/30"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-[#1a1a1a] py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#2a2a2a]">
+            Send inquiry
+          </button>
+        </div>
+      </Modal>
+
       {/* Nav */}
-      <nav className="flex items-center justify-between px-10 py-7">
+      <nav className="flex items-center justify-between px-6 py-6 md:px-10 md:py-7">
         <span className="text-sm font-black uppercase tracking-[0.15em]">Zenith</span>
         <div className="hidden items-center gap-8 md:flex">
-          {["Work", "Studio", "Services", "Journal", "Contact"].map((l) => (
+          {["Work", "Studio", "Services", "Journal"].map((l) => (
             <button
               key={l}
               className="text-xs font-medium tracking-wide text-[#1a1a1a]/50 transition-colors hover:text-[#1a1a1a]"
@@ -997,19 +1133,30 @@ export function ZenithPreview() {
             </button>
           ))}
         </div>
-        <button className="rounded-full border border-[#1a1a1a]/15 px-5 py-2 text-xs font-semibold text-[#1a1a1a] transition-colors hover:border-[#1a1a1a]/40">
-          Start a project
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="hidden px-3 py-1.5 text-xs text-[#1a1a1a]/40 transition-colors hover:text-[#1a1a1a] md:block"
+          >
+            Log in
+          </button>
+          <button
+            onClick={() => setProjectOpen(true)}
+            className="rounded-full border border-[#1a1a1a]/15 px-5 py-2 text-xs font-semibold text-[#1a1a1a] transition-colors hover:border-[#1a1a1a]/40"
+          >
+            Start a project
+          </button>
+        </div>
       </nav>
 
       {/* Hero */}
-      <div className="border-[#1a1a1a]/8 border-t px-10 pb-20 pt-16">
+      <div className="border-[#1a1a1a]/8 border-t px-6 pb-16 pt-14 md:px-10 md:pb-20 md:pt-16">
         <div className="grid gap-8 lg:grid-cols-[1fr_auto]">
           <div>
             <p className="mb-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#1a1a1a]/35">
               Independent creative studio — Est. 2016
             </p>
-            <h1 className="text-[64px] font-black leading-[0.95] tracking-tight text-[#1a1a1a]">
+            <h1 className="text-[48px] font-black leading-[0.95] tracking-tight text-[#1a1a1a] md:text-[64px]">
               We shape
               <br />
               <span className="font-light italic text-[#1a1a1a]/30">brands</span>
@@ -1022,7 +1169,10 @@ export function ZenithPreview() {
               Zenith is a multidisciplinary studio working at the intersection of brand, digital,
               and motion. We partner with ambitious companies to create work that lasts.
             </p>
-            <button className="group mt-6 flex w-fit items-center gap-2 text-sm font-semibold text-[#1a1a1a]">
+            <button
+              onClick={() => setProjectOpen(true)}
+              className="group mt-6 flex w-fit items-center gap-2 text-sm font-semibold text-[#1a1a1a]"
+            >
               View selected work
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
@@ -1030,17 +1180,14 @@ export function ZenithPreview() {
         </div>
 
         {/* Stats */}
-        <div className="border-[#1a1a1a]/8 mt-16 grid grid-cols-4 gap-0 border-t">
+        <div className="border-[#1a1a1a]/8 mt-16 grid grid-cols-2 gap-0 border-t md:grid-cols-4">
           {[
             ["140+", "Projects"],
             ["$2B+", "Client revenue"],
             ["9", "Awards"],
             ["3", "Offices"],
           ].map(([n, l]) => (
-            <div
-              key={l}
-              className="border-[#1a1a1a]/8 border-r py-6 pr-6 first:pt-6 last:border-r-0"
-            >
+            <div key={l} className="border-[#1a1a1a]/8 border-r py-6 pr-6 last:border-r-0">
               <p className="text-3xl font-black tracking-tight">{n}</p>
               <p className="mt-1 text-xs font-medium uppercase tracking-wider text-[#1a1a1a]/35">
                 {l}
@@ -1051,61 +1198,25 @@ export function ZenithPreview() {
       </div>
 
       {/* Portfolio grid */}
-      <div className="border-[#1a1a1a]/8 border-t px-10 py-16">
+      <div className="border-[#1a1a1a]/8 border-t px-6 py-14 md:px-10 md:py-16">
         <div className="mb-10 flex items-center justify-between">
           <h2 className="text-xl font-bold">Selected work</h2>
           <button className="text-xs font-medium text-[#1a1a1a]/40 transition-colors hover:text-[#1a1a1a]">
             All projects →
           </button>
         </div>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
           {[
-            {
-              label: "Brand system",
-              client: "Meridian Capital",
-              year: "2024",
-              bg: "bg-[#1a1a1a]",
-              aspect: "aspect-[4/3]",
-            },
-            {
-              label: "Campaign identity",
-              client: "Lune Studio",
-              year: "2024",
-              bg: "bg-stone-200",
-              aspect: "aspect-[4/3]",
-            },
-            {
-              label: "Digital product",
-              client: "Arch Software",
-              year: "2023",
-              bg: "bg-amber-100",
-              aspect: "aspect-[4/3]",
-            },
-            {
-              label: "Annual report",
-              client: "Vega Capital",
-              year: "2023",
-              bg: "bg-slate-800",
-              aspect: "aspect-[4/3]",
-            },
-            {
-              label: "Motion & film",
-              client: "Pattern NYC",
-              year: "2023",
-              bg: "bg-rose-100",
-              aspect: "aspect-[4/3]",
-            },
-            {
-              label: "Web experience",
-              client: "Croft Ventures",
-              year: "2024",
-              bg: "bg-sky-100",
-              aspect: "aspect-[4/3]",
-            },
-          ].map(({ label, client, year, bg, aspect }) => (
+            { label: "Brand system", client: "Meridian Capital", year: "2024", bg: "bg-[#1a1a1a]" },
+            { label: "Campaign identity", client: "Lune Studio", year: "2024", bg: "bg-stone-200" },
+            { label: "Digital product", client: "Arch Software", year: "2023", bg: "bg-amber-100" },
+            { label: "Annual report", client: "Vega Capital", year: "2023", bg: "bg-slate-800" },
+            { label: "Motion & film", client: "Pattern NYC", year: "2023", bg: "bg-rose-100" },
+            { label: "Web experience", client: "Croft Ventures", year: "2024", bg: "bg-sky-100" },
+          ].map(({ label, client, year, bg }) => (
             <div
               key={client}
-              className={`${aspect} group relative overflow-hidden rounded-xl ${bg}`}
+              className={`group relative aspect-[4/3] overflow-hidden rounded-xl ${bg}`}
             >
               <div className="absolute inset-0 flex flex-col justify-between bg-black/40 p-4 opacity-0 transition-all duration-200 group-hover:opacity-100">
                 <span className="text-[9px] font-semibold uppercase tracking-widest text-white/60">
@@ -1127,7 +1238,7 @@ export function ZenithPreview() {
       </div>
 
       {/* Services */}
-      <div className="border-[#1a1a1a]/8 border-t px-10 py-16">
+      <div className="border-[#1a1a1a]/8 border-t px-6 py-14 md:px-10 md:py-16">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <h2 className="mb-2 text-3xl font-bold">What we do</h2>
@@ -1142,7 +1253,10 @@ export function ZenithPreview() {
               ["Motion & Film", "Brand films, 3D, social content, animation"],
               ["Development", "Next.js, React, TypeScript, CMS, ecommerce"],
             ].map(([t, d], i) => (
-              <div key={t} className="group flex cursor-pointer items-center justify-between py-5">
+              <button
+                key={t}
+                className="group flex w-full cursor-pointer items-center justify-between py-5 text-left"
+              >
                 <div className="flex items-center gap-6">
                   <span className="w-6 text-[10px] font-semibold text-[#1a1a1a]/25">0{i + 1}</span>
                   <div>
@@ -1151,24 +1265,37 @@ export function ZenithPreview() {
                   </div>
                 </div>
                 <ChevronRight className="h-4 w-4 text-[#1a1a1a]/20 transition-all group-hover:translate-x-0.5 group-hover:text-[#1a1a1a]/60" />
-              </div>
+              </button>
             ))}
           </div>
         </div>
       </div>
 
       {/* CTA */}
-      <div className="mx-10 mb-16 rounded-3xl bg-[#1a1a1a] p-16 text-center text-white">
+      <div className="mx-6 mb-16 rounded-3xl bg-[#1a1a1a] p-12 text-center text-white md:mx-10 md:p-16">
         <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/30">
           Get in touch
         </p>
-        <h2 className="mb-6 text-4xl font-black tracking-tight">Have a project in mind?</h2>
+        <h2 className="mb-6 text-3xl font-black tracking-tight md:text-4xl">
+          Have a project in mind?
+        </h2>
         <p className="mx-auto mb-10 max-w-sm text-sm text-white/40">
           We take on select engagements. Tell us about your brand and goals.
         </p>
-        <button className="rounded-full bg-white px-10 py-3.5 text-sm font-bold text-[#1a1a1a] transition-colors hover:bg-white/90">
-          hello@zenith.studio
-        </button>
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <button
+            onClick={() => setProjectOpen(true)}
+            className="rounded-full bg-white px-10 py-3.5 text-sm font-bold text-[#1a1a1a] transition-colors hover:bg-white/90"
+          >
+            Start a project
+          </button>
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="rounded-full border border-white/20 px-8 py-3.5 text-sm text-white/50 transition-colors hover:border-white/40 hover:text-white/80"
+          >
+            Client login
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -1176,13 +1303,139 @@ export function ZenithPreview() {
 
 // ─── Pulse: Bold Startup — Loom / Notion aesthetic ───────────────────────────
 export function PulsePreview() {
+  const [loginOpen, setLoginOpen] = React.useState(false)
+  const [signupOpen, setSignupOpen] = React.useState(false)
+
+  const Modal = ({
+    open,
+    onClose,
+    children,
+  }: {
+    open: boolean
+    onClose: () => void
+    children: React.ReactNode
+  }) =>
+    open ? (
+      <div
+        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <div
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl bg-white shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 text-xs text-gray-300 transition-colors hover:text-gray-600"
+          >
+            ✕
+          </button>
+          {children}
+        </div>
+      </div>
+    ) : null
+
   return (
     <div
-      className="min-h-[1000px] bg-white font-sans text-[#111]"
+      className="relative min-h-[1200px] bg-white font-sans text-[#111]"
       style={{ fontFamily: "system-ui,sans-serif" }}
     >
+      {/* Login Modal */}
+      <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-black text-gray-900">Welcome back</h2>
+          <p className="mb-6 text-xs text-gray-400">Sign in to your Pulse workspace</p>
+          <div className="mb-3 grid grid-cols-2 gap-2">
+            <button className="flex items-center justify-center gap-2 rounded-xl border border-gray-100 py-2.5 text-xs font-semibold text-gray-600 transition-colors hover:bg-gray-50">
+              <Globe className="h-3.5 w-3.5" /> Google
+            </button>
+            <button className="flex items-center justify-center gap-2 rounded-xl border border-gray-100 py-2.5 text-xs font-semibold text-gray-600 transition-colors hover:bg-gray-50">
+              <Lock className="h-3.5 w-3.5" /> GitHub
+            </button>
+          </div>
+          <div className="relative my-4 flex items-center">
+            <div className="flex-1 border-t border-gray-100" />
+            <span className="mx-3 text-[10px] text-gray-300">or</span>
+            <div className="flex-1 border-t border-gray-100" />
+          </div>
+          <div className="space-y-3">
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
+            />
+          </div>
+          <button
+            className="mt-4 w-full rounded-xl py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-400/20"
+            style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
+          >
+            Sign in
+          </button>
+          <p className="mt-4 text-center text-xs text-gray-400">
+            No account?{" "}
+            <button
+              className="font-semibold text-orange-500"
+              onClick={() => {
+                setLoginOpen(false)
+                setSignupOpen(true)
+              }}
+            >
+              Sign up free
+            </button>
+          </p>
+        </div>
+      </Modal>
+
+      {/* Signup Modal */}
+      <Modal open={signupOpen} onClose={() => setSignupOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-black text-gray-900">Get started free</h2>
+          <p className="mb-6 text-xs text-gray-400">14-day trial, no credit card required</p>
+          <div className="space-y-3">
+            <input
+              type="text"
+              placeholder="Your name"
+              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
+            />
+            <input
+              type="email"
+              placeholder="Work email"
+              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-300 focus:border-orange-200 focus:bg-white"
+            />
+          </div>
+          <button
+            className="mt-4 w-full rounded-xl py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-400/20"
+            style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
+          >
+            Create free account
+          </button>
+          <p className="mt-4 text-center text-xs text-gray-400">
+            Already have one?{" "}
+            <button
+              className="font-semibold text-orange-500"
+              onClick={() => {
+                setSignupOpen(false)
+                setLoginOpen(true)
+              }}
+            >
+              Sign in
+            </button>
+          </p>
+        </div>
+      </Modal>
+
       {/* Nav */}
-      <nav className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-100 bg-white/90 px-10 py-4 backdrop-blur-sm">
+      <nav className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-100 bg-white/90 px-6 py-4 backdrop-blur-sm md:px-10">
         <div className="flex items-center gap-2">
           <div
             className="flex h-7 w-7 items-center justify-center rounded-lg"
@@ -1203,10 +1456,14 @@ export function PulsePreview() {
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <button className="px-3 py-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900">
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="px-3 py-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900"
+          >
             Log in
           </button>
           <button
+            onClick={() => setSignupOpen(true)}
             className="rounded-lg px-4 py-2 text-sm font-semibold text-white transition-all"
             style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
           >
@@ -1216,13 +1473,13 @@ export function PulsePreview() {
       </nav>
 
       {/* Hero */}
-      <div className="px-10 pb-20 pt-24">
+      <div className="px-6 pb-20 pt-20 md:px-10 md:pt-24">
         <div className="max-w-4xl">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-100 bg-orange-50 px-3.5 py-1.5 text-xs font-semibold text-orange-600">
             <Circle className="h-2 w-2 fill-orange-500 text-orange-500" />
             Now with AI-powered task prioritization
           </div>
-          <h1 className="mb-6 text-[64px] font-black leading-[1.0] tracking-tight text-gray-900">
+          <h1 className="mb-6 text-[48px] font-black leading-[1.0] tracking-tight text-gray-900 md:text-[64px]">
             Do your best work.
             <br />
             <span className="text-transparent" style={{ WebkitTextStroke: "2px #e5e7eb" }}>
@@ -1233,8 +1490,9 @@ export function PulsePreview() {
             Pulse keeps your team focused, aligned, and moving fast — without the meetings, the
             noise, or the bottlenecks.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <button
+              onClick={() => setSignupOpen(true)}
               className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-400/30 transition-all hover:shadow-orange-400/50"
               style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
             >
@@ -1248,17 +1506,17 @@ export function PulsePreview() {
       </div>
 
       {/* App UI mockup */}
-      <div className="mx-10 mb-20 overflow-hidden rounded-2xl border border-gray-100 shadow-xl shadow-gray-100">
-        <div className="flex">
+      <div className="mx-6 mb-20 overflow-hidden rounded-2xl border border-gray-100 shadow-xl shadow-gray-100 md:mx-10">
+        <div className="flex flex-col md:flex-row">
           {/* Sidebar */}
-          <div className="w-44 border-r border-gray-50 bg-gray-50/80 p-4">
-            <p className="mb-3 text-[9px] font-semibold uppercase tracking-widest text-gray-300">
+          <div className="flex gap-3 border-b border-gray-50 bg-gray-50/80 p-4 md:w-44 md:flex-col md:border-b-0 md:border-r">
+            <p className="hidden text-[9px] font-semibold uppercase tracking-widest text-gray-300 md:block">
               My workspace
             </p>
             {["Inbox", "Today", "Projects", "Team", "Reports"].map((l, i) => (
               <div
                 key={l}
-                className={`mb-0.5 flex items-center gap-2 rounded-lg px-2 py-1.5 text-[11px] ${i === 1 ? "bg-orange-50 font-semibold text-orange-600" : "text-gray-400"}`}
+                className={`flex items-center gap-2 rounded-lg px-2 py-1.5 text-[11px] ${i === 1 ? "bg-orange-50 font-semibold text-orange-600" : "text-gray-400"}`}
               >
                 <div
                   className={`h-1.5 w-1.5 rounded-full ${i === 1 ? "bg-orange-500" : "bg-gray-200"}`}
@@ -1307,13 +1565,16 @@ export function PulsePreview() {
       </div>
 
       {/* Social proof */}
-      <div className="border-t border-gray-50 bg-gray-50/50 px-10 py-16">
-        <div className="mb-12 text-center">
-          <p className="text-sm text-gray-400">Trusted by high-performance teams at</p>
-        </div>
-        <div className="mb-14 flex items-center justify-center gap-10">
+      <div className="border-t border-gray-50 bg-gray-50/50 px-6 py-14 md:px-10 md:py-16">
+        <p className="mb-8 text-center text-sm text-gray-400">
+          Trusted by high-performance teams at
+        </p>
+        <div className="mb-14 flex flex-wrap items-center justify-center gap-6 md:gap-10">
           {["Linear", "Vercel", "Notion", "Figma", "Stripe"].map((n) => (
-            <span key={n} className="text-sm font-bold tracking-tight text-gray-200">
+            <span
+              key={n}
+              className="rounded-lg border border-gray-100 bg-white px-3 py-1.5 text-xs font-bold tracking-tight text-gray-300"
+            >
               {n}
             </span>
           ))}
@@ -1354,18 +1615,79 @@ export function PulsePreview() {
         </div>
       </div>
 
+      {/* Pricing */}
+      <div className="px-6 py-20 md:px-10">
+        <h2 className="mb-2 text-center text-3xl font-black tracking-tight text-gray-900">
+          Simple pricing
+        </h2>
+        <p className="mb-12 text-center text-sm text-gray-400">No surprises, no lock-in.</p>
+        <div className="mx-auto grid max-w-3xl gap-4 md:grid-cols-3">
+          {[
+            {
+              name: "Starter",
+              price: "$0",
+              desc: "For individuals and small teams.",
+              cta: "Get started",
+              hl: false,
+            },
+            {
+              name: "Pro",
+              price: "$12",
+              desc: "For growing teams that need more.",
+              cta: "Start free trial",
+              hl: true,
+            },
+            {
+              name: "Business",
+              price: "$39",
+              desc: "For scaling teams and orgs.",
+              cta: "Contact sales",
+              hl: false,
+            },
+          ].map(({ name, price, desc, cta, hl }) => (
+            <div
+              key={name}
+              className={`rounded-2xl border p-6 ${hl ? "border-orange-200 bg-orange-50/50" : "border-gray-100 bg-white"}`}
+            >
+              <p className="mb-1 text-sm font-bold text-gray-900">{name}</p>
+              <p className="mb-1 text-3xl font-black text-gray-900">
+                {price}
+                <span className="text-sm font-normal text-gray-400">/mo</span>
+              </p>
+              <p className="mb-5 text-xs text-gray-400">{desc}</p>
+              <button
+                onClick={() => setSignupOpen(true)}
+                className={`w-full rounded-xl py-2.5 text-xs font-semibold transition-all ${hl ? "text-white shadow-sm shadow-orange-200" : "border border-gray-100 text-gray-600 hover:border-gray-200"}`}
+                style={hl ? { background: "linear-gradient(135deg,#ff6b35,#e85d04)" } : {}}
+              >
+                {cta}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* CTA */}
-      <div className="px-10 py-24 text-center">
-        <h2 className="mb-4 text-5xl font-black tracking-tight text-gray-900">
+      <div className="px-6 py-20 text-center md:px-10">
+        <h2 className="mb-4 text-4xl font-black tracking-tight text-gray-900 md:text-5xl">
           Ready to move faster?
         </h2>
         <p className="mb-10 text-lg text-gray-400">Join 80,000+ teams already using Pulse.</p>
-        <button
-          className="rounded-2xl px-12 py-4 text-base font-black text-white shadow-2xl shadow-orange-400/20 transition-all hover:shadow-orange-400/40"
-          style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
-        >
-          Get started — it&apos;s free
-        </button>
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <button
+            onClick={() => setSignupOpen(true)}
+            className="rounded-2xl px-12 py-4 text-base font-black text-white shadow-2xl shadow-orange-400/20 transition-all hover:shadow-orange-400/40"
+            style={{ background: "linear-gradient(135deg,#ff6b35,#e85d04)" }}
+          >
+            Get started — it&apos;s free
+          </button>
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="rounded-2xl border border-gray-200 px-8 py-4 text-base font-semibold text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-700"
+          >
+            Sign in
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -1373,14 +1695,134 @@ export function PulsePreview() {
 
 // ─── Orbit: Analytics SaaS — Mixpanel / PostHog aesthetic ────────────────────
 export function OrbitPreview() {
+  const [loginOpen, setLoginOpen] = React.useState(false)
+  const [signupOpen, setSignupOpen] = React.useState(false)
+
+  const Modal = ({
+    open,
+    onClose,
+    children,
+  }: {
+    open: boolean
+    onClose: () => void
+    children: React.ReactNode
+  }) =>
+    open ? (
+      <div
+        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <div
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1220] shadow-2xl shadow-black/50"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 text-xs text-white/20 transition-colors hover:text-white/60"
+          >
+            ✕
+          </button>
+          {children}
+        </div>
+      </div>
+    ) : null
+
   return (
     <div
-      className="min-h-[1000px] bg-[#0a0f1e] font-sans text-white"
+      className="relative min-h-[1200px] bg-[#0a0f1e] font-sans text-white"
       style={{ fontFamily: "system-ui,sans-serif" }}
     >
+      {/* Login Modal */}
+      <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-bold text-white">Sign in to Orbit</h2>
+          <p className="mb-6 text-xs text-white/35">Your analytics, all in one place</p>
+          <div className="mb-3 grid grid-cols-2 gap-2">
+            <button className="flex items-center justify-center gap-2 rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 text-xs font-semibold text-white/50 transition-colors hover:border-white/[0.12] hover:text-white/70">
+              <Globe className="h-3.5 w-3.5" /> Google
+            </button>
+            <button className="flex items-center justify-center gap-2 rounded-xl border border-white/[0.07] bg-white/[0.03] py-2.5 text-xs font-semibold text-white/50 transition-colors hover:border-white/[0.12] hover:text-white/70">
+              <Lock className="h-3.5 w-3.5" /> GitHub
+            </button>
+          </div>
+          <div className="relative my-4 flex items-center">
+            <div className="flex-1 border-t border-white/[0.06]" />
+            <span className="mx-3 text-[10px] text-white/20">or continue with email</span>
+            <div className="flex-1 border-t border-white/[0.06]" />
+          </div>
+          <div className="space-y-3">
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-sky-500 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-400">
+            Sign in
+          </button>
+          <p className="mt-4 text-center text-xs text-white/30">
+            No account?{" "}
+            <button
+              className="text-sky-400 hover:text-sky-300"
+              onClick={() => {
+                setLoginOpen(false)
+                setSignupOpen(true)
+              }}
+            >
+              Start free trial
+            </button>
+          </p>
+        </div>
+      </Modal>
+
+      {/* Signup Modal */}
+      <Modal open={signupOpen} onClose={() => setSignupOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-bold text-white">Start your free trial</h2>
+          <p className="mb-6 text-xs text-white/35">14 days free, no credit card required</p>
+          <div className="space-y-3">
+            <input
+              type="text"
+              placeholder="Full name"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
+            />
+            <input
+              type="email"
+              placeholder="Work email"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-sky-500/40"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-sky-500 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-400">
+            Create free account
+          </button>
+          <p className="mt-4 text-center text-xs text-white/30">
+            Already have an account?{" "}
+            <button
+              className="text-sky-400 hover:text-sky-300"
+              onClick={() => {
+                setSignupOpen(false)
+                setLoginOpen(true)
+              }}
+            >
+              Sign in
+            </button>
+          </p>
+        </div>
+      </Modal>
+
       {/* Nav */}
-      <nav className="flex items-center justify-between border-b border-white/[0.05] px-10 py-4">
-        <div className="flex items-center gap-8">
+      <nav className="flex items-center justify-between border-b border-white/[0.05] px-6 py-4 md:px-10">
+        <div className="flex items-center gap-6 md:gap-8">
           <div className="flex items-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-sky-500">
               <TrendingUp className="h-3.5 w-3.5 text-white" />
@@ -1399,22 +1841,28 @@ export function OrbitPreview() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="px-3 py-1.5 text-xs text-white/35 transition-colors hover:text-white/60">
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="px-3 py-1.5 text-xs text-white/35 transition-colors hover:text-white/60"
+          >
             Sign in
           </button>
-          <button className="rounded-lg bg-sky-500 px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-sky-400">
+          <button
+            onClick={() => setSignupOpen(true)}
+            className="rounded-lg bg-sky-500 px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-sky-400"
+          >
             Start free trial
           </button>
         </div>
       </nav>
 
       {/* Hero */}
-      <div className="px-10 pb-16 pt-24 text-center">
-        <div className="bg-sky-500/8 mb-6 inline-flex items-center gap-2 rounded-full border border-sky-500/20 px-3.5 py-1.5 text-xs text-sky-400">
+      <div className="px-6 pb-14 pt-20 text-center md:px-10 md:pb-16 md:pt-24">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/[0.08] px-3.5 py-1.5 text-xs text-sky-400">
           <Star className="h-3 w-3" />
           Rated #1 product analytics tool — G2 Winter 2024
         </div>
-        <h1 className="mx-auto mb-6 max-w-3xl text-[52px] font-extrabold leading-[1.05] tracking-tight">
+        <h1 className="mx-auto mb-6 max-w-3xl text-[40px] font-extrabold leading-[1.05] tracking-tight md:text-[52px]">
           Understand your users.
           <br />
           <span className="text-sky-400">Grow your product.</span>
@@ -1424,17 +1872,23 @@ export function OrbitPreview() {
           required — just answers.
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <button className="flex items-center gap-2 rounded-xl bg-sky-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition-colors hover:bg-sky-400">
+          <button
+            onClick={() => setSignupOpen(true)}
+            className="flex items-center gap-2 rounded-xl bg-sky-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition-colors hover:bg-sky-400"
+          >
             Start free — 14 days <ArrowRight className="h-3.5 w-3.5" />
           </button>
-          <button className="rounded-xl border border-white/[0.07] px-7 py-3 text-sm text-white/50 transition-all hover:border-white/15 hover:text-white/70">
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="rounded-xl border border-white/[0.07] px-7 py-3 text-sm text-white/50 transition-all hover:border-white/15 hover:text-white/70"
+          >
             View live demo
           </button>
         </div>
       </div>
 
       {/* Dashboard */}
-      <div className="mx-10 mb-16 overflow-hidden rounded-2xl border border-white/[0.06] shadow-2xl shadow-black/50">
+      <div className="mx-6 mb-14 overflow-hidden rounded-2xl border border-white/[0.06] shadow-2xl shadow-black/50 md:mx-10">
         <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#0d1220] px-4 py-3">
           {["bg-[#ff5f57]", "bg-[#ffbc2e]", "bg-[#28c840]"].map((c, i) => (
             <div key={i} className={`h-2 w-2 rounded-full ${c}`} />
@@ -1442,7 +1896,7 @@ export function OrbitPreview() {
           <span className="ml-2 text-[10px] text-white/20">Orbit — Analytics</span>
         </div>
         <div className="bg-[#0d1220] p-5">
-          <div className="mb-4 flex items-center gap-2">
+          <div className="mb-4 flex flex-wrap items-center gap-2">
             {["Overview", "Funnels", "Retention", "Cohorts"].map((t, i) => (
               <button
                 key={t}
@@ -1452,42 +1906,34 @@ export function OrbitPreview() {
               </button>
             ))}
           </div>
-          <div className="mb-4 grid grid-cols-3 gap-3">
+          <div className="grid gap-3 md:grid-cols-4">
             {[
-              ["24,831", "Active users", "↑ 12%"],
-              ["68.4%", "Retention D7", "↑ 3.1%"],
-              ["$0.82", "Revenue/user", "↑ 8%"],
-            ].map(([v, l, d]) => (
-              <div key={l} className="rounded-xl border border-white/[0.05] bg-white/[0.03] p-4">
-                <p className="mb-1 text-[9px] uppercase tracking-wider text-white/25">{l}</p>
-                <p className="text-xl font-bold text-white">{v}</p>
-                <p className="mt-1 text-[9px] font-semibold text-emerald-400">{d} vs last month</p>
+              { label: "Active users", value: "48,291", change: "+12.4%" },
+              { label: "Conversion", value: "3.87%", change: "+0.41%" },
+              { label: "Avg. session", value: "4m 22s", change: "+8.1%" },
+              { label: "Revenue", value: "$91,204", change: "+23.5%" },
+            ].map(({ label, value, change }) => (
+              <div
+                key={label}
+                className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4"
+              >
+                <p className="mb-2 text-[10px] text-white/30">{label}</p>
+                <p className="text-xl font-bold">{value}</p>
+                <p className="mt-1 text-[10px] text-emerald-400">{change}</p>
               </div>
             ))}
           </div>
-          {/* Chart */}
-          <div className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
-            <div className="mb-3 flex items-center justify-between">
-              <p className="text-[10px] font-semibold text-white/50">
-                Daily active users — last 30 days
-              </p>
-              <div className="flex items-center gap-1">
-                <div className="h-2 w-2 rounded-full bg-sky-500" />
-                <p className="text-[9px] text-white/25">DAU</p>
-              </div>
-            </div>
-            <div className="flex h-24 items-end gap-0.5">
+          <div className="mt-4 rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
+            <p className="mb-4 text-xs font-medium text-white/40">Active users — last 30 days</p>
+            <div className="flex items-end gap-1" style={{ height: 64 }}>
               {[
-                42, 55, 49, 70, 62, 78, 68, 88, 74, 82, 91, 85, 79, 93, 87, 95, 90, 88, 96, 92, 98,
-                94, 89, 97, 93, 99, 95, 92, 97, 100,
+                30, 45, 40, 55, 50, 65, 70, 60, 80, 75, 90, 85, 95, 88, 100, 92, 88, 95, 102, 98,
+                110, 105, 115, 112, 118, 108, 122, 130, 125, 140,
               ].map((h, i) => (
                 <div
                   key={i}
-                  className="flex-1 rounded-t-sm transition-all"
-                  style={{
-                    height: `${h}%`,
-                    background: i === 29 ? "#38bdf8" : `rgba(56,189,248,${0.15 + i * 0.01})`,
-                  }}
+                  className="flex-1 rounded-sm bg-sky-500/60"
+                  style={{ height: `${(h / 140) * 100}%` }}
                 />
               ))}
             </div>
@@ -1495,27 +1941,14 @@ export function OrbitPreview() {
         </div>
       </div>
 
-      {/* Integrations */}
-      <div className="border-t border-white/[0.04] px-10 py-14">
-        <p className="mb-6 text-center text-xs font-medium text-white/25">
-          Connects with your entire stack
-        </p>
+      {/* Logos */}
+      <div className="border-t border-white/[0.04] px-6 py-10 md:px-10">
+        <p className="mb-8 text-center text-xs text-white/25">Trusted by data-driven teams at</p>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          {[
-            "Stripe",
-            "Segment",
-            "Snowflake",
-            "BigQuery",
-            "HubSpot",
-            "Salesforce",
-            "Slack",
-            "Intercom",
-            "Shopify",
-            "dbt",
-          ].map((n) => (
+          {["Stripe", "Notion", "Linear", "Vercel", "Loom", "Figma"].map((n) => (
             <div
               key={n}
-              className="rounded-full border border-white/[0.06] bg-white/[0.03] px-4 py-1.5 text-xs text-white/35"
+              className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-xs font-semibold text-white/30"
             >
               {n}
             </div>
@@ -1524,41 +1957,71 @@ export function OrbitPreview() {
       </div>
 
       {/* Features */}
-      <div className="border-t border-white/[0.04] px-10 py-20">
-        <h2 className="mb-14 text-center text-3xl font-bold">
-          Analytics that actually drive decisions
+      <div className="px-6 py-16 md:px-10">
+        <h2 className="mb-2 text-center text-3xl font-extrabold tracking-tight">
+          Analytics that actually answers questions
         </h2>
-        <div className="grid gap-px overflow-hidden rounded-2xl bg-white/[0.04] md:grid-cols-2">
+        <p className="mb-14 text-center text-sm text-white/35">
+          Built for product teams, loved by engineers.
+        </p>
+        <div className="grid gap-4 md:grid-cols-3">
           {[
             {
+              icon: Activity,
+              title: "Auto-capture events",
+              desc: "No manual tracking. Orbit captures every click, page view, and interaction automatically.",
+              c: "text-sky-400",
+              b: "border-sky-500/10 bg-sky-500/[0.03]",
+            },
+            {
               icon: BarChart3,
-              title: "Auto-capture every event",
-              desc: "No manual tracking. Orbit instruments your app automatically and captures clicks, pageviews, and conversions from day one.",
-            },
-            {
-              icon: TrendingUp,
               title: "Funnel analysis",
-              desc: "Instantly see where users drop off in any flow. Drag and drop to build funnels, then drill down into individual sessions.",
+              desc: "See where users drop off and optimize your conversion at every step.",
+              c: "text-emerald-400",
+              b: "border-emerald-500/10 bg-emerald-500/[0.03]",
             },
             {
-              icon: Globe,
-              title: "Retention cohorts",
-              desc: "Understand which features drive long-term retention. Automatically segment users by behaviour and compare cohorts.",
+              icon: Users,
+              title: "Cohort retention",
+              desc: "Understand which features drive long-term retention and which drive churn.",
+              c: "text-purple-400",
+              b: "border-purple-500/10 bg-purple-500/[0.03]",
             },
-            {
-              icon: Zap,
-              title: "AI-powered insights",
-              desc: "Orbit proactively surfaces anomalies, suggests optimisations, and writes summaries — so you spend less time in dashboards.",
-            },
-          ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="bg-[#0a0f1e] p-8">
-              <div className="mb-4 inline-flex rounded-xl border border-sky-500/15 bg-sky-500/10 p-3">
-                <Icon className="h-5 w-5 text-sky-400" />
+          ].map(({ icon: Icon, title, desc, c, b }) => (
+            <div key={title} className={`rounded-2xl border ${b} p-7`}>
+              <div className="mb-4 inline-flex rounded-xl border border-white/[0.05] bg-white/[0.03] p-3">
+                <Icon className={`h-5 w-5 ${c}`} />
               </div>
               <h3 className="mb-2 font-semibold text-white">{title}</h3>
               <p className="text-sm leading-relaxed text-white/35">{desc}</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className="px-6 pb-24 md:px-10">
+        <div className="rounded-3xl border border-sky-500/20 bg-sky-500/[0.05] p-12 text-center md:p-16">
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
+            Start understanding your users
+          </h2>
+          <p className="mx-auto mb-8 max-w-md text-sm leading-relaxed text-white/35">
+            Join 5,000+ product teams who use Orbit to make better decisions.
+          </p>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <button
+              onClick={() => setSignupOpen(true)}
+              className="flex items-center gap-2 rounded-xl bg-sky-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/20 hover:bg-sky-400"
+            >
+              Start free trial <ArrowRight className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="rounded-xl border border-white/[0.07] px-8 py-3.5 text-sm text-white/40 hover:border-white/15 hover:text-white/60"
+            >
+              Sign in
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1567,21 +2030,175 @@ export function OrbitPreview() {
 
 // ─── Lumina: Creative Agency — IDEO / Instrument aesthetic ───────────────────
 export function LuminaPreview() {
+  const [loginOpen, setLoginOpen] = React.useState(false)
+  const [contactOpen, setContactOpen] = React.useState(false)
+  const [menuOpen, setMenuOpen] = React.useState(false)
+
+  const Modal = ({
+    open,
+    onClose,
+    children,
+  }: {
+    open: boolean
+    onClose: () => void
+    children: React.ReactNode
+  }) =>
+    open ? (
+      <div
+        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <div
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0c0c0c] shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 text-xs text-white/20 transition-colors hover:text-white/60"
+          >
+            ✕
+          </button>
+          {children}
+        </div>
+      </div>
+    ) : null
+
   return (
     <div
-      className="min-h-[1000px] bg-[#0c0c0c] font-sans text-white"
+      className="relative min-h-[1200px] bg-[#0c0c0c] font-sans text-white"
       style={{ fontFamily: "system-ui,sans-serif" }}
     >
+      {/* Login Modal */}
+      <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-black text-white">Client portal</h2>
+          <p className="mb-6 text-xs text-white/30">Access your project dashboard</p>
+          <div className="space-y-3">
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-amber-400 py-2.5 text-sm font-black text-black transition-colors hover:bg-amber-300">
+            Sign in
+          </button>
+          <p className="mt-4 text-center text-xs text-white/25">
+            New client?{" "}
+            <button
+              className="font-semibold text-amber-400"
+              onClick={() => {
+                setLoginOpen(false)
+                setContactOpen(true)
+              }}
+            >
+              Start a project
+            </button>
+          </p>
+        </div>
+      </Modal>
+
+      {/* Contact Modal */}
+      <Modal open={contactOpen} onClose={() => setContactOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-black text-white">Let's work together</h2>
+          <p className="mb-6 text-xs text-white/30">Tell us about your project</p>
+          <div className="space-y-3">
+            <input
+              type="text"
+              placeholder="Your name"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
+            />
+            <select className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white/50 outline-none focus:border-amber-400/40">
+              <option value="">Service needed</option>
+              <option>Brand Identity</option>
+              <option>Digital Design</option>
+              <option>Motion & Film</option>
+              <option>Development</option>
+            </select>
+            <textarea
+              placeholder="Tell us about your vision..."
+              rows={3}
+              className="w-full resize-none rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-amber-400/40"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-amber-400 py-2.5 text-sm font-black text-black transition-colors hover:bg-amber-300">
+            Send inquiry
+          </button>
+        </div>
+      </Modal>
+
       {/* Nav */}
-      <nav className="flex items-center justify-between px-10 py-8">
+      <nav className="flex items-center justify-between px-6 py-7 md:px-10 md:py-8">
         <span className="text-sm font-black uppercase tracking-[0.25em] text-white">Lumina</span>
-        <button className="rounded-full border border-white/15 px-5 py-2 text-xs text-white/50 transition-all hover:border-white/30 hover:text-white/80">
-          <Menu className="h-3.5 w-3.5" />
-        </button>
+        <div className="hidden items-center gap-8 md:flex">
+          {["Work", "Studio", "Services", "Journal", "Contact"].map((l) => (
+            <button
+              key={l}
+              className="text-xs font-medium tracking-wide text-white/30 transition-colors hover:text-white/70"
+            >
+              {l}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="hidden text-xs text-white/25 transition-colors hover:text-white/60 md:block"
+          >
+            Log in
+          </button>
+          <button
+            onClick={() => setContactOpen(true)}
+            className="rounded-full border border-white/15 px-5 py-2 text-xs text-white/50 transition-all hover:border-white/30 hover:text-white/80"
+          >
+            Start a project
+          </button>
+          <button
+            className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-white/30 hover:border-white/20 hover:text-white/60 md:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <Menu className="h-4 w-4" />
+          </button>
+        </div>
       </nav>
 
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="border-t border-white/[0.05] bg-[#0c0c0c] px-6 py-4 md:hidden">
+          {["Work", "Studio", "Services", "Journal", "Contact"].map((l) => (
+            <button
+              key={l}
+              className="block w-full py-2.5 text-left text-sm text-white/40 hover:text-white/80"
+              onClick={() => setMenuOpen(false)}
+            >
+              {l}
+            </button>
+          ))}
+          <button
+            onClick={() => {
+              setMenuOpen(false)
+              setLoginOpen(true)
+            }}
+            className="mt-2 block w-full py-2.5 text-left text-sm font-semibold text-amber-400"
+          >
+            Log in
+          </button>
+        </div>
+      )}
+
       {/* Hero — oversized type */}
-      <div className="overflow-hidden px-10 pb-24 pt-12">
+      <div className="overflow-hidden px-6 pb-20 pt-10 md:px-10 md:pb-24 md:pt-12">
         <div className="mb-10 flex items-center gap-4">
           <div className="h-px flex-1 bg-white/10" />
           <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/25">
@@ -1589,7 +2206,7 @@ export function LuminaPreview() {
           </p>
           <div className="h-px flex-1 bg-white/10" />
         </div>
-        <h1 className="text-[80px] font-black leading-[0.88] tracking-tight">
+        <h1 className="text-[56px] font-black leading-[0.88] tracking-tight md:text-[80px]">
           <span className="text-white">We make</span>
           <br />
           <span
@@ -1604,19 +2221,22 @@ export function LuminaPreview() {
             inevitable.
           </span>
         </h1>
-        <div className="mt-12 flex items-end justify-between">
+        <div className="mt-10 flex flex-col items-start gap-6 md:mt-12 md:flex-row md:items-end md:justify-between">
           <p className="max-w-xs text-sm leading-relaxed text-white/35">
             Strategic design studio. We partner with the world's most ambitious companies to create
             brands that endure.
           </p>
-          <button className="group flex h-16 w-16 items-center justify-center rounded-full bg-amber-400 transition-colors hover:bg-amber-300">
-            <ArrowRight className="h-6 w-6 text-black transition-transform group-hover:translate-x-0.5" />
+          <button
+            onClick={() => setContactOpen(true)}
+            className="group flex h-14 w-14 items-center justify-center rounded-full bg-amber-400 transition-colors hover:bg-amber-300 md:h-16 md:w-16"
+          >
+            <ArrowRight className="h-5 w-5 text-black transition-transform group-hover:translate-x-0.5 md:h-6 md:w-6" />
           </button>
         </div>
       </div>
 
-      {/* Reel / portfolio */}
-      <div className="border-t border-white/[0.05] px-10 py-16">
+      {/* Portfolio */}
+      <div className="border-t border-white/[0.05] px-6 py-14 md:px-10 md:py-16">
         <div className="mb-8 flex items-center justify-between">
           <p className="text-xs font-semibold uppercase tracking-widest text-white/25">
             Selected projects
@@ -1625,38 +2245,37 @@ export function LuminaPreview() {
             All work →
           </button>
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {[
             {
               title: "Meridian",
               cat: "Global banking rebrand",
               year: "2024",
               bg: "from-slate-800 to-slate-900",
-              w: "col-span-1",
-              h: "h-56",
             },
             {
               title: "Solstice",
               cat: "Tech startup identity",
               year: "2024",
               bg: "from-amber-900/40 to-orange-950",
-              w: "col-span-1",
-              h: "h-56",
             },
             {
               title: "Archetype",
               cat: "Fashion e-commerce platform",
               year: "2023",
               bg: "from-rose-950 to-slate-900",
-              w: "col-span-2",
-              h: "h-44",
             },
-          ].map(({ title, cat, year, bg, w, h }) => (
+            {
+              title: "Forma",
+              cat: "B2B SaaS product design",
+              year: "2023",
+              bg: "from-sky-950 to-slate-900",
+            },
+          ].map(({ title, cat, year, bg }) => (
             <div
               key={title}
-              className={`${w} ${h} group relative overflow-hidden rounded-2xl bg-gradient-to-br ${bg} border border-white/[0.05]`}
+              className={`group relative h-48 overflow-hidden rounded-2xl bg-gradient-to-br ${bg} border border-white/[0.05]`}
             >
-              {/* Grid pattern */}
               <div
                 className="absolute inset-0 opacity-[0.07]"
                 style={{
@@ -1683,8 +2302,8 @@ export function LuminaPreview() {
       </div>
 
       {/* Awards */}
-      <div className="border-t border-white/[0.05] px-10 py-14">
-        <div className="grid grid-cols-4 gap-6">
+      <div className="border-t border-white/[0.05] px-6 py-12 md:px-10 md:py-14">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {[
             { n: "14×", l: "Cannes Lions", sub: "Gold & Silver" },
             { n: "9×", l: "D&AD Pencil", sub: "Wood to Black" },
@@ -1701,16 +2320,21 @@ export function LuminaPreview() {
       </div>
 
       {/* CTA */}
-      <div className="border-t border-white/[0.05] px-10 py-20">
-        <div className="flex items-center justify-between">
+      <div className="border-t border-white/[0.05] px-6 py-16 md:px-10 md:py-20">
+        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-5xl font-black tracking-tight text-white">Next project?</h2>
+            <h2 className="text-4xl font-black tracking-tight text-white md:text-5xl">
+              Next project?
+            </h2>
             <p className="mt-3 max-w-sm text-sm text-white/35">
               We work with brands who are ready to think differently. Let's talk.
             </p>
           </div>
-          <div className="flex flex-col items-end gap-3">
-            <button className="rounded-full bg-amber-400 px-8 py-3.5 text-sm font-black text-black transition-colors hover:bg-amber-300">
+          <div className="flex flex-col items-start gap-3 md:items-end">
+            <button
+              onClick={() => setContactOpen(true)}
+              className="rounded-full bg-amber-400 px-8 py-3.5 text-sm font-black text-black transition-colors hover:bg-amber-300"
+            >
               Start a conversation
             </button>
             <p className="text-xs text-white/20">studio@lumina.co · +1 212 000 0000</p>
@@ -1723,14 +2347,141 @@ export function LuminaPreview() {
 
 // ─── Apex: Enterprise — Palantir / Stripe aesthetic ──────────────────────────
 export function ApexPreview() {
+  const [loginOpen, setLoginOpen] = React.useState(false)
+  const [demoOpen, setDemoOpen] = React.useState(false)
+
+  const Modal = ({
+    open,
+    onClose,
+    children,
+  }: {
+    open: boolean
+    onClose: () => void
+    children: React.ReactNode
+  }) =>
+    open ? (
+      <div
+        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <div
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl bg-white shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 text-xs text-slate-300 transition-colors hover:text-slate-600"
+          >
+            ✕
+          </button>
+          {children}
+        </div>
+      </div>
+    ) : null
+
   return (
     <div
-      className="min-h-[1000px] bg-white font-sans text-slate-900"
+      className="relative min-h-[1200px] bg-white font-sans text-slate-900"
       style={{ fontFamily: "system-ui,sans-serif" }}
     >
+      {/* Login Modal */}
+      <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
+        <div className="p-8">
+          <div className="mb-6 flex items-center gap-2">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-900">
+              <Globe className="h-4 w-4 text-white" />
+            </div>
+            <span className="text-sm font-bold tracking-tight text-slate-900">Apex Platform</span>
+          </div>
+          <h2 className="mb-1 text-xl font-bold text-slate-900">Sign in to your account</h2>
+          <p className="mb-6 text-xs text-slate-400">
+            Enterprise SSO available for your organization
+          </p>
+          <div className="mb-4 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3">
+            <button className="flex w-full items-center justify-center gap-2 text-sm font-semibold text-blue-700">
+              <Lock className="h-4 w-4" /> Continue with SSO
+            </button>
+          </div>
+          <div className="relative my-4 flex items-center">
+            <div className="flex-1 border-t border-slate-100" />
+            <span className="mx-3 text-[10px] text-slate-300">or sign in with email</span>
+            <div className="flex-1 border-t border-slate-100" />
+          </div>
+          <div className="space-y-3">
+            <input
+              type="email"
+              placeholder="Work email"
+              className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-slate-900 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
+            Sign in
+          </button>
+          <p className="mt-4 text-center text-xs text-slate-400">
+            Need an account?{" "}
+            <button
+              className="font-semibold text-slate-700 underline"
+              onClick={() => {
+                setLoginOpen(false)
+                setDemoOpen(true)
+              }}
+            >
+              Request a demo
+            </button>
+          </p>
+        </div>
+      </Modal>
+
+      {/* Demo Modal */}
+      <Modal open={demoOpen} onClose={() => setDemoOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-bold text-slate-900">Request a demo</h2>
+          <p className="mb-6 text-xs text-slate-400">Our team will reach out within 24 hours</p>
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-2">
+              <input
+                type="text"
+                placeholder="First name"
+                className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
+              />
+              <input
+                type="text"
+                placeholder="Last name"
+                className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
+              />
+            </div>
+            <input
+              type="email"
+              placeholder="Work email"
+              className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
+            />
+            <input
+              type="text"
+              placeholder="Company name"
+              className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-300 focus:border-slate-400"
+            />
+            <select className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-400 outline-none focus:border-slate-400">
+              <option value="">Company size</option>
+              <option>1–50</option>
+              <option>51–250</option>
+              <option>251–1000</option>
+              <option>1000+</option>
+            </select>
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-slate-900 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
+            Request demo
+          </button>
+        </div>
+      </Modal>
+
       {/* Nav */}
-      <nav className="flex items-center justify-between border-b border-slate-100 px-10 py-4">
-        <div className="flex items-center gap-8">
+      <nav className="flex items-center justify-between border-b border-slate-100 px-6 py-4 md:px-10">
+        <div className="flex items-center gap-6 md:gap-8">
           <div className="flex items-center gap-2">
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-900">
               <Globe className="h-4 w-4 text-white" />
@@ -1749,163 +2500,163 @@ export function ApexPreview() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="px-3 py-1.5 text-xs text-slate-500 transition-colors hover:text-slate-900">
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="px-3 py-1.5 text-xs text-slate-500 transition-colors hover:text-slate-900"
+          >
             Sign in
           </button>
-          <button className="rounded-lg bg-slate-900 px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-slate-800">
+          <button
+            onClick={() => setDemoOpen(true)}
+            className="rounded-lg bg-slate-900 px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-slate-800"
+          >
             Request demo
           </button>
         </div>
       </nav>
 
       {/* Hero */}
-      <div className="px-10 py-24">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
+      <div className="px-6 py-16 md:px-10 md:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3.5 py-1.5 text-xs font-semibold text-blue-700">
               <Lock className="h-3 w-3" />
               SOC2 Type II · ISO 27001 · HIPAA · GDPR
             </div>
-            <h1 className="mb-6 text-[52px] font-extrabold leading-[1.05] tracking-tight text-slate-900">
-              Infrastructure your
+            <h1 className="mb-6 text-[36px] font-extrabold leading-[1.08] tracking-tight text-slate-900 md:text-[48px]">
+              Enterprise infrastructure
               <br />
-              enterprise can{" "}
-              <span className="relative">
-                trust.
-                <div className="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-blue-600/30" />
-              </span>
+              <span className="text-slate-400">built to scale with you.</span>
             </h1>
             <p className="mb-8 max-w-xl text-[15px] leading-relaxed text-slate-500">
-              Apex gives mission-critical teams the security, reliability, and control they need —
-              backed by a 99.99% SLA and 24/7 expert support.
+              Apex gives Fortune 500 companies the security, compliance, and reliability they need —
+              without sacrificing developer velocity.
             </p>
-            <div className="flex items-center gap-3">
-              <button className="rounded-xl bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-700 hover:shadow-blue-500/30">
-                Request a demo
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+              <button
+                onClick={() => setDemoOpen(true)}
+                className="flex items-center gap-2 rounded-xl bg-slate-900 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition-colors hover:bg-slate-800"
+              >
+                Request a demo <ArrowRight className="h-4 w-4" />
               </button>
-              <button className="rounded-xl border border-slate-200 px-7 py-3 text-sm text-slate-600 transition-all hover:border-slate-300 hover:text-slate-900">
-                Talk to sales
+              <button
+                onClick={() => setLoginOpen(true)}
+                className="rounded-xl border border-slate-200 px-7 py-3.5 text-sm text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-700"
+              >
+                Sign in
               </button>
             </div>
           </div>
-
-          {/* Trust block */}
-          <div className="space-y-3">
-            {[
-              {
-                label: "System uptime (last 365 days)",
-                value: "99.99%",
-                sub: "Zero critical incidents",
-                color: "bg-emerald-50 border-emerald-100",
-                text: "text-emerald-700",
-              },
-              {
-                label: "Security certifications",
-                value: "12",
-                sub: "SOC2, ISO27001, HIPAA, GDPR + 8 more",
-                color: "bg-blue-50 border-blue-100",
-                text: "text-blue-700",
-              },
-              {
-                label: "Dedicated support SLA",
-                value: "15 min",
-                sub: "Guaranteed response for P0 incidents",
-                color: "bg-violet-50 border-violet-100",
-                text: "text-violet-700",
-              },
-            ].map(({ label, value, sub, color, text }) => (
-              <div
-                key={label}
-                className={`flex items-center gap-5 rounded-2xl border ${color} p-5`}
-              >
-                <div className={`text-3xl font-black ${text}`}>{value}</div>
-                <div>
-                  <p className="text-sm font-semibold text-slate-900">{label}</p>
-                  <p className="text-xs text-slate-500">{sub}</p>
+          {/* Dashboard mockup */}
+          <div className="rounded-2xl border border-slate-100 bg-slate-50 p-6 shadow-xl shadow-slate-100">
+            <div className="mb-4 flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-red-400" />
+              <div className="h-2 w-2 rounded-full bg-yellow-400" />
+              <div className="h-2 w-2 rounded-full bg-green-400" />
+              <span className="ml-2 text-[10px] text-slate-400">Apex Platform</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+              {[
+                {
+                  label: "Uptime",
+                  value: "99.99%",
+                  sub: "last 90 days",
+                  color: "text-emerald-600",
+                  bg: "bg-emerald-50 border-emerald-100",
+                },
+                {
+                  label: "Latency",
+                  value: "12ms",
+                  sub: "p95 global",
+                  color: "text-blue-600",
+                  bg: "bg-blue-50 border-blue-100",
+                },
+                {
+                  label: "Requests",
+                  value: "2.4B",
+                  sub: "this month",
+                  color: "text-purple-600",
+                  bg: "bg-purple-50 border-purple-100",
+                },
+              ].map(({ label, value, sub, color, bg }) => (
+                <div key={label} className={`rounded-xl border ${bg} p-4`}>
+                  <p className="text-[10px] text-slate-400">{label}</p>
+                  <p className={`text-xl font-bold ${color}`}>{value}</p>
+                  <p className="text-[10px] text-slate-400">{sub}</p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="mt-3 rounded-xl border border-slate-100 bg-white p-4">
+              <p className="mb-3 text-[10px] font-medium text-slate-400">System health</p>
+              {[
+                { name: "API Gateway", status: "Operational", ok: true },
+                { name: "Database clusters", status: "Operational", ok: true },
+                { name: "CDN nodes", status: "Operational", ok: true },
+              ].map(({ name, status, ok }) => (
+                <div key={name} className="flex items-center justify-between py-1.5">
+                  <span className="text-[11px] text-slate-600">{name}</span>
+                  <span
+                    className={`text-[10px] font-semibold ${ok ? "text-emerald-600" : "text-red-500"}`}
+                  >
+                    {status}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Clients */}
-      <div className="border-y border-slate-50 bg-slate-50/60 px-10 py-10">
-        <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-slate-300">
-          Trusted by industry leaders
-        </p>
-        <div className="flex items-center justify-center gap-12">
-          {[
-            "Goldman Sachs",
-            "Johnson & Johnson",
-            "Lockheed Martin",
-            "Siemens AG",
-            "CVS Health",
-          ].map((n) => (
-            <span key={n} className="text-xs font-black uppercase tracking-wide text-slate-200">
+      {/* Trust logos */}
+      <div className="border-t border-slate-50 bg-slate-50/50 px-6 py-10 md:px-10">
+        <p className="mb-8 text-center text-xs text-slate-400">Trusted by enterprises worldwide</p>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          {["Stripe", "Goldman Sachs", "Shopify", "Salesforce", "Adobe", "Twilio"].map((n) => (
+            <div
+              key={n}
+              className="rounded-lg border border-slate-100 bg-white px-4 py-2 text-xs font-semibold text-slate-300"
+            >
               {n}
-            </span>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Features */}
-      <div className="px-10 py-20">
-        <div className="mb-14 text-center">
-          <h2 className="text-3xl font-bold tracking-tight">
-            Built for the most demanding environments
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-slate-400">
-            Every capability you need, none of the compromises enterprise teams have come to expect.
-          </p>
-        </div>
+      <div className="px-6 py-16 md:px-10">
+        <h2 className="mb-2 text-center text-3xl font-extrabold tracking-tight text-slate-900">
+          Enterprise-grade, out of the box
+        </h2>
+        <p className="mb-12 text-center text-sm text-slate-400">
+          Everything your security and compliance teams need.
+        </p>
         <div className="grid gap-4 md:grid-cols-3">
           {[
             {
               icon: Shield,
-              title: "Zero-trust architecture",
-              desc: "End-to-end encryption, network segmentation, and least-privilege access enforced at every layer.",
-              accent: "bg-blue-600",
-            },
-            {
-              icon: Globe,
-              title: "Multi-region redundancy",
-              desc: "Active-active deployment across 35 global data centres. Automatic failover in under 30 seconds.",
-              accent: "bg-emerald-600",
+              title: "Zero-trust security",
+              desc: "End-to-end encryption, hardware security keys, and granular RBAC across every service.",
+              c: "text-blue-600",
+              b: "bg-blue-50 border-blue-100",
             },
             {
               icon: Lock,
-              title: "Complete audit trail",
-              desc: "Immutable logs for every API call, data access, and configuration change. Fully exportable.",
-              accent: "bg-violet-600",
+              title: "Compliance ready",
+              desc: "SOC2 Type II, ISO 27001, HIPAA, and GDPR compliance built in from day one.",
+              c: "text-emerald-600",
+              b: "bg-emerald-50 border-emerald-100",
             },
             {
-              icon: BarChart3,
-              title: "Real-time monitoring",
-              desc: "360° visibility into performance, errors, and security events. Custom alerting and on-call routing.",
-              accent: "bg-orange-500",
+              icon: Globe,
+              title: "Global infrastructure",
+              desc: "Deploy to 40+ regions with automated failover, geo-redundancy, and 99.99% SLA.",
+              c: "text-purple-600",
+              b: "bg-purple-50 border-purple-100",
             },
-            {
-              icon: Zap,
-              title: "Enterprise SSO & SCIM",
-              desc: "SAML 2.0, OIDC, SCIM provisioning, and role mapping with your existing IdP.",
-              accent: "bg-sky-600",
-            },
-            {
-              icon: Star,
-              title: "Dedicated success team",
-              desc: "A named CSM, solutions architect, and senior support engineer — available 24/7.",
-              accent: "bg-rose-500",
-            },
-          ].map(({ icon: Icon, title, desc, accent }) => (
-            <div
-              key={title}
-              className="group rounded-2xl border border-slate-100 p-7 transition-all hover:border-blue-100 hover:bg-blue-50/30"
-            >
-              <div
-                className={`mb-5 inline-flex h-10 w-10 items-center justify-center rounded-xl ${accent}`}
-              >
-                <Icon className="h-5 w-5 text-white" />
+          ].map(({ icon: Icon, title, desc, c, b }) => (
+            <div key={title} className={`rounded-2xl border ${b} p-7`}>
+              <div className="mb-4 inline-flex rounded-xl border border-slate-100 bg-white p-3 shadow-sm">
+                <Icon className={`h-5 w-5 ${c}`} />
               </div>
               <h3 className="mb-2 font-semibold text-slate-900">{title}</h3>
               <p className="text-sm leading-relaxed text-slate-500">{desc}</p>
@@ -1915,19 +2666,25 @@ export function ApexPreview() {
       </div>
 
       {/* CTA */}
-      <div className="mx-10 mb-20 overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 to-blue-950 p-16 text-center text-white shadow-2xl">
-        <h2 className="mb-4 text-4xl font-bold tracking-tight">
-          Ready to secure your infrastructure?
+      <div className="mx-6 mb-16 rounded-3xl bg-slate-900 p-12 text-center text-white md:mx-10 md:p-16">
+        <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
+          Ready for enterprise?
         </h2>
-        <p className="mx-auto mb-10 max-w-lg text-slate-400">
-          Join 600+ enterprise teams who chose Apex. Average deployment: 72 hours.
+        <p className="mx-auto mb-8 max-w-md text-sm text-white/50">
+          Join 2,000+ enterprises who trust Apex for mission-critical infrastructure.
         </p>
-        <div className="flex items-center justify-center gap-3">
-          <button className="rounded-xl bg-white px-8 py-3.5 text-sm font-bold text-slate-900 transition-colors hover:bg-slate-50">
-            Request a demo
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <button
+            onClick={() => setDemoOpen(true)}
+            className="flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-100"
+          >
+            Request a demo <ArrowRight className="h-4 w-4" />
           </button>
-          <button className="rounded-xl border border-white/15 px-8 py-3.5 text-sm text-white/70 transition-all hover:border-white/30 hover:text-white">
-            Talk to sales →
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="rounded-xl border border-white/20 px-8 py-3.5 text-sm text-white/60 transition-colors hover:border-white/40 hover:text-white/80"
+          >
+            Sign in
           </button>
         </div>
       </div>
@@ -1937,151 +2694,324 @@ export function ApexPreview() {
 
 // ─── Aura: Product Launch — Apple / Teenage Engineering aesthetic ─────────────
 export function AuraPreview() {
+  const [loginOpen, setLoginOpen] = React.useState(false)
+  const [preorderOpen, setPreorderOpen] = React.useState(false)
+
+  const Modal = ({
+    open,
+    onClose,
+    children,
+  }: {
+    open: boolean
+    onClose: () => void
+    children: React.ReactNode
+  }) =>
+    open ? (
+      <div
+        className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <div
+          className="relative mx-4 w-full max-w-sm overflow-hidden rounded-2xl border border-purple-500/20 bg-[#0d0718] shadow-2xl shadow-purple-900/50"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 text-xs text-white/20 transition-colors hover:text-white/60"
+          >
+            ✕
+          </button>
+          {children}
+        </div>
+      </div>
+    ) : null
+
   return (
     <div
-      className="min-h-[1000px] font-sans text-white"
-      style={{
-        fontFamily: "system-ui,sans-serif",
-        background: "linear-gradient(160deg, #080414 0%, #100828 40%, #0d0520 100%)",
-      }}
+      className="relative min-h-[1200px] font-sans text-white"
+      style={{ fontFamily: "system-ui,sans-serif", background: "#07030f" }}
     >
+      {/* Background glow */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute left-1/2 top-0 h-[500px] w-[600px] -translate-x-1/2 rounded-full bg-purple-600/15 blur-[120px]" />
+        <div className="absolute -right-20 top-1/3 h-[300px] w-[300px] rounded-full bg-indigo-600/10 blur-[80px]" />
+      </div>
+
+      {/* Login Modal */}
+      <Modal open={loginOpen} onClose={() => setLoginOpen(false)}>
+        <div className="p-8">
+          <h2 className="mb-1 text-xl font-bold text-white">Welcome back</h2>
+          <p className="mb-6 text-xs text-white/35">Sign in to your Aura account</p>
+          <div className="mb-3 grid grid-cols-2 gap-2">
+            <button className="flex items-center justify-center gap-2 rounded-xl border border-purple-500/20 bg-purple-500/[0.06] py-2.5 text-xs font-semibold text-white/50 transition-colors hover:border-purple-500/30 hover:text-white/70">
+              <Globe className="h-3.5 w-3.5" /> Google
+            </button>
+            <button className="flex items-center justify-center gap-2 rounded-xl border border-purple-500/20 bg-purple-500/[0.06] py-2.5 text-xs font-semibold text-white/50 transition-colors hover:border-purple-500/30 hover:text-white/70">
+              <Lock className="h-3.5 w-3.5" /> GitHub
+            </button>
+          </div>
+          <div className="relative my-4 flex items-center">
+            <div className="flex-1 border-t border-white/[0.06]" />
+            <span className="mx-3 text-[10px] text-white/20">or</span>
+            <div className="flex-1 border-t border-white/[0.06]" />
+          </div>
+          <div className="space-y-3">
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-purple-500/40"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-purple-500/40"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition-opacity hover:opacity-90">
+            Sign in
+          </button>
+          <p className="mt-4 text-center text-xs text-white/30">
+            New here?{" "}
+            <button
+              className="text-purple-400 hover:text-purple-300"
+              onClick={() => {
+                setLoginOpen(false)
+                setPreorderOpen(true)
+              }}
+            >
+              Pre-order now
+            </button>
+          </p>
+        </div>
+      </Modal>
+
+      {/* Pre-order Modal */}
+      <Modal open={preorderOpen} onClose={() => setPreorderOpen(false)}>
+        <div className="p-8">
+          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/[0.08] px-3 py-1 text-[10px] font-semibold text-purple-300">
+            <Sparkles className="h-3 w-3" /> Early access — 40% off
+          </div>
+          <h2 className="mb-1 mt-3 text-xl font-bold text-white">Reserve your spot</h2>
+          <p className="mb-6 text-xs text-white/35">Join 12,000+ on the waitlist</p>
+          <div className="space-y-3">
+            <input
+              type="text"
+              placeholder="Your name"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-purple-500/40"
+            />
+            <input
+              type="email"
+              placeholder="Email address"
+              className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-purple-500/40"
+            />
+          </div>
+          <button className="mt-4 w-full rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition-opacity hover:opacity-90">
+            Reserve my spot
+          </button>
+          <p className="mt-3 text-center text-[10px] text-white/25">
+            No payment required to join waitlist
+          </p>
+        </div>
+      </Modal>
+
       {/* Nav */}
-      <nav className="flex items-center justify-between px-10 py-7">
-        <span className="text-sm font-black uppercase tracking-[0.2em] text-white/80">Aura</span>
-        <div className="hidden items-center gap-7 text-xs text-white/35 md:flex">
-          {["Features", "Gallery", "Compare", "Reviews"].map((l) => (
-            <button key={l} className="transition-colors hover:text-white/60">
+      <nav className="relative z-10 flex items-center justify-between px-6 py-5 md:px-10 md:py-6">
+        <div className="flex items-center gap-2">
+          <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600">
+            <Sparkles className="h-4 w-4 text-white" />
+          </div>
+          <span className="text-sm font-bold tracking-tight">Aura</span>
+        </div>
+        <div className="hidden items-center gap-1 md:flex">
+          {["Features", "Pricing", "Reviews", "About"].map((l) => (
+            <button
+              key={l}
+              className="rounded-lg px-3 py-1.5 text-xs text-white/35 transition-colors hover:text-white/60"
+            >
               {l}
             </button>
           ))}
         </div>
-        <button className="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-semibold text-white/60 backdrop-blur-sm transition-all hover:border-white/30 hover:text-white/80">
-          Pre-order
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="px-3 py-1.5 text-xs text-white/35 transition-colors hover:text-white/60"
+          >
+            Sign in
+          </button>
+          <button
+            onClick={() => setPreorderOpen(true)}
+            className="rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-purple-600/20 transition-opacity hover:opacity-90"
+          >
+            Pre-order
+          </button>
+        </div>
       </nav>
 
       {/* Hero */}
-      <div className="relative overflow-hidden px-10 pb-20 pt-16 text-center">
-        {/* Glows */}
-        <div
-          className="pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full blur-[120px]"
-          style={{
-            background: "radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute left-1/3 top-1/3 h-64 w-64 rounded-full blur-[80px]"
-          style={{
-            background: "radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%)",
-          }}
-        />
+      <div className="relative z-10 px-6 pb-20 pt-16 text-center md:px-10 md:pt-24">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/[0.08] px-4 py-2 text-xs font-semibold text-purple-300">
+          <Sparkles className="h-3.5 w-3.5" />
+          Early access now open — 40% founding discount
+        </div>
+        <h1 className="mx-auto mb-6 max-w-4xl text-[44px] font-extrabold leading-[1.05] tracking-tight md:text-[60px]">
+          The creative tool you've
+          <br />
+          <span className="bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
+            been waiting for.
+          </span>
+        </h1>
+        <p className="mx-auto mb-10 max-w-lg text-[15px] leading-relaxed text-white/40">
+          Aura transforms how teams create, collaborate, and ship beautiful products. Powered by AI,
+          built for the way you work.
+        </p>
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <button
+            onClick={() => setPreorderOpen(true)}
+            className="group flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 px-8 py-4 text-sm font-bold text-white shadow-2xl shadow-purple-600/30 transition-opacity hover:opacity-90"
+          >
+            Reserve early access{" "}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </button>
+          <button
+            onClick={() => setLoginOpen(true)}
+            className="rounded-2xl border border-white/[0.08] px-8 py-4 text-sm text-white/40 transition-all hover:border-white/[0.15] hover:text-white/60"
+          >
+            Sign in
+          </button>
+        </div>
+        <p className="mt-5 text-xs text-white/25">12,400+ on the waitlist · Ships Q2 2025</p>
+      </div>
 
-        <div className="relative z-10">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-violet-400/60">
-            Introducing
-          </p>
-          <h1 className="mb-3 text-[84px] font-black leading-[0.9] tracking-tight text-white">
-            Aura Pro
-          </h1>
-          <p className="mb-6 text-4xl font-extralight uppercase tracking-[0.2em] text-white/20">
-            Collection
-          </p>
-          <p className="mx-auto mb-10 max-w-md text-[15px] leading-relaxed text-white/40">
-            Precision-engineered for the discerning few. 48-hour battery, Always-On Retina display,
-            and adaptive health intelligence.
-          </p>
-          <div className="flex items-center justify-center gap-4">
-            <button className="rounded-full bg-white px-10 py-3.5 text-sm font-bold text-violet-900 shadow-2xl shadow-violet-500/20 transition-all hover:bg-white/95">
-              Pre-order · from $299
-            </button>
-            <button className="border-white/12 rounded-full border bg-white/5 px-8 py-3.5 text-sm text-white/50 backdrop-blur-sm transition-all hover:border-white/25 hover:text-white/70">
-              Learn more
-            </button>
+      {/* Product mockup */}
+      <div className="relative z-10 mx-6 mb-16 overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.02] shadow-2xl shadow-purple-900/30 backdrop-blur-sm md:mx-10">
+        <div className="flex items-center gap-2 border-b border-white/[0.05] bg-white/[0.02] px-4 py-3">
+          {["bg-[#ff5f57]", "bg-[#ffbc2e]", "bg-[#28c840]"].map((c, i) => (
+            <div key={i} className={`h-2 w-2 rounded-full ${c}`} />
+          ))}
+          <span className="ml-2 text-[10px] text-white/20">Aura Studio</span>
+        </div>
+        <div className="grid md:grid-cols-[200px_1fr]">
+          {/* Sidebar */}
+          <div className="border-b border-white/[0.04] p-4 md:border-b-0 md:border-r">
+            <p className="mb-3 text-[9px] font-semibold uppercase tracking-widest text-white/25">
+              Workspace
+            </p>
+            {["Dashboard", "Projects", "Assets", "Templates", "Settings"].map((l, i) => (
+              <div
+                key={l}
+                className={`mb-1 flex items-center gap-2 rounded-lg px-3 py-2 text-[11px] ${i === 1 ? "bg-purple-600/20 font-semibold text-purple-300" : "text-white/25 hover:text-white/50"}`}
+              >
+                <div
+                  className={`h-1.5 w-1.5 rounded-full ${i === 1 ? "bg-purple-400" : "bg-white/10"}`}
+                />
+                {l}
+              </div>
+            ))}
+          </div>
+          {/* Main */}
+          <div className="p-5">
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-sm font-bold text-white">Projects</h3>
+              <button className="rounded-lg bg-purple-600/80 px-3 py-1.5 text-[10px] font-semibold text-white">
+                + New project
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+              {[
+                {
+                  name: "Brand refresh",
+                  status: "In progress",
+                  color: "from-violet-900/40 to-indigo-900/40",
+                },
+                {
+                  name: "App redesign",
+                  status: "Review",
+                  color: "from-purple-900/40 to-pink-900/40",
+                },
+                { name: "Landing page", status: "Done", color: "from-indigo-900/40 to-sky-900/40" },
+              ].map(({ name, status, color }) => (
+                <div
+                  key={name}
+                  className={`group relative h-24 cursor-pointer overflow-hidden rounded-xl bg-gradient-to-br ${color} border border-white/[0.05] p-4`}
+                >
+                  <div
+                    className="absolute inset-0 opacity-[0.06]"
+                    style={{
+                      backgroundImage:
+                        "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+                      backgroundSize: "16px 16px",
+                    }}
+                  />
+                  <p className="relative text-[11px] font-semibold text-white/80">{name}</p>
+                  <span className="relative mt-1 inline-block rounded-full border border-white/10 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/40">
+                    {status}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Specs grid */}
-      <div className="mx-10 mb-16 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/[0.05] bg-white/[0.03]">
-        {[
-          { v: "48h", l: "Battery life", sub: "Industry-leading" },
-          { v: "2.1mm", l: "Ultra-thin display", sub: "Sapphire crystal" },
-          { v: "12", l: "Premium finishes", sub: "From titanium to gold" },
-          { v: "IP68", l: "Water resistance", sub: "50m depth rated" },
-          { v: "AI", l: "Health intelligence", sub: "ECG, SpO2, sleep" },
-          { v: "5yr", l: "Warranty", sub: "Worldwide coverage" },
-        ].map(({ v, l, sub }) => (
-          <div key={l} className="bg-white/[0.03] px-6 py-8 text-center">
-            <p className="text-3xl font-black text-white">{v}</p>
-            <p className="mt-1 text-xs font-semibold text-white/50">{l}</p>
-            <p className="text-[10px] text-white/20">{sub}</p>
-          </div>
-        ))}
-      </div>
-
       {/* Reviews */}
-      <div className="px-10 pb-16">
-        <p className="mb-8 text-center text-xs font-semibold uppercase tracking-widest text-white/20">
-          Press coverage
-        </p>
-        <div className="grid gap-4 md:grid-cols-2">
+      <div className="relative z-10 border-t border-white/[0.04] px-6 py-16 md:px-10">
+        <h2 className="mb-2 text-center text-2xl font-bold tracking-tight md:text-3xl">
+          Loved by creators
+        </h2>
+        <p className="mb-12 text-center text-sm text-white/35">Beta users are already in love</p>
+        <div className="grid gap-4 md:grid-cols-3">
           {[
             {
-              q: "Aura Pro is, without question, the finest wearable ever made. A benchmark for the entire industry.",
-              pub: "The Verge",
-              score: "9.8/10",
+              q: "This is what Figma should have been in 2025. Everything is just faster.",
+              name: "Mia Torres",
+              role: "Product designer at Stripe",
             },
             {
-              q: "I wore it for 30 days. My previous watch is now gathering dust.",
-              pub: "Wired Magazine",
-              score: "Essential pick",
+              q: "The AI layer is magic. I went from concept to shipped in a single afternoon.",
+              name: "James Park",
+              role: "Founder, Lattice Studio",
             },
-          ].map(({ q, pub, score }) => (
-            <div
-              key={pub}
-              className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-7 backdrop-blur-sm"
-            >
-              <div className="mb-1 flex gap-0.5">
+            {
+              q: "Finally a tool that matches how my brain works. Aura is the creative OS.",
+              name: "Ola Lindqvist",
+              role: "Creative director, Forma",
+            },
+          ].map(({ q, name, role }) => (
+            <div key={name} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
+              <div className="mb-4 flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                 ))}
               </div>
-              <p className="mb-5 mt-4 text-sm font-light italic leading-relaxed text-white/60">
-                &ldquo;{q}&rdquo;
-              </p>
-              <div className="flex items-center justify-between">
-                <p className="text-xs font-bold text-white/80">{pub}</p>
-                <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-0.5 text-xs font-semibold text-amber-400">
-                  {score}
-                </span>
+              <p className="mb-5 text-sm leading-relaxed text-white/50">&ldquo;{q}&rdquo;</p>
+              <div>
+                <p className="text-xs font-semibold text-white">{name}</p>
+                <p className="text-[11px] text-white/30">{role}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Final CTA */}
-      <div className="border-t border-white/[0.05] px-10 py-20 text-center">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/20">
-          Limited availability
-        </p>
-        <h2 className="mb-4 text-5xl font-black tracking-tight text-white">Reserve yours now.</h2>
-        <p className="mb-10 text-sm text-white/30">
-          Ships Q1 2025. First 1,000 orders receive engraving + premium case.
-        </p>
-        <button
-          className="py-4.5 rounded-full px-14 text-base font-bold text-white shadow-2xl transition-all hover:shadow-violet-500/30"
-          style={{
-            background: "linear-gradient(135deg,#7c3aed,#4f46e5)",
-            paddingTop: "14px",
-            paddingBottom: "14px",
-          }}
-        >
-          Pre-order Aura Pro →
-        </button>
-        <p className="mt-5 text-xs text-white/20">
-          Free express shipping · 60-day returns · 5-year global warranty
-        </p>
+      {/* CTA */}
+      <div className="relative z-10 px-6 pb-24 pt-8 text-center md:px-10">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-purple-500/20 bg-purple-600/[0.08] p-12 md:p-16">
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
+            Be first in line
+          </h2>
+          <p className="mx-auto mb-8 max-w-md text-sm text-white/40">
+            Reserve your founding member spot today and lock in 40% off forever.
+          </p>
+          <button
+            onClick={() => setPreorderOpen(true)}
+            className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 px-10 py-4 text-sm font-bold text-white shadow-2xl shadow-purple-600/30 transition-opacity hover:opacity-90"
+          >
+            Reserve early access{" "}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </button>
+          <p className="mt-4 text-xs text-white/25">12,400+ people joined already</p>
+        </div>
       </div>
     </div>
   )
