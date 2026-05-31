@@ -44,7 +44,7 @@ export function ComponentPreview({ children, code, className }: ComponentPreview
 
       {tab === "preview" ? (
         <div
-          className={`relative flex min-h-[320px] flex-wrap items-center justify-center gap-4 overflow-visible bg-background p-10 ${className ?? ""}`}
+          className={`relative flex min-h-[380px] flex-wrap items-start justify-center gap-4 overflow-visible bg-background px-10 pb-32 pt-12 ${className ?? ""}`}
         >
           {children}
         </div>
