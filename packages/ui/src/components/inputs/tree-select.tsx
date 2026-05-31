@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { createPortal } from "react-dom"
 
 import { Check, ChevronRight, ChevronsUpDown, Search, X } from "lucide-react"
 
@@ -148,6 +149,23 @@ export function TreeSelect({
   const isControlled = controlledValue !== undefined
   const selected = isControlled ? normalize(controlledValue) : internalValue
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const [rect, setRect] = React.useState<DOMRect | null>(null)
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
+  React.useEffect(() => {
+    if (!open || !containerRef.current) {
+      setRect(null)
+      return
+    }
+    const update = () => setRect(containerRef.current!.getBoundingClientRect())
+    update()
+    window.addEventListener("scroll", update, { passive: true })
+    window.addEventListener("resize", update, { passive: true })
+    return () => {
+      window.removeEventListener("scroll", update)
+      window.removeEventListener("resize", update)
+    }
+  }, [open])
   const flat = React.useMemo(() => flattenTree(treeData), [treeData])
 
   const filtered = React.useMemo(
@@ -245,42 +263,55 @@ export function TreeSelect({
         </span>
       </button>
 
-      {open && (
-        <div className="absolute z-50 mt-1 w-full rounded-md border border-border bg-popover shadow-md">
-          {showSearch && (
-            <div className="border-b border-border p-2">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  autoFocus
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder={searchPlaceholder}
-                  className="h-8 w-full rounded-sm border border-input bg-background pl-8 pr-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
-                />
+      {open &&
+        rect &&
+        mounted &&
+        createPortal(
+          <div
+            className="fixed z-[9999] rounded-md border border-border bg-popover shadow-md"
+            style={{
+              top: rect.bottom + 4 + window.scrollY,
+              left: rect.left + window.scrollX,
+              width: rect.width,
+            }}
+          >
+            {showSearch && (
+              <div className="border-b border-border p-2">
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+                  <input
+                    autoFocus
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder={searchPlaceholder}
+                    className="h-8 w-full rounded-sm border border-input bg-background pl-8 pr-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                  />
+                </div>
               </div>
-            </div>
-          )}
-          {filtered.length === 0 ? (
-            <div className="py-4 text-center text-sm text-muted-foreground">{notFoundContent}</div>
-          ) : (
-            <ul className="max-h-64 space-y-0.5 overflow-y-auto p-2">
-              {filtered.map((node) => (
-                <TreeNode
-                  key={node.value}
-                  node={node}
-                  selected={selected}
-                  multiple={multiple}
-                  expanded={expanded}
-                  onToggleExpand={toggleExpand}
-                  onSelect={handleSelect}
-                  expandAll={treeDefaultExpandAll}
-                />
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+            )}
+            {filtered.length === 0 ? (
+              <div className="py-4 text-center text-sm text-muted-foreground">
+                {notFoundContent}
+              </div>
+            ) : (
+              <ul className="max-h-64 space-y-0.5 overflow-y-auto p-2">
+                {filtered.map((node) => (
+                  <TreeNode
+                    key={node.value}
+                    node={node}
+                    selected={selected}
+                    multiple={multiple}
+                    expanded={expanded}
+                    onToggleExpand={toggleExpand}
+                    onSelect={handleSelect}
+                    expandAll={treeDefaultExpandAll}
+                  />
+                ))}
+              </ul>
+            )}
+          </div>,
+          document.body,
+        )}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { createPortal } from "react-dom"
 
 import { cn } from "@benflux-ui/utils"
 
@@ -58,6 +59,23 @@ export function Mentions({
   const value = isControlled ? controlledValue : internalValue
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const [containerRect, setContainerRect] = React.useState<DOMRect | null>(null)
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
+  React.useEffect(() => {
+    if (!dropdownState.visible || !containerRef.current) {
+      setContainerRect(null)
+      return
+    }
+    const update = () => setContainerRect(containerRef.current!.getBoundingClientRect())
+    update()
+    window.addEventListener("scroll", update, { passive: true })
+    window.addEventListener("resize", update, { passive: true })
+    return () => {
+      window.removeEventListener("scroll", update)
+      window.removeEventListener("resize", update)
+    }
+  }, [dropdownState.visible])
 
   const prefixes = Array.isArray(prefix) ? prefix : [prefix]
 
@@ -164,43 +182,52 @@ export function Mentions({
           "resize-y transition-colors disabled:cursor-not-allowed disabled:opacity-50",
         )}
       />
-      {dropdownState.visible && (
-        <div
-          className="absolute z-50 min-w-[200px] rounded-md border border-border bg-popover shadow-md"
-          style={{ top: dropdownState.position.top, left: dropdownState.position.left }}
-        >
-          {filteredOptions.length === 0 ? (
-            <div className="py-4 text-center text-sm text-muted-foreground">{notFoundContent}</div>
-          ) : (
-            <ul className="max-h-52 overflow-y-auto py-1" role="listbox">
-              {filteredOptions.map((opt, i) => (
-                <li
-                  key={opt.value}
-                  onMouseDown={(e) => {
-                    e.preventDefault()
-                    handleSelect(opt)
-                  }}
-                  onMouseEnter={() => setHighlighted(i)}
-                  className={cn(
-                    "flex cursor-pointer items-center gap-2.5 px-3 py-2 text-sm",
-                    i === highlighted ? "bg-accent" : "hover:bg-accent",
-                  )}
-                >
-                  {opt.avatar && (
-                    <img src={opt.avatar} alt="" className="h-6 w-6 rounded-full object-cover" />
-                  )}
-                  <div className="min-w-0">
-                    <p className="truncate font-medium">{opt.label ?? opt.value}</p>
-                    {opt.description && (
-                      <p className="truncate text-xs text-muted-foreground">{opt.description}</p>
+      {dropdownState.visible &&
+        containerRect &&
+        mounted &&
+        createPortal(
+          <div
+            className="fixed z-[9999] min-w-[200px] rounded-md border border-border bg-popover shadow-md"
+            style={{
+              top: containerRect.bottom + 4 + window.scrollY,
+              left: containerRect.left + window.scrollX,
+            }}
+          >
+            {filteredOptions.length === 0 ? (
+              <div className="py-4 text-center text-sm text-muted-foreground">
+                {notFoundContent}
+              </div>
+            ) : (
+              <ul className="max-h-52 overflow-y-auto py-1" role="listbox">
+                {filteredOptions.map((opt, i) => (
+                  <li
+                    key={opt.value}
+                    onMouseDown={(e) => {
+                      e.preventDefault()
+                      handleSelect(opt)
+                    }}
+                    onMouseEnter={() => setHighlighted(i)}
+                    className={cn(
+                      "flex cursor-pointer items-center gap-2.5 px-3 py-2 text-sm",
+                      i === highlighted ? "bg-accent" : "hover:bg-accent",
                     )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+                  >
+                    {opt.avatar && (
+                      <img src={opt.avatar} alt="" className="h-6 w-6 rounded-full object-cover" />
+                    )}
+                    <div className="min-w-0">
+                      <p className="truncate font-medium">{opt.label ?? opt.value}</p>
+                      {opt.description && (
+                        <p className="truncate text-xs text-muted-foreground">{opt.description}</p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>,
+          document.body,
+        )}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { createPortal } from "react-dom"
 
 import { Check, ChevronRight, ChevronsUpDown, X } from "lucide-react"
 
@@ -66,6 +67,23 @@ export function Cascader({
   const isControlled = controlledValue !== undefined
   const value = isControlled ? controlledValue : internalValue
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const [rect, setRect] = React.useState<DOMRect | null>(null)
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
+  React.useEffect(() => {
+    if (!open || !containerRef.current) {
+      setRect(null)
+      return
+    }
+    const update = () => setRect(containerRef.current!.getBoundingClientRect())
+    update()
+    window.addEventListener("scroll", update, { passive: true })
+    window.addEventListener("resize", update, { passive: true })
+    return () => {
+      window.removeEventListener("scroll", update)
+      window.removeEventListener("resize", update)
+    }
+  }, [open])
 
   React.useEffect(() => {
     if (open) setMenuPath([options])
@@ -148,44 +166,51 @@ export function Cascader({
         </span>
       </button>
 
-      {open && (
-        <div className="absolute z-50 mt-1 flex overflow-hidden rounded-md border border-border bg-popover shadow-lg">
-          {menuPath.map((menu, depth) => (
-            <ul
-              key={depth}
-              className="max-h-60 min-w-[140px] overflow-y-auto border-r border-border py-1 last:border-r-0"
-            >
-              {menu.length === 0 ? (
-                <li className="px-3 py-2 text-sm text-muted-foreground">{notFoundContent}</li>
-              ) : (
-                menu.map((opt) => {
-                  const isActive =
-                    menuPath[depth + 1] === opt.children || value[depth] === opt.value
-                  return (
-                    <li
-                      key={opt.value}
-                      onClick={() => handleSelect(opt, depth)}
-                      onMouseEnter={() => handleHover(opt, depth)}
-                      className={cn(
-                        "flex cursor-pointer items-center justify-between px-3 py-2 text-sm",
-                        isActive ? "bg-accent font-medium text-foreground" : "hover:bg-accent",
-                        opt.disabled && "cursor-not-allowed opacity-40",
-                      )}
-                    >
-                      <span>{opt.label}</span>
-                      {opt.children?.length ? (
-                        <ChevronRight className="ml-2 h-3.5 w-3.5 text-muted-foreground" />
-                      ) : isActive ? (
-                        <Check className="ml-2 h-3.5 w-3.5 text-primary" />
-                      ) : null}
-                    </li>
-                  )
-                })
-              )}
-            </ul>
-          ))}
-        </div>
-      )}
+      {open &&
+        rect &&
+        mounted &&
+        createPortal(
+          <div
+            className="fixed z-[9999] flex overflow-hidden rounded-md border border-border bg-popover shadow-lg"
+            style={{ top: rect.bottom + 4 + window.scrollY, left: rect.left + window.scrollX }}
+          >
+            {menuPath.map((menu, depth) => (
+              <ul
+                key={depth}
+                className="max-h-60 min-w-[140px] overflow-y-auto border-r border-border py-1 last:border-r-0"
+              >
+                {menu.length === 0 ? (
+                  <li className="px-3 py-2 text-sm text-muted-foreground">{notFoundContent}</li>
+                ) : (
+                  menu.map((opt) => {
+                    const isActive =
+                      menuPath[depth + 1] === opt.children || value[depth] === opt.value
+                    return (
+                      <li
+                        key={opt.value}
+                        onClick={() => handleSelect(opt, depth)}
+                        onMouseEnter={() => handleHover(opt, depth)}
+                        className={cn(
+                          "flex cursor-pointer items-center justify-between px-3 py-2 text-sm",
+                          isActive ? "bg-accent font-medium text-foreground" : "hover:bg-accent",
+                          opt.disabled && "cursor-not-allowed opacity-40",
+                        )}
+                      >
+                        <span>{opt.label}</span>
+                        {opt.children?.length ? (
+                          <ChevronRight className="ml-2 h-3.5 w-3.5 text-muted-foreground" />
+                        ) : isActive ? (
+                          <Check className="ml-2 h-3.5 w-3.5 text-primary" />
+                        ) : null}
+                      </li>
+                    )
+                  })
+                )}
+              </ul>
+            ))}
+          </div>,
+          document.body,
+        )}
     </div>
   )
 }
