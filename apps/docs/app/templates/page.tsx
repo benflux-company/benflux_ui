@@ -24,7 +24,7 @@ import {
 export const metadata: Metadata = {
   title: "Templates — Benflux UI",
   description:
-    "7 professionally designed Next.js landing page templates. Free to download, ready to ship.",
+    "6 professionally designed Next.js landing page templates. Free to download, ready to ship.",
 }
 
 export default function TemplatesPage() {
@@ -99,7 +99,7 @@ export default function TemplatesPage() {
           {/* Stats */}
           <div className="mx-auto grid max-w-3xl grid-cols-2 gap-4 md:grid-cols-4">
             {[
-              { value: "7", label: "Templates", icon: Layers },
+              { value: "6", label: "Templates", icon: Layers },
               { value: "100%", label: "Free & open", icon: Star },
               { value: "Next.js 15", label: "Framework", icon: Zap },
               { value: "TypeScript", label: "Type-safe", icon: FileCode2 },
@@ -157,7 +157,7 @@ export default function TemplatesPage() {
                 step: "01",
                 icon: Layers,
                 title: "Browse & filter",
-                desc: "Explore 7 distinct landing page templates covering SaaS, agencies, startups, enterprise and product launches. Filter by category to find your match.",
+                desc: "Explore 6 distinct landing page templates covering SaaS, agencies, startups, enterprise and product launches. Filter by category to find your match.",
               },
               {
                 step: "02",
