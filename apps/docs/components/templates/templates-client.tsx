@@ -22,7 +22,6 @@ const TEMPLATES = [
     description:
       "Elegant dark landing for SaaS products. Gradient hero, feature grid, and 3-tier pricing.",
     tags: ["SaaS", "Dark"],
-    accent: "from-violet-600 to-indigo-600",
     Preview: NovaPreview,
   },
   {
@@ -32,7 +31,6 @@ const TEMPLATES = [
     description:
       "Ultra-clean minimal studio portfolio with bold typography and numbered service list.",
     tags: ["Agency", "Portfolio"],
-    accent: "from-stone-700 to-stone-900",
     Preview: ZenithPreview,
   },
   {
@@ -42,7 +40,6 @@ const TEMPLATES = [
     description:
       "High-energy startup page with vibrant orange palette, stats strip, and feature cards.",
     tags: ["Startup"],
-    accent: "from-orange-500 to-red-600",
     Preview: PulsePreview,
   },
   {
@@ -52,7 +49,6 @@ const TEMPLATES = [
     description:
       "Data-focused landing with live dashboard mockup, integration logos, and pricing table.",
     tags: ["SaaS", "Analytics"],
-    accent: "from-sky-500 to-cyan-400",
     Preview: OrbitPreview,
   },
   {
@@ -62,7 +58,6 @@ const TEMPLATES = [
     description:
       "Award-winning agency aesthetic with oversized type, portfolio grid, and gold accents.",
     tags: ["Agency", "Creative"],
-    accent: "from-amber-400 to-yellow-300",
     Preview: LuminaPreview,
   },
   {
@@ -72,7 +67,6 @@ const TEMPLATES = [
     description:
       "Trust-forward enterprise platform page with compliance badges, feature grid, and demo CTA.",
     tags: ["Enterprise"],
-    accent: "from-blue-700 to-slate-900",
     Preview: ApexPreview,
   },
 ]
@@ -216,7 +210,7 @@ export function TemplatesClient() {
                   {t.tags.map((tag) => (
                     <span
                       key={tag}
-                      className={`rounded-full bg-gradient-to-r ${t.accent} px-2.5 py-0.5 text-[10px] font-semibold text-white`}
+                      className="rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground"
                     >
                       {tag}
                     </span>

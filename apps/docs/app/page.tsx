@@ -4,6 +4,7 @@ import { CTASection } from "@/components/landing/cta-section"
 import { FeaturesSection } from "@/components/landing/features-section"
 import { HeroSection } from "@/components/landing/hero-section"
 import { OpenSourceSection } from "@/components/landing/open-source-section"
+import { TemplatesSection } from "@/components/landing/templates-section"
 import { ThemesSection } from "@/components/landing/themes-section"
 import { Footer } from "@/components/ui/footer"
 import { Navbar } from "@/components/ui/navbar"
@@ -16,6 +17,7 @@ export default function HomePage() {
         <HeroSection />
         <ComponentsShowcase />
         <FeaturesSection />
+        <TemplatesSection />
         <OpenSourceSection />
         <ThemesSection />
         <CLISection />

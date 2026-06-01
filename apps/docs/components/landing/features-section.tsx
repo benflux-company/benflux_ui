@@ -1,7 +1,17 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Accessibility, Code2, Palette, Puzzle, Sparkles, Terminal, Zap } from "lucide-react"
+import {
+  Accessibility,
+  Code2,
+  ImageIcon,
+  LayoutTemplate,
+  Palette,
+  Puzzle,
+  Sparkles,
+  Terminal,
+  Zap,
+} from "lucide-react"
 
 const features = [
   {
@@ -21,6 +31,18 @@ const features = [
     title: "Framer Motion",
     description:
       "GPU-accelerated animations and physics-based interactions — smooth on every device.",
+  },
+  {
+    icon: ImageIcon,
+    title: "15 000+ Icons",
+    description:
+      "Lucide, Font Awesome, Material, Bootstrap, Remix + 28 exclusive Benflux animated icons in one package.",
+  },
+  {
+    icon: LayoutTemplate,
+    title: "Templates",
+    description:
+      "Ready-to-use page templates — dashboards, landing pages, auth flows. Copy and ship instantly.",
   },
   {
     icon: Code2,

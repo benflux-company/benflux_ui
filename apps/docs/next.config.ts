@@ -9,7 +9,7 @@ const config: NextConfig = {
     "@benflux-ui/animations",
   ],
   experimental: {
-    optimizePackageImports: ["@benflux-ui/react", "lucide-react", "framer-motion"],
+    optimizePackageImports: ["@benflux-ui/react", "framer-motion"],
   },
 }
 

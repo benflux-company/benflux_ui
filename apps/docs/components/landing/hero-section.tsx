@@ -34,7 +34,7 @@ export function HeroSection() {
               className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-              Introducing Charts, DataTable & 20+ new components
+              Introducing Icons Library — 15 000+ icônes + animated exclusives
               <ArrowRight className="h-3 w-3" />
             </Link>
           </motion.div>
@@ -76,6 +76,18 @@ export function HeroSection() {
               className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-border bg-background px-6 text-sm font-medium text-foreground transition-colors hover:bg-accent"
             >
               Browse Components
+            </Link>
+            <Link
+              href="/icons"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-primary/30 bg-primary/5 px-6 text-sm font-medium text-primary transition-colors hover:bg-primary/10"
+            >
+              Icons
+            </Link>
+            <Link
+              href="/templates"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-border bg-background px-6 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            >
+              Templates
             </Link>
           </motion.div>
 

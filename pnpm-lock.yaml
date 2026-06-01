@@ -47,6 +47,9 @@ importers:
       '@benflux-ui/hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
+      '@benflux-ui/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
       '@benflux-ui/react':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -77,6 +80,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.2.6(react@19.2.6)
+      react-icons:
+        specifier: ^5.6.0
+        version: 5.6.0(react@19.2.6)
       sonner:
         specifier: ^1.5.0
         version: 1.7.4(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -321,6 +327,28 @@ importers:
         version: 8.5.1(jiti@2.7.0)(postcss@8.5.15)(typescript@5.9.3)(yaml@2.9.0)
       typescript:
         specifier: ^5.4.5
+        version: 5.9.3
+
+  packages/icons:
+    dependencies:
+      lucide-react:
+        specifier: ^0.390.0
+        version: 0.390.0(react@19.2.6)
+      react:
+        specifier: '>=18'
+        version: 19.2.6
+    devDependencies:
+      '@benflux-ui/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.15
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.15)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.0.0
         version: 5.9.3
 
   packages/themes:
@@ -2356,6 +2384,9 @@ packages:
 
   '@types/react@18.3.29':
     resolution: {integrity: sha512-ch0qJdr2JY0r04NXSprbK6TXOgnaJ1Tz23fm5W+z0/CBah6BSBc3n96h7K9GOtwh0HrilNWHIBzE1Ko4Dcw/Wg==}
+
+  '@types/react@19.2.15':
+    resolution: {integrity: sha512-eRwcGNHve+E8qtEQSSRl6urh+rFop4v8gm6O8rGv25CodbvFdLjA1vVQ1KkiFE0w0UPOnb8tDiFKL5lp0rtY5Q==}
 
   '@types/semver@7.7.1':
     resolution: {integrity: sha512-FmgJfu+MOcQ370SD0ev7EI8TlCAfKYU+B4m5T3yXc1CiRN94g/SZPtsCkk506aUDtlMnFZvasDwHHUcZUEaYuA==}
@@ -4440,6 +4471,11 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
+
+  react-icons@5.6.0:
+    resolution: {integrity: sha512-RH93p5ki6LfOiIt0UtDyNg/cee+HLVR6cHHtW3wALfo+eOHTp8RnU2kRkI6E+H19zMIs03DyxUG/GfZMOGvmiA==}
+    peerDependencies:
+      react: '*'
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -7477,6 +7513,10 @@ snapshots:
       '@types/prop-types': 15.7.15
       csstype: 3.2.3
 
+  '@types/react@19.2.15':
+    dependencies:
+      csstype: 3.2.3
+
   '@types/semver@7.7.1': {}
 
   '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@10.4.0(jiti@2.7.0))(typescript@5.9.3))(eslint@10.4.0(jiti@2.7.0))(typescript@5.9.3)':
@@ -9759,6 +9799,10 @@ snapshots:
       scheduler: 0.27.0
 
   react-hook-form@7.76.1(react@19.2.6):
+    dependencies:
+      react: 19.2.6
+
+  react-icons@5.6.0(react@19.2.6):
     dependencies:
       react: 19.2.6
 

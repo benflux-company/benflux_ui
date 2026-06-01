@@ -311,8 +311,11 @@ export function NovaPreview() {
           <div className="flex items-center gap-2">
             {/* Theme toggle */}
             <div
-              className="flex items-center rounded-lg border border-white/[0.08] p-0.5"
-              style={{ background: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.04)" }}
+              className="flex items-center rounded-lg p-0.5"
+              style={{
+                border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)"}`,
+                background: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.04)",
+              }}
             >
               {(["System", "Light", "Dark"] as const).map((t) => (
                 <button
@@ -463,28 +466,69 @@ export function NovaPreview() {
 
       {/* Dashboard Mockup */}
       <div className="mx-auto mb-24 max-w-5xl px-8">
-        <div className="overflow-hidden rounded-2xl border border-white/[0.07] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.7)]">
-          <div className="flex items-center gap-2 border-b border-white/[0.05] bg-[#0e0e17] px-4 py-3">
+        <div
+          className="overflow-hidden rounded-2xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.4)]"
+          style={{
+            border: `1px solid ${isDark ? "rgba(255,255,255,0.07)" : "rgba(15,23,42,0.08)"}`,
+          }}
+        >
+          <div
+            className="flex items-center gap-2 px-4 py-3"
+            style={{
+              borderBottom: `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.06)"}`,
+              background: isDark ? "#0e0e17" : "#f1f5f9",
+            }}
+          >
             <div className="flex gap-1.5">
               <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
               <div className="h-2.5 w-2.5 rounded-full bg-[#ffbc2e]" />
               <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
             </div>
-            <div className="mx-3 flex flex-1 items-center gap-2 rounded-md bg-white/[0.04] px-3 py-1">
+            <div
+              className="mx-3 flex flex-1 items-center gap-2 rounded-md px-3 py-1"
+              style={{ background: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.05)" }}
+            >
               <Lock className="h-2.5 w-2.5 text-emerald-400" />
-              <span className="text-[10px] text-white/20">nova.io/dashboard</span>
+              <span
+                className="text-[10px]"
+                style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)" }}
+              >
+                nova.io/dashboard
+              </span>
             </div>
-            <Bell className="h-3.5 w-3.5 text-white/20" />
-            <Settings className="h-3.5 w-3.5 text-white/20" />
+            <Bell
+              className="h-3.5 w-3.5"
+              style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}
+            />
+            <Settings
+              className="h-3.5 w-3.5"
+              style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}
+            />
           </div>
-          <div className="flex flex-col bg-[#0b0b12] md:flex-row">
-            <div className="shrink-0 border-b border-white/[0.04] px-3 py-4 md:w-44 md:border-b-0 md:border-r md:py-5">
+          <div
+            className="flex flex-col md:flex-row"
+            style={{ background: isDark ? "#0b0b12" : "#f8fafc" }}
+          >
+            <div
+              className="shrink-0 border-b border-r-0 px-3 py-4 md:w-44 md:border-b-0 md:border-r md:py-5"
+              style={{
+                borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.07)",
+              }}
+            >
               <div className="mb-4 flex items-center gap-2 px-2">
                 <div className="h-5 w-5 rounded-md bg-blue-600" />
-                <span className="text-xs font-bold text-white">Acme Corp</span>
-                <ChevronRight className="ml-auto h-3 w-3 rotate-90 text-white/20" />
+                <span className="text-xs font-bold" style={{ color: text }}>
+                  Acme Corp
+                </span>
+                <ChevronRight
+                  className="ml-auto h-3 w-3 rotate-90"
+                  style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}
+                />
               </div>
-              <div className="mb-1 px-2 text-[9px] font-semibold uppercase tracking-widest text-white/20">
+              <div
+                className="mb-1 px-2 text-[9px] font-semibold uppercase tracking-widest"
+                style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}
+              >
                 Overview
               </div>
               {[
@@ -496,13 +540,23 @@ export function NovaPreview() {
               ].map(({ icon: Icon, label, active }) => (
                 <button
                   key={label}
-                  className={`mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] ${active ? "bg-blue-600/15 font-medium text-blue-400" : "text-white/35 hover:bg-white/[0.03]"}`}
+                  className={`mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] ${active ? "bg-blue-600/15 font-medium text-blue-400" : ""}`}
+                  style={
+                    !active
+                      ? {
+                          color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.45)",
+                        }
+                      : {}
+                  }
                 >
                   <Icon className="h-3.5 w-3.5 shrink-0" />
                   {label}
                 </button>
               ))}
-              <div className="mb-1 mt-4 px-2 text-[9px] font-semibold uppercase tracking-widest text-white/20">
+              <div
+                className="mb-1 mt-4 px-2 text-[9px] font-semibold uppercase tracking-widest"
+                style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}
+              >
                 Settings
               </div>
               {[
@@ -511,7 +565,8 @@ export function NovaPreview() {
               ].map(({ icon: Icon, label }) => (
                 <button
                   key={label}
-                  className="mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px] text-white/35 hover:bg-white/[0.03]"
+                  className="mb-0.5 flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[11px]"
+                  style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.45)" }}
                 >
                   <Icon className="h-3.5 w-3.5 shrink-0" />
                   {label}
@@ -521,11 +576,25 @@ export function NovaPreview() {
             <div className="flex-1 p-6">
               <div className="mb-5 flex items-center justify-between">
                 <div>
-                  <h3 className="text-sm font-semibold text-white">Overview</h3>
-                  <p className="text-[11px] text-white/30">Last 30 days · All regions</p>
+                  <h3 className="text-sm font-semibold" style={{ color: text }}>
+                    Overview
+                  </h3>
+                  <p
+                    className="text-[11px]"
+                    style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(15,23,42,0.4)" }}
+                  >
+                    Last 30 days · All regions
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-[10px] text-white/40 hover:bg-white/[0.06]">
+                  <button
+                    className="rounded-lg px-3 py-1.5 text-[10px]"
+                    style={{
+                      border: `1px solid ${isDark ? "rgba(255,255,255,0.07)" : "rgba(15,23,42,0.08)"}`,
+                      background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.03)",
+                      color: isDark ? "rgba(255,255,255,0.4)" : "rgba(15,23,42,0.45)",
+                    }}
+                  >
                     30 days
                   </button>
                   <button className="rounded-lg bg-blue-600 px-3 py-1.5 text-[10px] font-semibold text-white hover:bg-blue-500">
@@ -542,23 +611,50 @@ export function NovaPreview() {
                 ].map(({ label, val, delta }) => (
                   <div
                     key={label}
-                    className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4"
+                    className="rounded-xl p-4"
+                    style={{
+                      border: `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.07)"}`,
+                      background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.8)",
+                    }}
                   >
-                    <p className="mb-1 text-[10px] text-white/25">{label}</p>
-                    <p className="text-xl font-bold text-white">{val}</p>
-                    <p className="mt-1 text-[10px] font-medium text-emerald-400">{delta}</p>
+                    <p
+                      className="mb-1 text-[10px]"
+                      style={{ color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.4)" }}
+                    >
+                      {label}
+                    </p>
+                    <p className="text-xl font-bold" style={{ color: text }}>
+                      {val}
+                    </p>
+                    <p className="mt-1 text-[10px] font-medium text-emerald-500">{delta}</p>
                   </div>
                 ))}
               </div>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                <div className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4 md:col-span-2">
+                <div
+                  className="rounded-xl p-4 md:col-span-2"
+                  style={{
+                    border: `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.07)"}`,
+                    background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.8)",
+                  }}
+                >
                   <div className="mb-3 flex items-center justify-between">
-                    <p className="text-[11px] font-medium text-white/60">Revenue trend</p>
+                    <p
+                      className="text-[11px] font-medium"
+                      style={{ color: isDark ? "rgba(255,255,255,0.6)" : "rgba(15,23,42,0.55)" }}
+                    >
+                      Revenue trend
+                    </p>
                     <div className="flex gap-1">
                       {["1w", "1m", "3m", "1y"].map((t, i) => (
                         <button
                           key={t}
-                          className={`rounded px-2 py-0.5 text-[9px] ${i === 1 ? "bg-blue-600/20 text-blue-400" : "text-white/25 hover:text-white/50"}`}
+                          className={`rounded px-2 py-0.5 text-[9px] ${i === 1 ? "bg-blue-600/20 text-blue-500" : ""}`}
+                          style={
+                            i !== 1
+                              ? { color: isDark ? "rgba(255,255,255,0.25)" : "rgba(15,23,42,0.35)" }
+                              : {}
+                          }
                         >
                           {t}
                         </button>
@@ -578,14 +674,29 @@ export function NovaPreview() {
                   </div>
                   <div className="mt-2 flex justify-between">
                     {["Jan", "Apr", "Jul", "Oct", "Dec"].map((m) => (
-                      <span key={m} className="text-[9px] text-white/20">
+                      <span
+                        key={m}
+                        className="text-[9px]"
+                        style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.3)" }}
+                      >
                         {m}
                       </span>
                     ))}
                   </div>
                 </div>
-                <div className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
-                  <p className="mb-3 text-[11px] font-medium text-white/60">Recent activity</p>
+                <div
+                  className="rounded-xl p-4"
+                  style={{
+                    border: `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "rgba(15,23,42,0.07)"}`,
+                    background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.8)",
+                  }}
+                >
+                  <p
+                    className="mb-3 text-[11px] font-medium"
+                    style={{ color: isDark ? "rgba(255,255,255,0.6)" : "rgba(15,23,42,0.55)" }}
+                  >
+                    Recent activity
+                  </p>
                   <div className="space-y-3">
                     {[
                       { msg: "Deploy #482 succeeded", time: "2m ago", c: "bg-emerald-400" },
@@ -596,8 +707,22 @@ export function NovaPreview() {
                       <div key={i} className="flex items-start gap-2">
                         <div className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${c}`} />
                         <div>
-                          <p className="text-[10px] text-white/50">{msg}</p>
-                          <p className="text-[9px] text-white/20">{time}</p>
+                          <p
+                            className="text-[10px]"
+                            style={{
+                              color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.55)",
+                            }}
+                          >
+                            {msg}
+                          </p>
+                          <p
+                            className="text-[9px]"
+                            style={{
+                              color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)",
+                            }}
+                          >
+                            {time}
+                          </p>
                         </div>
                       </div>
                     ))}
@@ -708,7 +833,13 @@ export function NovaPreview() {
             },
           ].map(({ icon: Icon, title, desc, accent, ic }) => (
             <div key={title} className={`rounded-2xl border ${accent} p-7`}>
-              <div className="mb-5 inline-flex rounded-xl border border-white/[0.06] bg-white/[0.04] p-3">
+              <div
+                className="mb-5 inline-flex rounded-xl p-3"
+                style={{
+                  border: `1px solid ${isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.07)"}`,
+                  background: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.04)",
+                }}
+              >
                 <Icon className={`h-5 w-5 ${ic}`} />
               </div>
               <h3 className="mb-2 font-semibold" style={{ color: text }}>
@@ -876,14 +1007,17 @@ export function NovaPreview() {
           ].map(({ n, p, ps, sub, f, hl, cta }) => (
             <div
               key={n}
-              className={`relative rounded-2xl border p-8 ${hl ? "border-blue-500/40 bg-blue-950/20" : ""}`}
+              className="relative rounded-2xl border p-8"
               style={
-                !hl
+                hl
                   ? {
+                      borderColor: "rgba(59,130,246,0.4)",
+                      background: isDark ? "rgba(59,130,246,0.07)" : "rgba(239,246,255,1)",
+                    }
+                  : {
                       borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)",
                       background: isDark ? "rgba(255,255,255,0.02)" : "rgba(15,23,42,0.02)",
                     }
-                  : {}
               }
             >
               {hl && (
@@ -949,13 +1083,22 @@ export function NovaPreview() {
 
       {/* CTA */}
       <div className="mx-auto max-w-6xl px-8 pb-24">
-        <div className="relative overflow-hidden rounded-3xl border border-blue-500/20 bg-blue-950/20 p-16 text-center">
+        <div
+          className="relative overflow-hidden rounded-3xl p-16 text-center"
+          style={{
+            border: `1px solid ${isDark ? "rgba(59,130,246,0.2)" : "rgba(59,130,246,0.25)"}`,
+            background: isDark ? "rgba(59,130,246,0.07)" : "rgba(239,246,255,1)",
+          }}
+        >
           <div className="pointer-events-none absolute left-1/2 top-0 h-[200px] w-[400px] -translate-x-1/2 rounded-full bg-blue-600/10 blur-[60px]" />
           <div className="relative z-10">
-            <h2 className="mb-4 text-[40px] font-extrabold tracking-tight text-white">
+            <h2 className="mb-4 text-[40px] font-extrabold tracking-tight" style={{ color: text }}>
               Ready to ship faster?
             </h2>
-            <p className="mx-auto mb-8 max-w-md text-[15px] leading-relaxed text-white/35">
+            <p
+              className="mx-auto mb-8 max-w-md text-[15px] leading-relaxed"
+              style={{ color: isDark ? "rgba(255,255,255,0.35)" : "rgba(15,23,42,0.5)" }}
+            >
               Join 18,000+ teams already building on Nova. Set up in under 5 minutes.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -968,7 +1111,12 @@ export function NovaPreview() {
               </button>
               <button
                 onClick={() => setLoginOpen(true)}
-                className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-8 py-3.5 text-sm text-white/50 hover:border-white/[0.15] hover:text-white/70"
+                className="rounded-xl border px-8 py-3.5 text-sm transition-colors"
+                style={{
+                  borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.12)",
+                  background: isDark ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.03)",
+                  color: isDark ? "rgba(255,255,255,0.5)" : "rgba(15,23,42,0.55)",
+                }}
               >
                 Talk to sales
               </button>
@@ -1050,7 +1198,8 @@ export function NovaPreview() {
               className="text-[11px]"
               style={{ color: isDark ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.35)" }}
             >
-              © 2025 Nova, Inc. All rights reserved.
+              © {new Date().getFullYear()} Nova, Inc. · Powered by{" "}
+              <span className="font-semibold">Benflux UI</span>
             </p>
             <div className="flex gap-4">
               {["Privacy", "Terms", "Security"].map((l) => (
@@ -1581,7 +1730,8 @@ export function ZenithPreview() {
             style={{ borderColor: border }}
           >
             <p className="text-[11px]" style={{ color: muted }}>
-              © 2025 Zenith Studio. All rights reserved.
+              © {new Date().getFullYear()} Zenith Studio. · Powered by{" "}
+              <span className="font-semibold">Benflux UI</span>
             </p>
             <div className="flex gap-4">
               {["Privacy", "Terms"].map((l) => (
@@ -2209,7 +2359,8 @@ export function PulsePreview() {
             style={{ borderColor: border }}
           >
             <p className="text-[11px]" style={{ color: muted }}>
-              © 2025 Pulse, Inc. All rights reserved.
+              © {new Date().getFullYear()} Pulse, Inc. · Powered by{" "}
+              <span className="font-semibold">Benflux UI</span>
             </p>
             <div className="flex gap-4">
               {["Privacy", "Terms"].map((l) => (
@@ -2767,7 +2918,8 @@ export function OrbitPreview() {
             style={{ borderColor: border }}
           >
             <p className="text-[11px]" style={{ color: muted }}>
-              © 2025 Orbit Analytics, Inc. All rights reserved.
+              © {new Date().getFullYear()} Orbit Analytics, Inc. · Powered by{" "}
+              <span className="font-semibold">Benflux UI</span>
             </p>
             <div className="flex gap-4">
               {["Privacy", "Terms"].map((l) => (
@@ -3239,7 +3391,8 @@ export function LuminaPreview() {
             style={{ borderColor: border }}
           >
             <p className="text-[11px]" style={{ color: muted }}>
-              © 2025 Lumina Studio. All rights reserved.
+              © {new Date().getFullYear()} Lumina Studio. · Powered by{" "}
+              <span className="font-semibold">Benflux UI</span>
             </p>
             <div className="flex gap-4">
               {["Privacy", "Terms"].map((l) => (
@@ -3793,7 +3946,8 @@ export function ApexPreview() {
             style={{ borderColor: border }}
           >
             <p className="text-[11px]" style={{ color: muted }}>
-              © 2025 Apex Technologies, Inc. All rights reserved.
+              © {new Date().getFullYear()} Apex Technologies, Inc. · Powered by{" "}
+              <span className="font-semibold">Benflux UI</span>
             </p>
             <div className="flex gap-4">
               {["Privacy", "Terms", "Security"].map((l) => (
@@ -4377,7 +4531,8 @@ export function AuraPreview() {
             style={{ borderColor: border }}
           >
             <p className="text-[11px]" style={{ color: muted }}>
-              © 2025 Aura, Inc. All rights reserved.
+              © {new Date().getFullYear()} Aura, Inc. · Powered by{" "}
+              <span className="font-semibold">Benflux UI</span>
             </p>
             <div className="flex gap-4">
               {["Privacy", "Terms"].map((l) => (

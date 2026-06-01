@@ -1,0 +1,49 @@
+{
+  "name": "@benflux-ui/icons",
+  "version": "0.1.0",
+  "description": "Benflux UI icon library — animated exclusives + full Lucide re-export",
+  "keywords": [
+    "icons",
+    "react",
+    "svg",
+    "animated",
+    "lucide",
+    "benflux"
+  ],
+  "license": "MIT",
+  "homepage": "https://benflux-ui.dev/icons",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benflux20/benflux-ui.git",
+    "directory": "packages/icons"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "dependencies": {
+    "lucide-react": "^0.390.0"
+  },
+  "devDependencies": {
+    "@benflux-ui/typescript-config": "workspace:*",
+    "@types/react": "^19.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -52,3 +52,4 @@ playwright-report
 .changeset/*.md
 !.changeset/config.json
 .vercel
+.env*.local
